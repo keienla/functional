@@ -1,5 +1,3 @@
-'use strict';
-
 import { Uncurry } from '../models/uncurry.model';
 import reduce from '../reduce/reduce';
 import { Curry } from '../models/curry.model';

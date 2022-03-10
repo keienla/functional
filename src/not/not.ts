@@ -1,9 +1,7 @@
-'use strict';
-
-import { UncurryArgs, Uncurry } from '../models/uncurry.model';
+import { UncurryArgs } from '../models/uncurry.model';
 import uncurry from './../uncurry/uncurry';
 import { Curry } from '../models/curry.model';
-import { Cast, IsFinite } from '../models/types.model';
+import { Cast } from '../models/types.model';
 
 /**
  * For a function that return a boolean, make a function that will return the opposite value.

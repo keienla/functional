@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Freeze the object. Like this it can't be changed.
  * @example

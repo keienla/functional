@@ -1,5 +1,3 @@
-'use strict';
-
 import transpoline from './../transpoline/transpoline';
 import curry from './../curry/curry';
 import { Transpoline } from './../models/transpoline.model';

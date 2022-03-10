@@ -1,5 +1,3 @@
-'use strict';
-
 import type from './../type/type';
 import { returnedTypes } from './../models/types.model';
 import curry from '../curry/curry';

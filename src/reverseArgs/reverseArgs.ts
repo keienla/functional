@@ -1,5 +1,3 @@
-'use strict';
-
 import { Reverse } from './../models/types.model';
 
 /**

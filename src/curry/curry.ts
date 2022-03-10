@@ -1,5 +1,3 @@
-'use strict';
-
 import { Curry } from './../models/curry.model';
 
 /**

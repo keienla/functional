@@ -1,5 +1,3 @@
-'use strict';
-
 import { Length, Drop, Cast } from './../models/types.model';
 
 /**

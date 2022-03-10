@@ -1,5 +1,3 @@
-'use strict';
-
 import curry from "./../curry/curry";
 import notSameLength from './../notSameLength/notSameLength';
 import isnt from './../isnt/isnt';

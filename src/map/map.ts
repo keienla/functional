@@ -1,5 +1,3 @@
-'use strict';
-
 import { MapArrayReducer } from '../models/map.model';
 import { _arrayMap } from './../_internal/_map'
 

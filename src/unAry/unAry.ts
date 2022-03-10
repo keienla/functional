@@ -1,5 +1,3 @@
-'use strict';
-
 import _nAry from '../nAry/nAry';
 
 /**

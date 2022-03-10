@@ -1,5 +1,3 @@
-'use strict';
-
 import pipe from './../pipe/pipe';
 
 /**

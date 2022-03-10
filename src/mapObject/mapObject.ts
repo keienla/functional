@@ -1,5 +1,3 @@
-'use strict';
-
 import { MapObjectReducer } from '../models/map.model';
 import { _objectMap } from './../_internal/_map'
 

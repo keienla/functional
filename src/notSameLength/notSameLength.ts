@@ -1,5 +1,3 @@
-'use strict';
-
 import not from './../not/not';
 import sameLength from './../sameLength/sameLength';
 

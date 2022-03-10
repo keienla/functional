@@ -1,5 +1,3 @@
-'use strict';
-
 export type TObject = {
     [key: string]: any
 }
@@ -7,6 +5,8 @@ export type TObject = {
 export type Predicate<T> = (value: T) => boolean;
 
 const fn00 = (name: string, age: number, single: boolean) => true
+const fn01 = (...args: string[]) => true
+const fn02 = () => true
 
 // #region Params
 // Get the types of each argument in a function and return array of types
@@ -15,7 +15,9 @@ export type Params<F extends Function> =
     ? A
     : never
 
-type testParams1 = Params<typeof fn00> // [string, number, boolean]
+type testParams1 = Params<typeof fn00>  // [string, number, boolean]
+type testParams2 = Params<typeof fn01>  // string[]
+type testParams3 = Params<typeof fn02>  // []
 // #endregion
 
 // #region Head

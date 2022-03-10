@@ -1,5 +1,3 @@
-'use strict';
-
 import curry from "../curry/curry";
 import { TObject } from "../models/types.model";
 

@@ -1,5 +1,3 @@
-'use strict';
-
 import _pick from '../_internal/_pick';
 
 /**

@@ -1,5 +1,3 @@
-'use strict';
-
 import { Transpoline, TranspolineResult } from './../models/transpoline.model';
 
 /**

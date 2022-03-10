@@ -1,4 +1,4 @@
-'use strict';
+import { Params } from "../models/types.model";
 
 /**
  * For a given function, gather an array of arguments multiple arguments.
@@ -14,10 +14,8 @@
  * @param { (...args: T) => R } fn
  * @returns { (args: T) => R }
  */
-export default function gatherArgs<R>(fn: () => R): () => R;
-export default function gatherArgs<T extends any[], R>(fn: (...args: T) => R): (arg: T) => R;
-export default function gatherArgs<T extends any[], R>(fn: (() => R) | ((...args: T) => R)): (() => R) | ((arg: T) => R) {
-    return function gather(args?: T): R {
+export default function gatherArgs<Fn extends (...args: any[]) => any, R = Fn extends (...args: any[]) => (infer Response) ? Response : any>(fn: Fn): Params<Fn> extends [] ? () => R : (args: Params<Fn>) => R{
+    return function gather(args?: Params<Fn>): R {
         if(args && args.length) {
             return fn(...args);
         } else {

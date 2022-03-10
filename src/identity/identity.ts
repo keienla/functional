@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Return the given value
  * @example

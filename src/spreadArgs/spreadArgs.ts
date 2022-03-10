@@ -1,8 +1,3 @@
-'use strict';
-
-import length from '../length/length';
-import { Length } from '../models/types.model';
-
 /**
  * Transform a function with only one array type argument into a function with N arguments to replace the previous array.
  * @example

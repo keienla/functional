@@ -20,7 +20,7 @@ Functional is just a library for Functional Programming in Typescript.
 - [identity](./src/identity/identity.md)
 - [is](./src/is/is.md)
 - [isLength](./src/isLength/isLength.md)
-- [isnt](./src/isnt/isnt.md) (WIP - description - documentation - tests)
+- [isnt](./src/isnt/isnt.md)
 - [isType](./src/isType/isType.md)
 - [length](./src/length/length.md)
 - [map](./src/map/map.md)
@@ -33,9 +33,9 @@ Functional is just a library for Functional Programming in Typescript.
 - [notSameLength](./src/notSameLength/notSameLength.md)
 - [objectIs](./src/objectIs/objectIs.md)
 - [or](./src/or/or.md)
-- [partial](./src/partial/partial.md) (WIP - documentation)
-- [pick](./src/pick/pick.md) (WIP - documentation)
-- [pickAll](./src/pickAll/pickAll.md) (WIP - documentation)
+- [partial](./src/partial/partial.md)
+- [pick](./src/pick/pick.md)
+- [pickAll](./src/pickAll/pickAll.md)
 - [pipe](./src/pipe/pipe.md) (WIP - documentation - better type)
 - [reduce](./src/reduce/reduce.md)
 - [reduceObject](./src/reduceObject/reduceObject.md)
@@ -43,7 +43,7 @@ Functional is just a library for Functional Programming in Typescript.
 - [sameLength](./src/sameLength/sameLength.md)
 - [spreadArgs](./src/spreadArgs/spreadArgs.md)
 - [substract](./src/substract/substract.md)
-- [transpoline](./src/transpoline/transpoline.md) (WIP¨- documentation)
+- [transpoline](./src/transpoline/transpoline.md)
 - [type](./src/type/type.md)
 - [unAry](./src/unAry/unAry.md) (WIP - documentation - description - tests)
 - [uncurry](./src/uncurry/uncurry.md) (WIP - documentation - tests? - redo the type)
@@ -52,6 +52,10 @@ Functional is just a library for Functional Programming in Typescript.
 
 # TODO
 
+## Documentation
+- [ ] Add the args in documentation for each methods and the types
+- [ ] Check all examples
+## Methods
 - [ ] Increment - make +1 on a number
 - [ ] Decrement - make -1 on a number
 

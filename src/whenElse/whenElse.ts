@@ -1,5 +1,3 @@
-'use strict';
-
 import { _whenElse } from './../_internal/_when';
 import { Predicate } from '../models/types.model';
 

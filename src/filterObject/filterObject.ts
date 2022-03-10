@@ -1,5 +1,3 @@
-'use strict';
-
 import { _objectFilter } from '../_internal/_filter';
 import { FilterObjectReducer } from '../models/filter.model';
 

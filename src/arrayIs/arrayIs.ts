@@ -1,5 +1,3 @@
-'use strict';
-
 import _arrayIs from '../_internal/_arrayIs';
 
 /**

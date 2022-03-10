@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Flip the fist and the second argument. So like this the first argument become the second and the second the first. The other arguments don't move.
  * @example

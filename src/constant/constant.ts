@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Return a function, when executed, return the given value
  * @example

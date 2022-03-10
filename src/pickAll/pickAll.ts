@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Will return a new object that have the same properties and values
  * @example

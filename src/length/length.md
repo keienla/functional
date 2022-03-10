@@ -1,11 +1,11 @@
-[Home]('./../../../README.md)
+[Home](./../../README.md)
 
 # LENGTH
 
 The "**length**" function get the size of differents element:
 - If the element is an array: return the length of it.
 - If the element is a string: return the number of characters.
-- If the element is a function: return the number of arguments.
+- If the element is a function: return the number of required arguments.
 - If the element is an object: return the number of keys.
 - If the element is a regexp: return the number of characters.
 - else return null

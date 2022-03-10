@@ -1,5 +1,3 @@
-'use strict';
-
 import _and from './../_internal/_and';
 import { Predicate } from '../models/types.model';
 import { Curry } from '../models/curry.model';

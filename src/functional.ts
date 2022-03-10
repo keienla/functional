@@ -1,5 +1,3 @@
-'use strict';
-
 // https://devdocs.io/jsdoc-tags/
 
 import add                 from './add/add';

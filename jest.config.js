@@ -1,15 +1,10 @@
-// For a detailed explanation regarding each configuration property, visit:
-// https://jestjs.io/docs/en/configuration.html
-
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
   // Stop running tests after the first failure
   // bail: false,
-
-  // Respect "browser" field in package.json when resolving modules
-  // browser: false,
 
   // The directory where Jest should store its cached dependency information
   // cacheDirectory: "C:\\Users\\TMEYER\\AppData\\Local\\Temp\\jest",
@@ -57,7 +52,7 @@ module.exports = {
   // A set of global variables that need to be available in all test environments
   globals: {
     "ts-jest": {
-      "tsConfig": "tsconfig.json"
+      "tsconfig": "tsconfig.json"
     }
   },
 
@@ -86,7 +81,7 @@ module.exports = {
   // notifyMode: "always",
 
   // A preset that is used as a base for Jest's configuration
-  // preset: null,
+  preset: 'ts-jest',
 
   // Run tests from one or more projects
   // projects: null,
@@ -163,7 +158,7 @@ module.exports = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest"
+    "^.+\\.tsx?$": "ts-jest"
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation

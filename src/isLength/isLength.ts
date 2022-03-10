@@ -1,5 +1,3 @@
-'use strict';
-
 import curry from "./../curry/curry";
 import length from './../length/length';
 

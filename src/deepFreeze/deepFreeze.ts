@@ -1,5 +1,3 @@
-'use strict';
-
 import freeze from '../freeze/freeze';
 import when from '../when/when';
 import or from '../or/or';

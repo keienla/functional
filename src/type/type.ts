@@ -1,5 +1,3 @@
-'use strict';
-
 import { returnedTypes } from './../models/types.model';
 
 /**

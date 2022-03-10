@@ -1,9 +1,3 @@
-'use strict';
-
-import curry from "./../curry/curry";
-import type from './../type/type';
-import arrayIs from './../arrayIs/arrayIs';
-import objectIs from './../objectIs/objectIs';
 import _is from '../_internal/_is';
 
 /**

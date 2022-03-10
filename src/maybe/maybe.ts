@@ -1,5 +1,3 @@
-'use strict';
-
 const _of = function(value: any) { return Maybe(value) }
 
 function Maybe(value: any) {

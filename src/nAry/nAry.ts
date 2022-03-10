@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Return a function with multiples properties in object parameter as a function with only less properties in it's object
  * @example

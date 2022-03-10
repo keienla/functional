@@ -1,5 +1,3 @@
-'use strict';
-
 import { _arrayFilter } from '../_internal/_filter';
 import { FilterArrayReducer } from '../models/filter.model';
 
