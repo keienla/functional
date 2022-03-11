@@ -1,9 +1,10 @@
+import gatherArgs from '../gatherArgs/gatherArgs';
+import { Pipe } from '../models/pipe.model'
 import reduce from '../reduce/reduce';
 
 /**
- * Add multiple function inside others. The first argument will be the first function to execute.
- *
- * The functions will be run one after the other, and the argument of each function will be the response of the result of the previous execution function.
+ * The "**pipe**" function execute multiple functions one after the other, and the argument of each function will be the response of the result of the previous execution function.
+ * Start from the first function given to the last
  * @example
  *  function addOne(value: number): number { return value + 1 };
  *  function mulTwo(value: number): number { return value * 2 };
@@ -18,12 +19,13 @@ import reduce from '../reduce/reduce';
  * @param { Function[] } fns Function[] - List of function. The first in array will be executed first
  * @returns { piped(value: any) => any } Return a function with one argument, the default value to pass to execute the list of functions
  */
-export default function pipe(...fns: Function[]): (arg: any) => any {
+export default function pipe<FNS extends ((...args: any) => any)[]>(...fns: FNS & Pipe<FNS> extends FNS ? FNS : never): Pipe<FNS> {
     if(fns.length === 0) throw new Error('Pipe require at least one argument');
 
-    return function piped(value) {
+    return function piped(...args: any[]) {
+        fns[0] = gatherArgs(fns[0])
         return reduce(function reduced(accumulator: any, fn: Function) {
             return fn(accumulator)
-        }, value, fns);
+        }, args, fns);
     }
 }

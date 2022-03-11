@@ -29,6 +29,7 @@ export type Head<T extends any[]> =
 
 type testHead1 = Head<[1, 2, string, number]>   // 1
 type testHead2 = Head<Params<typeof fn00>>      // string
+type testHead3 = Head<[]>                       // never
 // #endregion
 
 // #region Tail
@@ -41,6 +42,8 @@ export type Tail<T extends any[]> =
 type testTail1 = Tail<[1, 2, string, number]>   // [2, string, number]
 type testTail2 = Tail<Params<typeof fn00>>      // [number, boolean]
 type testTail3 = Tail<testTail2>                // [boolean]
+type testTail4 = Tail<testTail3>                // []
+type testTail5 = Tail<testTail4>                // []
 // #endregion
 
 // #region HasTail
@@ -55,17 +58,22 @@ type testHasTail2 = HasTail<Tail<Params<typeof fn00>>>  // true, [number, boolea
 type testHasTail3 = HasTail<Tail<Tail<Params<typeof fn00>>>>  // false, [boolean] => cause there is only 1 element
 // #endregion
 
+// #region First
+// Recursive type function
+// Check all the elements and get the last parameter
+export type First<T extends any[]> = Head<T> extends never
+    ? never
+    : T extends [first: infer F, ...rest: infer R] ? F : never
+
+type testFirst1 = First<[1, 2, 3, 4]>     // 1
+// #endregion
+
 // #region Last
 // Recursive type function
 // Check all the elements and get the last parameter
-export type Last<T extends any[]> = {
-    0: Last<Tail<T>>
-    1: Head<T>
-} [
-    HasTail<T> extends true
-    ? 0
-    : 1
-]
+export type Last<T extends any[]> = Tail<T> extends never
+    ? never
+    : T extends [...rest: infer U, last: infer L] ? L : never
 
 type testLast1 = Last<[1, 2, 3, 4]>     // 4
 // #endregion
@@ -169,16 +177,16 @@ type testIterator4 = Pos<testIterator2>         // 5
 // #region Reverse
 export type Reverse<A extends any[], Prefix extends any[] = []> = {
     empty: Prefix,
-    nonEmpty: ((...args: A) => any) extends ((_: infer First, ...next: infer Next) => any)
+    notEmpty: ((...args: A) => any) extends ((_: infer First, ...next: infer Next) => any)
         ? Reverse<Next, Prepend<First, Prefix>>
         : never,
     infinite: {
         ERROR: 'Cannot reverse an infinite array',
-        CODENAME: 'InfiniteArray' & 'Infinite'
+        CODENAME: ['InfiniteArray', 'Infinite']
     }
 } [
     A extends [any, ...any[]]
-        ? IsFinite<A, 'nonEmpty', 'infinite'>
+        ? IsFinite<A, 'notEmpty', 'infinite'>
         : 'empty'
 ]
 
@@ -198,7 +206,7 @@ export type Concat<Left extends any[], Right extends any[]> = {
         : never,
     infiniteLeft: {
         ERROR: 'Left is not finite',
-        CODENAME: 'InfiniteLeft' & 'Infinite'
+        CODENAME: ['InfiniteLeft', 'Infinite']
     }
 }[
     Left extends [] ? 'emptyLeft' :
@@ -232,10 +240,14 @@ type testNotNull4 = NotNull<null, [string, number]> // [string, number]
 // #endregion
 
 // #region definedType
-export type returnedTypes = 'string' | 'array' | 'object' | 'number' | 'function' | 'boolean' | 'undefined' | 'bigint' | 'symbol' | 'null' | 'regexp' | 'generator' | 'generatorfunction';
+export type returnedTypes = 'any' | 'string' | 'array' | 'object' | 'number' | 'function' | 'boolean' | 'undefined' | 'bigint' | 'symbol' | 'null' | 'regexp' | 'generator' | 'generatorfunction' | 'unknown';
 
 export type TypeName<A> =
-    A extends Array<any>
+    unknown extends A
+        ? [keyof A] extends [never]
+            ? 'unknown'
+            : 'any'
+    : A extends Array<any>
         ? 'array'
     : A extends string
         ? 'string'
@@ -259,7 +271,7 @@ export type TypeName<A> =
         ? 'bigint'
     : A extends object
         ? 'object'
-    : 'undefined'
+    : 'unknown'
 
 const testTypeNameSymbol = Symbol('qzd');
 const testTypeNameRegexp = /a/g;
@@ -279,6 +291,12 @@ type testTypeName10 = TypeName<typeof testTypeNameRegexp>   // 'regexp'
 type testTypeName11 = TypeName<typeof testTypeNameGenerator>// 'generator'
 type testTypeName12 = TypeName<null>                        // 'null'
 type testTypeName13 = TypeName<{}>                          // 'object'
+type testTypeName14 = TypeName<any>                         // 'any'
+type testTypeName15 = TypeName<unknown>                     // 'unknown'
+
+type Tqzd = testTypeName14 extends 'any' ? 'true' : 'false'
+
+type truc = any extends 'any' ? 'true' : 'false'
 // #endregion
 
 // #region TypeOf
@@ -307,7 +325,7 @@ export type TypeOf<T> =
     ? bigint
     : T extends object
     ? T
-    : undefined
+    : unknown
 
 const testTypeOfFunction = (a: string): number => {return 0}
 type testTypeOf1 = TypeOf<[]>                           // any[]
@@ -426,7 +444,7 @@ type testSameValueInterface3 = SameValueInterface<svi1 & svi2, number>  // { a: 
 // #region IsFinite
 export type IsFinite<A extends any[], Finite, Infinite> = {
     empty: Finite,
-    nonEmpty: ((...args: A) => any) extends ((_firstArgs: infer First, ...args: infer Rest) => any)
+    notEmpty: ((...args: A) => any) extends ((_firstArgs: infer First, ...args: infer Rest) => any)
         ? IsFinite<Rest, Finite, Infinite>
         : never
     infinite: Infinite
@@ -435,7 +453,7 @@ export type IsFinite<A extends any[], Finite, Infinite> = {
     : A extends (infer Element)[] ?
         Element[] extends A ?
         'infinite'
-        : 'nonEmpty'
+        : 'notEmpty'
     : never
 ]
 
