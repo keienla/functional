@@ -54,7 +54,6 @@ Functional is just a library for Functional Programming in Typescript.
 ## Documentation
 - [ ] Add the args in documentation for each methods and the types
 - [ ] Check all examples
-- [ ] Set curry to all functions where it's possible
 
 # Maybe todo one day
 

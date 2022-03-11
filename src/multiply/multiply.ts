@@ -8,6 +8,6 @@ import curry from '../curry/curry';
  * @param { number } num2
  * @returns { number }
  */
-export default curry(function multiply(num1: number, num2: number) {
+export default curry(function multiply(num1: number, num2: number): number {
     return num1 * num2
 })
