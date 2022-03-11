@@ -9,7 +9,7 @@ Functional is just a library for Functional Programming in Typescript.
 - [arrayIs](./src/arrayIs/arrayIs.md)
 - [compose](./src/compose/compose.md)
 - [constant](./src/constant/constant.md)
-- [curry](./src/curry/curry.md) (WIP - description + documentation + redo the type)
+- [curry](./src/curry/curry.md) (WIP - description + documentation)
 - [deepFreeze](./src/deepFreeze/deepFreeze.md)
 - [divide](./src/divide/divide.md)
 - [filter](./src/filter/filter.md)
@@ -21,11 +21,10 @@ Functional is just a library for Functional Programming in Typescript.
 - [is](./src/is/is.md)
 - [isLength](./src/isLength/isLength.md)
 - [isnt](./src/isnt/isnt.md)
-- [isType](./src/isType/isType.md)
+- [isType](./src/isType/isType.md) (test unknown, any)
 - [length](./src/length/length.md)
 - [map](./src/map/map.md)
 - [mapObject](./src/mapObject/mapObject.md)
-- [maybe](./src/maybe/maybe.md) (WIP - Function + tests + description + documentation)
 - [memoize](./src/memoize/memoize.md)
 - [multiply](./src/multiply/multiply.md)
 - [nAry](./src/nAry/nAry.md)
@@ -55,10 +54,11 @@ Functional is just a library for Functional Programming in Typescript.
 ## Documentation
 - [ ] Add the args in documentation for each methods and the types
 - [ ] Check all examples
-## Methods
-- [ ] Increment - make +1 on a number
-- [ ] Decrement - make -1 on a number
+- [ ] Set curry to all functions where it's possible
 
+# Maybe todo one day
+
+- [ ] Monades
 <!--
 ## Build
 
