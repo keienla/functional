@@ -19,4 +19,13 @@ describe('CURRY', () => {
 
         expect(firstStep('a','b')).toBe('ab');
     })
+
+    test('Curry with spread args or optional parameters', () => {
+        const concat = (...args: string[]) => args.join('')
+        const curriedConcat = curry(concat, 2)
+
+        expect(typeof curriedConcat()).toBe('function')
+        expect(typeof curriedConcat('a')).toBe('function')
+        expect(curriedConcat('a')('b')).toBe('ab')
+    })
 })

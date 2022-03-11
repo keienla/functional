@@ -121,19 +121,29 @@ type testDrop4 = Drop<3, ['a']>                 // []
 // #region Before
 // Get all the arguments before the index given
 export type Before<N extends number, T extends any[], R extends any[] = [], I extends any[] = []> = {
-    0: Before<N, Tail<T>, Prepend<Head<T>,R>, Prepend<any, I>>
-    1: Reverse<Prepend<Head<T>,R>>
+    continue: Before<N, Tail<T>, Prepend<Head<T>,R>, Next<I>>
+    finish: Reverse<R>
+    finishWithHead: Reverse<Prepend<Head<T>, R>>
+    empty: never
+    infinite: {}
 } [
-    Length<I> extends N
-    ? 1
-    : Length<Tail<T>> extends 0
-        ? 1
-        : 0
+    T extends any[]
+        ? IsFinite<T, Length<I> extends N
+            ? 'finish'
+            : Length<Tail<T>> extends 0
+                ? 'finishWithHead'
+                : 'continue', 'infinite'>
+        : 'empty'
+    // Length<I> extends N
+    //     ? 'finish'
+    //     : Length<Tail<T>> extends 0
+    //         ? 'finishWithHead'
+    //         : 'continue'
 ]
 
-type testBefore1 = Before<0, [0, 1, 2]>                     // [0]
-type testBefore2 = Before<2, ['a', 'b']>                    // ['a', 'b']
-type testBefore3 = Before<2, ['a', 'b', 'c', 'd', 'e']>     // ['a', 'b', 'c']
+type testBefore1 = Before<0, [0, 1, 2]>                     // []
+type testBefore2 = Before<5, ['a', 'b']>                    // ['a', 'b']
+type testBefore3 = Before<3, ['a', 'b', 'c', 'd', 'e']>     // ['a', 'b', 'c']
 // #region Cast
 // If same type return first type else return second type
 export type Cast<X, Y> =

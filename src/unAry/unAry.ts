@@ -1,17 +1,23 @@
+import { Curry } from '../models/curry.model';
+import { Before, Params } from '../models/types.model';
 import _nAry from '../nAry/nAry';
 
 /**
- * Return a function with multiples properties in object parameter as a function with only one property in it's object
+ * The unAry function is the same that nAry but with only one parameter allowed
+ * The function doesn't count spread args or conditional args
  * @example
  *  function fn1(arg1, arg2, arg3, ..., argN) { ... }
- *  const fn2 = unAry(fn1, 'arg2'); // So when i'll call fn2 now i'll can set only one argument, 'arg2'
- *  fn2(arg2) // will execute the function with only arg2
+ *  const fn2 = unAry(fn1); // So when i'll call fn2 now i'll can set only one argument, the first
+ *  fn2(arg1) // will execute the function with only arg1
  *
- * @param { (...args: any[]) => R } fn (args: any) => R
- * @typedef {object} A object - the object with arguments of the given method (when call for the last time)
- * @typedef {any} R any - the result of the fn given
- * @returns { (args: A) => R }
+ * @param { (...args: any[]) => any } fn (args: any) => any
+ * @typedef {Function} Fn Function - The function to limit the number of args
+ * @returns { Curry<Before<1, Args> => R> } Curry<Before<length, Args> => R>
  */
-export default function unAry<A extends object = object, R = any>(fn: (...args: any[]) => R): (args: A) => R {
-    return _nAry<A, R>(fn, 1)
+export default function unAry<
+    Fn extends (...args: any[]) => any,
+    Args extends any[] = Params<Fn>,
+    Response = ReturnType<Fn>
+>(fn: Fn): Curry<(...args: Before<1, Args> extends any[] ? Before<1, Args> : []) => Response> {
+    return _nAry(fn, 1)
 }
