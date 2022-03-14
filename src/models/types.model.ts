@@ -2,6 +2,8 @@ export type TObject = {
     [key: string]: any
 }
 
+export type Fn = (...args: any[]) => any
+
 export type Predicate<T> = (value: T) => boolean;
 
 const fn00 = (name: string, age: number, single: boolean) => true

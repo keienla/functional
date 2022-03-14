@@ -1,5 +1,6 @@
 import gatherArgs from '../gatherArgs/gatherArgs';
-import { Pipe } from '../models/pipe.model'
+import { Pipe, PipeArgs } from '../models/pipe.model'
+import { Fn } from '../models/types.model';
 import reduce from '../reduce/reduce';
 
 /**
@@ -19,13 +20,11 @@ import reduce from '../reduce/reduce';
  * @param { Function[] } fns Function[] - List of function. The first in array will be executed first
  * @returns { Pipe<FNS> } Return a function with as many arguments that first function given. This function will return the response type of last function given
  */
-export default function pipe<FNS extends ((...args: any) => any)[]>(...fns: FNS & Pipe<FNS> extends FNS ? FNS : never): Pipe<FNS> {
-    if(fns.length === 0) throw new Error('Pipe require at least one argument');
-
+export default function pipe<FNS extends [Fn, ...Fn[]]>(...fns: PipeArgs<FNS> & FNS): Pipe<FNS> {
     return function piped(...args: any[]) {
         fns[0] = gatherArgs(fns[0])
         return reduce(function reduced(accumulator: any, fn: Function) {
             return fn(accumulator)
-        }, args, fns);
+        }, args, fns || []);
     }
 }

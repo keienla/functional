@@ -1,6 +1,6 @@
 import pipe from './../pipe/pipe';
-import { Pipe } from '../models/pipe.model'
-import { Reverse } from '../models/types.model';
+import { Compose, ComposeArgs } from '../models/compose.model'
+import { Fn, Reverse } from '../models/types.model';
 
 /**
  * The "compose" function execute multiple functions one after the other, and the argument of each function will be the response of the result of the previous execution function.
@@ -18,6 +18,8 @@ import { Reverse } from '../models/types.model';
  * @param { Function[] } fns Function[] - List of function. The last in array will be executed first
  * @returns { Pipe<Reverse<FNS>> } Return a function with as many arguments that last function given. This function will return the response type of first function given
  */
-export default function compose<FNS extends ((...args: any) => any)[]>(...fns: FNS & Pipe<Reverse<FNS>> extends FNS ? FNS : never): Pipe<Reverse<FNS>> {
-    return pipe(...fns.reverse());
+export default function compose<
+    FNS extends [Fn, ...Fn[]],
+>(...fns: ComposeArgs<FNS> & FNS): Compose<FNS> {
+    return pipe(...fns.reverse() as [Fn, ...Fn[]]);
 }

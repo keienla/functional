@@ -14,10 +14,6 @@ describe('PIPE', () => {
         expect(result).toEqual([4,6,8]);
     })
 
-    test('pipe with no argument throw', () => {
-        expect(() => { pipe() }).toThrow()
-    })
-
     test('pipe with first fn with multiple args', () => {
         const add = (n1: number, n2: number): number => n1 + n2;
         const multiply = (n: number): number => n * 2;

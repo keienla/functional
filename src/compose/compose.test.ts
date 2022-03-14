@@ -14,10 +14,6 @@ describe('COMPOSE', () => {
         expect(result).toEqual([3,5,7]);
     })
 
-    test('compose with no argument throw', () => {
-        expect(() => { compose() }).toThrow()
-    })
-
     test('compose with first fn with multiple args', () => {
         const add = (n1: number, n2: number): number => n1 + n2;
         const multiply = (n: number): number => n * 2;
@@ -25,7 +21,7 @@ describe('COMPOSE', () => {
         const result = compose(
             multiply,
             add
-        )(1, 2)
+        )(2,1)
 
         expect(result).toEqual(6);
     })
