@@ -9,7 +9,7 @@ Functional is just a library for Functional Programming in Typescript.
 - [arrayIs](./src/arrayIs/arrayIs.md)
 - [compose](./src/compose/compose.md)
 - [constant](./src/constant/constant.md)
-- [curry](./src/curry/curry.md) (WIP - description + documentation)
+- [curry](./src/curry/curry.md) (WIP - description + documentation - type with length)
 - [deepFreeze](./src/deepFreeze/deepFreeze.md)
 - [divide](./src/divide/divide.md)
 - [filter](./src/filter/filter.md)

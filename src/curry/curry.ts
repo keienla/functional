@@ -13,11 +13,12 @@ import { Curry } from './../models/curry.model';
  * @param {number=0} minArgsLength - When use some spread args or conditional function, this parameter will execute the fn only when this min size of args is set. Note that spread args and optional args will not be typed
  * @returns { Curry<P, R> }
  */
-export default function curry<F extends (...args: any[]) => any>(fn: F, minArgsLength: number = 0, args: any[] = []): Curry<F> {
+export default function curry<F extends (...args: any[]) => any, L extends number = 0>(fn: F, minArgsLength?: L, args: any[] = []): Curry<F, L> {
+    const _minArgsLength: number = minArgsLength ? minArgsLength : 0
     return function nested(...nextArgs: any) {
         const _args = [...args, ...nextArgs];
 
-        if (fn.length - _args.length <= 0 && _args.length >= minArgsLength) {
+        if (fn.length - _args.length <= 0 && _args.length >= _minArgsLength) {
             return fn(..._args);
         }
 
