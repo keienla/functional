@@ -5,7 +5,7 @@ import { returnedTypes } from './../models/types.model';
  * @param {any} element
  * @returns {boolean}
  */
-declare const isType: import("../models/curry.model").Curry<(typeToTest: returnedTypes, element: any) => boolean>;
+declare const isType: import("../models/curry.model").Curry<(typeToTest: returnedTypes, element: any) => boolean, 0>;
 export default isType;
 export declare function isArray(element: any): element is any[];
 export declare function isGenerator(element: any): element is Generator;

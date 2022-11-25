@@ -1,15 +1,11 @@
-import { IsFinite, Tail, Params, TypeName, Next, Pos } from "./types.model";
-declare type Fn = (...args: any) => any;
-export declare type Pipe<FNS extends Fn[], previousFn extends Fn | void = void, initialParams extends any[] = any[], returnType = any, passed extends any[] = []> = {
-    empty: (...args: initialParams) => returnType;
-    notEmpty: Tail<FNS> extends Fn[] ? previousFn extends void ? Pipe<Tail<FNS>, FNS[0], Params<FNS[0]>, ReturnType<FNS[0]>, Next<passed>> : returnType extends Params<FNS[0]>[0] ? Pipe<Tail<FNS>, FNS[0], initialParams, ReturnType<FNS[0]>, Next<passed>> : TypeName<returnType> extends 'any' ? Pipe<Tail<FNS>, FNS[0], initialParams, ReturnType<FNS[0]>, Next<passed>> : {
-        ERROR: ['The function at position ', Pos<passed>, ' must have arguments type ', returnType, ' but is ', Params<FNS[0]>];
-        CODENAME: ['Pipe', 'Invalid args'];
-    } : never;
+import { IsFinite, Tail, Params, Reverse, Last, Length, Fn } from "./types.model";
+export declare type Pipe<FNS extends [Fn, ...Fn[]]> = (...args: Params<FNS[0]>) => ReturnType<Last<FNS> extends Fn ? Last<FNS> : Fn>;
+export declare type PipeArgs<FNS extends Fn[], result extends Fn[] = [], previousFn extends Fn | void = void> = {
+    empty: Length<result> extends 0 ? [] : Reverse<result>;
+    notEmpty: previousFn extends void ? PipeArgs<Tail<FNS>, [FNS[0]], FNS[0]> : PipeArgs<Tail<FNS>, [(arg: ReturnType<previousFn extends Fn ? previousFn : Fn>) => ReturnType<FNS[0]>, ...result], FNS[0]>;
     infinite: {
         ERROR: 'Cannot pipe on an infinite array';
         CODENAME: ['InfiniteArray', 'Infinite'];
     };
-}[FNS extends [any, ...any[]] ? IsFinite<FNS, 'notEmpty', 'infinite'> : 'empty'];
-export {};
+}[FNS extends [Fn, ...Fn[]] ? IsFinite<FNS, 'notEmpty', 'not'> : 'empty'];
 //# sourceMappingURL=pipe.model.d.ts.map

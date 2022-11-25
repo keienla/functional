@@ -20,6 +20,6 @@ import { TObject } from "../models/types.model";
  * @param {object} objectToCompare
  * @returns {boolean}
  */
-declare const objectIs: import("../models/curry.model").Curry<(object: TObject, objectToCompare: TObject) => boolean>;
+declare const objectIs: import("../models/curry.model").Curry<(object: TObject, objectToCompare: TObject) => boolean, 0>;
 export default objectIs;
 //# sourceMappingURL=objectIs.d.ts.map

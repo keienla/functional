@@ -10,6 +10,8 @@ const curry_1 = require("../curry/curry");
  * @returns { number }
  */
 exports.default = (0, curry_1.default)(function divide(numerator, denominator) {
+    if (denominator === 0)
+        throw new Error('Can\'t divide by "0"');
     return numerator / denominator;
 });
 //# sourceMappingURL=divide.js.map

@@ -1,4 +1,4 @@
-declare const _default: import("../models/curry.model").Curry<(num1: number, num2: number) => number>;
+declare const _default: import("../models/curry.model").Curry<(num1: number, num2: number) => number, 0>;
 /**
  * The "add" function get two numbers and return the sum of those two numbers.
  * @example

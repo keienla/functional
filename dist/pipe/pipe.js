@@ -17,16 +17,14 @@ const reduce_1 = require("../reduce/reduce");
  *  )(1997) // => result: 666 - The response will be divSix(mulTwo(addOne(1997))) => 1997 + 1 = 1998 => 1998 * 2 = 3996 => 3996 / 6 = 666
  *
  * @param { Function[] } fns Function[] - List of function. The first in array will be executed first
- * @returns { piped(value: any) => any } Return a function with one argument, the default value to pass to execute the list of functions
+ * @returns { Pipe<FNS> } Return a function with as many arguments that first function given. This function will return the response type of last function given
  */
 function pipe(...fns) {
-    if (fns.length === 0)
-        throw new Error('Pipe require at least one argument');
     return function piped(...args) {
         fns[0] = (0, gatherArgs_1.default)(fns[0]);
         return (0, reduce_1.default)(function reduced(accumulator, fn) {
             return fn(accumulator);
-        }, args, fns);
+        }, args, fns || []);
     };
 }
 exports.default = pipe;

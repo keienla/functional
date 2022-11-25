@@ -1,4 +1,4 @@
-declare const _default: import("../models/curry.model").Curry<(num1: number, num2: number) => number>;
+declare const _default: import("../models/curry.model").Curry<(num1: number, num2: number) => number, 0>;
 /**
  * The "multiply" function get two numbers as argument and multiply the first with the second.
  * @example

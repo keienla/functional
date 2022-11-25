@@ -1,4 +1,4 @@
-declare const _default: import("../models/curry.model").Curry<(numerator: number, denominator: number) => number>;
+declare const _default: import("../models/curry.model").Curry<(numerator: number, denominator: number) => number | never, 0>;
 /**
  * The "divide" function get a numerator and denominator argument add make a division with those two numbers.
  * @example

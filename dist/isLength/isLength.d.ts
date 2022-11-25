@@ -10,6 +10,6 @@
  * @param {number} lgt
  * @returns {boolean}
  */
-declare const isLength: import("../models/curry.model").Curry<(lgt: number, el: any) => boolean>;
+declare const isLength: import("../models/curry.model").Curry<(lgt: number, el: any) => boolean, 0>;
 export default isLength;
 //# sourceMappingURL=isLength.d.ts.map

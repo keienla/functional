@@ -1,1 +1,1 @@
-{"version":3,"file":"divide.js","sourceRoot":"","sources":["../../src/divide/divide.ts"],"names":[],"mappings":";;AAAA,0CAAmC;AAEnC;;;;;;;GAOG;AACH,kBAAe,IAAA,eAAK,EAAC,SAAS,MAAM,CAAC,SAAiB,EAAE,WAAmB;IACvE,OAAO,SAAS,GAAG,WAAW,CAAA;AAClC,CAAC,CAAC,CAAA"}
+{"version":3,"file":"divide.js","sourceRoot":"","sources":["../../src/divide/divide.ts"],"names":[],"mappings":";;AAAA,0CAAmC;AAEnC;;;;;;;GAOG;AACH,kBAAe,IAAA,eAAK,EAAC,SAAS,MAAM,CAAC,SAAiB,EAAE,WAAmB;IACvE,IAAG,WAAW,KAAK,CAAC;QAAE,MAAM,IAAI,KAAK,CAAC,sBAAsB,CAAC,CAAA;IAC7D,OAAO,SAAS,GAAG,WAAW,CAAA;AAClC,CAAC,CAAC,CAAA"}

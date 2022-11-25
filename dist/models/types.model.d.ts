@@ -1,6 +1,7 @@
 export declare type TObject = {
     [key: string]: any;
 };
+export declare type Fn = (...args: any[]) => any;
 export declare type Predicate<T> = (value: T) => boolean;
 export declare type Params<F extends Function> = F extends ((...args: infer A) => any) ? A : never;
 export declare type Head<T extends any[]> = T extends [infer HeadElement, ...any[]] ? HeadElement : never;
@@ -16,9 +17,12 @@ export declare type Drop<N extends number, T extends any[], I extends any[] = []
     infinite: {};
 }[Length<I> extends N ? 'return' : IsFinite<T, 'continue', 'infinite'>];
 export declare type Before<N extends number, T extends any[], R extends any[] = [], I extends any[] = []> = {
-    0: Before<N, Tail<T>, Prepend<Head<T>, R>, Prepend<any, I>>;
-    1: Reverse<Prepend<Head<T>, R>>;
-}[Length<I> extends N ? 1 : Length<Tail<T>> extends 0 ? 1 : 0];
+    continue: Before<N, Tail<T>, Prepend<Head<T>, R>, Next<I>>;
+    finish: Reverse<R>;
+    finishWithHead: Reverse<Prepend<Head<T>, R>>;
+    empty: never;
+    infinite: {};
+}[T extends any[] ? IsFinite<T, Length<I> extends N ? 'finish' : Length<Tail<T>> extends 0 ? 'finishWithHead' : 'continue', 'infinite'> : 'empty'];
 export declare type Cast<X, Y> = X extends Y ? X : Y;
 export declare type Pos<I extends any[]> = Length<I>;
 export declare type Next<I extends any[]> = Prepend<any, I>;
