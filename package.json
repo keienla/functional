@@ -30,8 +30,8 @@
   },
   "dependencies": {},
   "files": [
-    "lib",
-    "src"
+    "dist/**/*",
+    "src/**/*"
   ],
   "repository": {
     "type": "git",
