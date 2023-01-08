@@ -11,7 +11,7 @@ see [nAry](./../nAry/nAry.md)
 --------------
 #### Example:
 ``` typescript
-import { unAry } from '@keienla/functional';
+import { unAry } from '@kenla/functional';
 
 function multipleArgsFn(arg1: number, arg2: string, arg3: number) {
     // Define default value for arg2 && arg3

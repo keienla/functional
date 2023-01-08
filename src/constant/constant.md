@@ -7,7 +7,7 @@ The "**contant**" function stock a given value and restitute it when called.
 --------------
 #### Example:
 ``` typescript
-import { constant } from '@keienla/functional';
+import { constant } from '@kenla/functional';
 
 // Stock the element
 const three: () => number = constant(3);

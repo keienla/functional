@@ -13,7 +13,7 @@ The "**length**" function get the size of differents element:
 --------------
 #### Example:
 ``` typescript
-import { length } from '@keienla/functional';
+import { length } from '@kenla/functional';
 
 const el1: string = 'abc';
 const el2: string[] = ['a', 'b'];

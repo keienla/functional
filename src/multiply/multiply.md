@@ -7,7 +7,7 @@ The "**multiply**" function get two numbers as argument and multiply the first w
 --------------
 #### Example:
 ``` typescript
-import { multiply } from '@keienla/functional';
+import { multiply } from '@kenla/functional';
 
 console.log(multiply(3,5))       // 15
 ```

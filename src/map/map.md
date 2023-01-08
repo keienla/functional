@@ -7,7 +7,7 @@ The "**map**" function creates a new array with the results of calling a provide
 --------------
 #### Example:
 ``` typescript
-import { map } from '@keienla/functional';
+import { map } from '@kenla/functional';
 
 function addOne(x: number): number { return x + 1 };
 const mapped = map(addOne, [1,5,8]);

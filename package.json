@@ -1,5 +1,5 @@
 {
-  "name": "@keienla/functional",
+  "name": "@kenla/functional",
   "version": "1.0.0",
   "description": "Just a functional library in TypeScript to do Functional Programming",
   "keywords": ["typescript", "fp", "functional", "functional programming", "lib"],
@@ -35,7 +35,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/keienla/functional.git"
+    "url": "git+https://github.com/kenla/functional.git"
   },
-  "homepage": "https://github.com/keienla/functional#readme"
+  "homepage": "https://github.com/kenla/functional#readme"
 }

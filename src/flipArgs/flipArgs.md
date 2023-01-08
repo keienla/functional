@@ -7,7 +7,7 @@ The "**flipArgs**" function return the order of the two first parameters. So lik
 --------------
 #### Example:
 ``` typescript
-import { flipArgs } from '@keienla/functional';
+import { flipArgs } from '@kenla/functional';
 
 function calc(x: number, y: number, z: number): number { return (x / y) + z }
 const inversedCalc: (z: number, y: number, x: number) => number = reverseArgs(calc);

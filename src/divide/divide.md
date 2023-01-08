@@ -7,7 +7,7 @@ The "**divide**" function get a numerator and denominator argument add make a di
 --------------
 #### Example:
 ``` typescript
-import { divide } from '@keienla/functional';
+import { divide } from '@kenla/functional';
 
 console.log(divide(50,100))       // 0.5
 ```

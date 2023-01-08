@@ -9,7 +9,7 @@ If one of the element type can't have a length that can be calculated (i.e type 
 --------------
 #### Example:
 ``` typescript
-import { sameLength } from '@keienla/functional';
+import { sameLength } from '@kenla/functional';
 
 const el1: string = 'ab';
 const el2: number[] = [1, 2];
