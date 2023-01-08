@@ -75,17 +75,15 @@ type testFirst1 = First<[1, 2, 3, 4]>     // 1
 // Check all the elements and get the last parameter
 export type Last<T extends any[]> = Tail<T> extends never
     ? never
-    : T extends [...rest: infer U, last: infer L] ? L : never
+    : T extends [...rest: infer R, last: infer L] ? L : never
 
 type testLast1 = Last<[1, 2, 3, 4]>     // 4
 // #endregion
 
 // #region Prepend
 // It adds a type E at the beginning of the given array of type
-export type Prepend<Addend, A extends any[]> =
-    ((_: Addend, ..._1: A) => any) extends ((...args: infer Result) => any)
-    ? Result
-    : A
+
+export type Prepend<Addend, A extends any[]> = [Addend, ...A]
 
 type testPrepend1 = Prepend<string, []>         // [string]
 type testPrepend2 = Prepend<number, [1, 2]>     // [number, 1, 2]
@@ -208,23 +206,7 @@ type testReverse3 = Reverse<[[2, 1], [3, 4]]>   // [[3, 4], [2, 1]]
 // #endregion
 
 // #region Concat
-export type Concat<Left extends any[], Right extends any[]> = {
-    emptyLeft: Right,
-    oneLeft: Left extends [infer Unique]
-        ? Prepend<Unique, Right>
-        : never,
-    multiLeft: ((..._: Reverse<Left>) => any) extends ((_: infer LeftLast, ..._1: infer ReversedLeftRest) => any)
-        ? Concat<Reverse<ReversedLeftRest>, Prepend<LeftLast, Right>>
-        : never,
-    infiniteLeft: {
-        ERROR: 'Left is not finite',
-        CODENAME: ['InfiniteLeft', 'Infinite']
-    }
-}[
-    Left extends [] ? 'emptyLeft' :
-    Left extends [any] ? 'oneLeft' :
-    IsFinite<Left, 'multiLeft', 'infiniteLeft'>
-]
+export type Concat<Left extends any[], Right extends any[]> = [...Left, ...Right]
 
 type testConcat1 = Concat<[1, 2], [3, 4]>       // [1, 2, 3, 4]
 // #endregion
