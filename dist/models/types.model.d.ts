@@ -8,8 +8,8 @@ export declare type Head<T extends any[]> = T extends [infer HeadElement, ...any
 export declare type Tail<T extends any[]> = ((...t: T) => any) extends ((_: any, ...tail: infer TailsElement) => any) ? TailsElement : never;
 export declare type HasTail<T extends any[]> = T extends ([] | [any]) ? false : true;
 export declare type First<T extends any[]> = Head<T> extends never ? never : T extends [first: infer F, ...rest: infer R] ? F : never;
-export declare type Last<T extends any[]> = Tail<T> extends never ? never : T extends [...rest: infer U, last: infer L] ? L : never;
-export declare type Prepend<Addend, A extends any[]> = ((_: Addend, ..._1: A) => any) extends ((...args: infer Result) => any) ? Result : A;
+export declare type Last<T extends any[]> = Tail<T> extends never ? never : T extends [...rest: infer R, last: infer L] ? L : never;
+export declare type Prepend<Addend, A extends any[]> = [Addend, ...A];
 export declare type Length<T extends any[]> = T['length'];
 export declare type Drop<N extends number, T extends any[], I extends any[] = []> = {
     continue: Drop<N, Tail<T>, Prepend<any, I>>;
@@ -39,15 +39,7 @@ export declare type Reverse<A extends any[], Prefix extends any[] = []> = {
         CODENAME: ['InfiniteArray', 'Infinite'];
     };
 }[A extends [any, ...any[]] ? IsFinite<A, 'notEmpty', 'infinite'> : 'empty'];
-export declare type Concat<Left extends any[], Right extends any[]> = {
-    emptyLeft: Right;
-    oneLeft: Left extends [infer Unique] ? Prepend<Unique, Right> : never;
-    multiLeft: ((..._: Reverse<Left>) => any) extends ((_: infer LeftLast, ..._1: infer ReversedLeftRest) => any) ? Concat<Reverse<ReversedLeftRest>, Prepend<LeftLast, Right>> : never;
-    infiniteLeft: {
-        ERROR: 'Left is not finite';
-        CODENAME: ['InfiniteLeft', 'Infinite'];
-    };
-}[Left extends [] ? 'emptyLeft' : Left extends [any] ? 'oneLeft' : IsFinite<Left, 'multiLeft', 'infiniteLeft'>];
+export declare type Concat<Left extends any[], Right extends any[]> = [...Left, ...Right];
 export declare type Append<E, T extends any[]> = Concat<T, [E]>;
 export declare type NotNull<A, B> = A extends undefined ? B : A extends null ? B : A;
 export declare type returnedTypes = 'any' | 'string' | 'array' | 'object' | 'number' | 'function' | 'boolean' | 'undefined' | 'bigint' | 'symbol' | 'null' | 'regexp' | 'generator' | 'generatorfunction' | 'unknown';
