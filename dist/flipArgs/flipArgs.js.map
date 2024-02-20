@@ -1,1 +1,0 @@
-{"version":3,"file":"flipArgs.js","sourceRoot":"","sources":["../../src/flipArgs/flipArgs.ts"],"names":[],"mappings":";;AAAA;;;;;;;;;;;;;GAaG;AACH,SAAwB,QAAQ,CAA6B,EAAmC;IAC5F,OAAO,SAAS,OAAO,CAAC,IAAQ,EAAE,IAAQ,EAAE,GAAG,IAAO;QAClD,OAAO,EAAE,CAAC,IAAI,EAAE,IAAI,EAAE,GAAG,IAAI,CAAC,CAAC;IACnC,CAAC,CAAC;AACN,CAAC;AAJD,2BAIC"}
