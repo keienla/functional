@@ -6,10 +6,7 @@
   "main": "dist/functional.js",
   "types": "./dist/functional.d.ts",
   "scripts": {
-    "build": "if exist dist (rmdir dist /q /s && tsc --build) else (tsc --build)",
-    "publish:patch": "npm version patch && npm run buildandpublish",
-    "publish:minor": "npm version minor && npm run buildandpublish",
-    "publish:major": "npm version major && npm run buildandpublish",
+    "build": "node ./scripts/deploy.js",
     "buildandpublish": "npm run build & npm publish",
     "test": "jest --env=node --colors --verbose",
     "test:watch": "jest --env=node --colors --watchAll",
@@ -30,7 +27,6 @@
   },
   "dependencies": {},
   "files": [
-    "dist/**/*",
     "src/**/*"
   ],
   "repository": {

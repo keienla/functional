@@ -1,1 +1,1 @@
-{"version":3,"file":"multiply.d.ts","sourceRoot":"","sources":["../../src/multiply/multiply.ts"],"names":[],"mappings":"qEAU6C,MAAM,QAAQ,MAAM,KAAG,MAAM;AAR1E;;;;;;;GAOG;AACH,wBAEE"}
+{"version":3,"file":"multiply.d.ts","sourceRoot":"","sources":["../../src/multiply/multiply.ts"],"names":[],"mappings":"AAEA;;;;;;;GAOG;qEAC0C,MAAM,QAAQ,MAAM,KAAG,MAAM;AAA1E,wBAEE"}

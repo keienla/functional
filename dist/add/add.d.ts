@@ -1,4 +1,3 @@
-declare const _default: import("../models/curry.model").Curry<(num1: number, num2: number) => number, 0>;
 /**
  * The "add" function get two numbers and return the sum of those two numbers.
  * @example
@@ -8,5 +7,6 @@ declare const _default: import("../models/curry.model").Curry<(num1: number, num
  * @param { number } num2
  * @returns { number }
  */
+declare const _default: import("../models/curry.model").Curry<(num1: number, num2: number) => number, 0>;
 export default _default;
 //# sourceMappingURL=add.d.ts.map

@@ -1,4 +1,3 @@
-declare const _default: import("../models/curry.model").Curry<(el1: any, el2: any) => boolean, 0>;
 /**
  * Check if two elements have the same length.
  * If one of the element type can't have a length that can be calculated, return false.
@@ -15,5 +14,6 @@ declare const _default: import("../models/curry.model").Curry<(el1: any, el2: an
  * @param {any} el2
  * @returns {boolean} boolean
  */
+declare const _default: import("../models/curry.model").Curry<(el1: any, el2: any) => boolean, 0>;
 export default _default;
 //# sourceMappingURL=sameLength.d.ts.map

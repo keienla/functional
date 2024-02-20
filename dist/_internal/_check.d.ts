@@ -1,5 +1,4 @@
 import { Predicate } from '../models/types.model';
-declare const _default: import("../models/curry.model").Curry<(<T extends unknown>(checkMethod: (accumulator: boolean, current: boolean) => boolean, predicates: Predicate<T>[], defaultResult: boolean, value: T, stopIfValue: boolean | null) => boolean), 0>;
 /**
  * With the check method given, verify the accumulation of predicates methods with a given value
  * @example
@@ -20,5 +19,6 @@ declare const _default: import("../models/curry.model").Curry<(<T extends unknow
  * @param {T} value
  * @param {boolean |null} stopIfValue Stop if the result at each step is equal to this result
  */
+declare const _default: import("../models/curry.model").Curry<(<T extends unknown>(checkMethod: (accumulator: boolean, current: boolean) => boolean, predicates: Predicate<T>[], defaultResult: boolean, value: T, stopIfValue: boolean | null) => boolean), 0>;
 export default _default;
 //# sourceMappingURL=_check.d.ts.map
