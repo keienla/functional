@@ -24,4 +24,11 @@ exec('tsc --build', (err, stdout, stderr) => {
     newPackage.files = ['**/*']
 
     fs.appendFileSync(DIST_FOLDER + '/package.json', JSON.stringify(newPackage))
+
+    const filesToMove = ['LICENSE', 'README.md']
+
+    filesToMove.forEach(file => {
+        console.log('-> move ' + file)
+        fs.copyFileSync('./' + file, DIST_FOLDER + '/' + file)
+    })
 })
