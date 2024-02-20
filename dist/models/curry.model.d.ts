@@ -1,3 +1,0 @@
-import { Cast, Drop, Length, Tuple } from './types.model';
-export type Curry<F extends (...args: any[]) => any, MinLength extends number = 0> = <T extends Tuple>(...args: Cast<Partial<Parameters<F>>, T>) => Drop<Length<T>, Parameters<F>> extends infer G ? Length<Cast<G, Tuple>> extends infer L ? L extends 0 ? ReturnType<F> : L extends 1 ? (...args: Cast<G, Tuple>) => ReturnType<F> : Curry<(...args: Cast<G, Tuple>) => ReturnType<F>, MinLength> : never : never;
-//# sourceMappingURL=curry.model.d.ts.map

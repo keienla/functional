@@ -1,1 +1,0 @@
-{"version":3,"file":"spreadArgs.js","sourceRoot":"","sources":["../../src/spreadArgs/spreadArgs.ts"],"names":[],"mappings":";;AAgBA,SAAwB,UAAU,CAAO,EAAO;IAC5C,OAAO,SAAS,MAAM,CAAC,GAAG,IAAS;QAC/B,IAAG,IAAI,CAAC,MAAM,EAAE,CAAC;YACb,OAAO,EAAE,CAAC,IAAI,CAAC,CAAC;QACpB,CAAC;aAAM,CAAC;YACJ,OAAO,EAAE,EAAE,CAAC;QAChB,CAAC;IACL,CAAC,CAAA;AACL,CAAC;AARD,6BAQC"}
