@@ -1,5 +1,5 @@
 const fs = require('fs')
-const ts = require('typescript')
+const esbuild = require('esbuild')
 const { exec } = require('child_process');
 const package = require('./../package.json')
 
@@ -12,23 +12,33 @@ if(fs.existsSync(DIST_FOLDER)) {
 
 console.log('-> compile TS start')
 console.time('-> compile TS End')
-exec('tsc --build', (err, stdout, stderr) => {
-    console.timeEnd('-> compile TS End')
-    if(err) throw err
 
-    console.log('-> update and move package.json')
-    const newPackage = {...package}
-    newPackage.main = './functional.js'
-    newPackage.types = './functional.d.ts'
-    newPackage.scripts = {}
-    newPackage.files = ['**/*']
+esbuild.buildSync({
+    entryPoints: ['src/functional.ts'],
+    bundle: true,
+    minify: true,
+    sourcemap: true,
+    outfile: `${DIST_FOLDER}/functional.js`,
+    target: 'es6',
+    define: {
+        "process.env.NODE_ENV": '"production"'
+    },
+})
 
-    fs.appendFileSync(DIST_FOLDER + '/package.json', JSON.stringify(newPackage))
+console.timeEnd('-> compile TS End')
 
-    const filesToMove = ['LICENSE', 'README.md']
+console.log('-> update and move package.json')
+const newPackage = {...package}
+newPackage.main = './functional.js'
+newPackage.types = './functional.d.ts'
+newPackage.scripts = {}
+newPackage.files = ['**/*']
 
-    filesToMove.forEach(file => {
-        console.log('-> move ' + file)
-        fs.copyFileSync('./' + file, DIST_FOLDER + '/' + file)
-    })
+fs.appendFileSync(DIST_FOLDER + '/package.json', JSON.stringify(newPackage))
+
+const filesToMove = ['LICENSE', 'README.md']
+
+filesToMove.forEach(file => {
+    console.log('-> move ' + file)
+    fs.copyFileSync('./' + file, DIST_FOLDER + '/' + file)
 })
