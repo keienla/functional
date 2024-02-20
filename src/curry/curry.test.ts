@@ -22,7 +22,7 @@ describe('CURRY', () => {
 
     test('Curry with spread args or optional parameters', () => {
         const concat = (...args: string[]) => args.join('')
-        const curriedConcat = curry(concat, 5)
+        const curriedConcat = curry(concat, [], 5)
 
         expect(typeof curriedConcat()).toBe('function')
         expect(typeof curriedConcat('a')).toBe('function')

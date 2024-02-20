@@ -26,5 +26,5 @@ export default function nAry<
     return curry(function limite(...args: Before<length, Args> extends any[] ? Before<length, Args> : []): Response {
         const limitArgs: any[] = args.slice(0, length)
         return fn(...limitArgs)
-    }, max)
+    }, [], max)
 }
