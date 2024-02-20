@@ -24,3 +24,7 @@ jobs:
       run: npm ci
     - name: Running tests
       run: npm run test
+    - name: Building
+      run: npm run build
+    - name: Deploying
+      run: npm publish dist
