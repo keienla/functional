@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "feature/github-actions" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "feature/github-actions" ]
+    branches: [ "main" ]
 
 jobs:
   test:
@@ -17,7 +17,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20.x'
+        node-version: '20'
         cache: 'npm'
     - name: Install dependencies
       run: npm ci
@@ -32,7 +32,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20.x'
+        node-version: '20'
         cache: 'npm'
     - name: Install dependencies
       run: npm ci
@@ -47,7 +47,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20.x'
+        node-version: '20'
         cache: 'npm'
         registry-url: https://registry.npmjs.org/
     - name: Install dependencies
