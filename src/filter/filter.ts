@@ -1,5 +1,5 @@
+import type { FilterArrayReducer } from '../models/filter.model';
 import { _arrayFilter } from '../_internal/_filter';
-import { FilterArrayReducer } from '../models/filter.model';
 
 /**
  * The filter() function creates a new array with all elements that pass the test implemented by the provided function.

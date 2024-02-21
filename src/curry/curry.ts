@@ -1,4 +1,4 @@
-import { Curry } from './../models/curry.model';
+import type { Curry } from './../models/curry.model';
 
 /**
  * Decompose a function to return another function while the user can set arguments.

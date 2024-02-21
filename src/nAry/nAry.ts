@@ -1,6 +1,6 @@
+import type { Curry } from '../models/curry.model';
+import type { Before, Params } from './../models/types.model';
 import curry from '../curry/curry';
-import { Curry } from '../models/curry.model';
-import { Before, Params } from './../models/types.model';
 
 /**
  * The nAry function will limit the number of arguments of a function. So if a function have 5 necessary arguments, you can decide to limite to X <= 5.

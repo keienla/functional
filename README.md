@@ -21,7 +21,7 @@ Functional is just a library for Functional Programming in Typescript.
 - [is](./src/is/is.md)
 - [isLength](./src/isLength/isLength.md)
 - [isnt](./src/isnt/isnt.md)
-- [isType](./src/isType/isType.md) (test unknown, any)
+- [isType](./src/isType/isType.md)
 - [length](./src/length/length.md)
 - [map](./src/map/map.md)
 - [mapObject](./src/mapObject/mapObject.md)

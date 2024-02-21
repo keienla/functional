@@ -1,7 +1,7 @@
-import { UncurryArgs } from '../models/uncurry.model';
+import type { UncurryArgs } from '../models/uncurry.model';
+import type { Curry } from '../models/curry.model';
+import type { Cast } from '../models/types.model';
 import uncurry from './../uncurry/uncurry';
-import { Curry } from '../models/curry.model';
-import { Cast } from '../models/types.model';
 
 /**
  * For a function that return a boolean, make a function that will return the opposite value.

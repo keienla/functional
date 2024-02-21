@@ -1,4 +1,4 @@
-import { Params } from "../models/types.model";
+import type { Params } from "../models/types.model";
 
 /**
  * For a given function, gather an array of arguments multiple arguments.

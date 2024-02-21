@@ -1,5 +1,5 @@
-import type from './../type/type';
-import { returnedTypes } from './../models/types.model';
+import type { returnedTypes } from './../models/types.model';
+import typeFn from './../type/type';
 import curry from '../curry/curry';
 
 /**
@@ -9,7 +9,7 @@ import curry from '../curry/curry';
  * @returns {boolean}
  */
 const isType = curry(function isType(typeToTest: returnedTypes, element: any): boolean {
-    return type(element) === typeToTest;
+    return typeFn(element) === typeToTest;
 })
 
 export default isType;

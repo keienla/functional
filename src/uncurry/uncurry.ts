@@ -1,6 +1,6 @@
-import { Uncurry } from '../models/uncurry.model';
+import type { Uncurry } from '../models/uncurry.model';
+import type { Curry } from '../models/curry.model';
 import reduce from '../reduce/reduce';
-import { Curry } from '../models/curry.model';
 
 /**
  * Transform a deep function into a one list arguments function.

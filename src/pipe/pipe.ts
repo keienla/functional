@@ -1,6 +1,6 @@
+import type { Pipe, PipeArgs } from '../models/pipe.model'
+import type { Fn } from '../models/types.model';
 import gatherArgs from '../gatherArgs/gatherArgs';
-import { Pipe, PipeArgs } from '../models/pipe.model'
-import { Fn } from '../models/types.model';
 import reduce from '../reduce/reduce';
 
 /**

@@ -1,6 +1,6 @@
+import type { Predicate } from '../models/types.model';
+import type { Curry } from '../models/curry.model';
 import _and from './../_internal/_and';
-import { Predicate } from '../models/types.model';
-import { Curry } from '../models/curry.model';
 
 /**
  * The "and" function compare the result of multiple predicate functions with same argument and check if all the functions return "true".

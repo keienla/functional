@@ -1,5 +1,5 @@
+import type { Predicate } from '../models/types.model';
 import curry from '../curry/curry';
-import { Predicate } from '../models/types.model';
 import _check from './_check';
 
 export default curry(function or<T>(predicate1: Predicate<T>, predicate2: Predicate<T>, value: T): boolean {

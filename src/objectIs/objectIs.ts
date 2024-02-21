@@ -1,7 +1,7 @@
+import type { TObject } from "../models/types.model";
 import curry from "./../curry/curry";
 import notSameLength from './../notSameLength/notSameLength';
 import isnt from './../isnt/isnt';
-import { TObject } from "../models/types.model";
 
 /**
  * Check if two objects are the same. For this check the length of each object, keys and values.

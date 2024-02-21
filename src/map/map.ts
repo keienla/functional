@@ -1,4 +1,4 @@
-import { MapArrayReducer } from '../models/map.model';
+import type { MapArrayReducer } from '../models/map.model';
 import { _arrayMap } from './../_internal/_map'
 
 /**

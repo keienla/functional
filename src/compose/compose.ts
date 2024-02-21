@@ -1,6 +1,6 @@
+import type { Compose, ComposeArgs } from '../models/compose.model'
+import type { Fn } from '../models/types.model';
 import pipe from './../pipe/pipe';
-import { Compose, ComposeArgs } from '../models/compose.model'
-import { Fn, Reverse } from '../models/types.model';
 
 /**
  * The "compose" function execute multiple functions one after the other, and the argument of each function will be the response of the result of the previous execution function.

@@ -1,5 +1,5 @@
+import type { FilterObjectReducer } from '../models/filter.model';
 import { _objectFilter } from '../_internal/_filter';
-import { FilterObjectReducer } from '../models/filter.model';
 
 /**
  * The filterObject() function creates a new object with all elements that pass the test implemented by the provided function.

@@ -1,5 +1,5 @@
+import type { Predicate } from '../models/types.model';
 import { _whenElse } from './../_internal/_when';
-import { Predicate } from '../models/types.model';
 
 /**
  * When the first method given pass, run the second method with the same arguments, else run the third method.

@@ -1,5 +1,5 @@
-import { MapGeneratorReducer, MapArrayReducer, MapObjectReducer } from '../models/map.model';
-import { SameValueInterface, ValueOf } from '../models/types.model';
+import type { MapArrayReducer, MapObjectReducer } from '../models/map.model';
+import type { SameValueInterface, ValueOf } from '../models/types.model';
 import reduce from '../reduce/reduce';
 import reduceObject from '../reduceObject/reduceObject';
 import curry from '../curry/curry';

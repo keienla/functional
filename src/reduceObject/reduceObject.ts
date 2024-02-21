@@ -1,8 +1,6 @@
-"use strict";
-
-import { ReduceObjectReducer } from './../models/reduce.model';
+import type { ReduceObjectReducer } from './../models/reduce.model';
+import type { Curry } from '../models/curry.model';
 import { _objectReduce } from '../_internal/_reduce';
-import { Curry } from '../models/curry.model';
 
 /**
  * Return a single item by itering throught a given object.

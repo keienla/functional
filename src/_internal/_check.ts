@@ -1,7 +1,7 @@
+import type { Transpoline } from './../models/transpoline.model';
+import type { Predicate } from '../models/types.model';
 import transpoline from './../transpoline/transpoline';
 import curry from './../curry/curry';
-import { Transpoline } from './../models/transpoline.model';
-import { Predicate } from '../models/types.model';
 
 /**
  * With the check method given, verify the accumulation of predicates methods with a given value
