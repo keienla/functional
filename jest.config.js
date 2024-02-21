@@ -50,11 +50,7 @@ module.exports = {
   // globalTeardown: null,
 
   // A set of global variables that need to be available in all test environments
-<<<<<<< HEAD
-  // globals: { },
-=======
   globals: {},
->>>>>>> develop
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [
@@ -159,11 +155,7 @@ module.exports = {
   // A map from regular expressions to paths to transformers
   transform: {
     "^.+\\.tsx?$": ["ts-jest", {
-<<<<<<< HEAD
-      tsconfig: 'tsconfig.json'
-=======
       "tsconfig": "tsconfig.json"
->>>>>>> develop
     }]
   },
 
