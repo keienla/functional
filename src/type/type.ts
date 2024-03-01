@@ -1,7 +1,10 @@
-import { returnedTypes } from './../models/types.model';
+import type { returnedTypes } from './../models/types.model';
 
 /**
  * Return the type of the element (add array as a type)
+ * 
+ * @param {any} value
+ * @returns { 'string' | 'array' | 'object' | 'number' | 'function' | 'boolean' | 'undefined' | 'bigint' | 'symbol' | 'null' | 'regexp' | 'generator' | 'generatorfunction' } the type of the element
  * @example
  *  type(undefined)     // undefined
  *  type(null)          // null
@@ -14,9 +17,6 @@ import { returnedTypes } from './../models/types.model';
  *  type(BigInt(10))    // bigint
  *  type(Symbol('foo')) // symbol
  *  type(/a/g)          // regexp
- *
- * @param {any} value
- * @returns { 'string' | 'array' | 'object' | 'number' | 'function' | 'boolean' | 'undefined' | 'bigint' | 'symbol' | 'null' | 'regexp' | 'generator' | 'generatorfunction' } the type of the element
  */
 export default function type(value: any): returnedTypes {
     if(value === null) return 'null';

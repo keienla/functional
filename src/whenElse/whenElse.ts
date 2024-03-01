@@ -1,8 +1,13 @@
+import type { Predicate } from '../models/types.model';
 import { _whenElse } from './../_internal/_when';
-import { Predicate } from '../models/types.model';
 
 /**
  * When the first method given pass, run the second method with the same arguments, else run the third method.
+ *
+ * @param {Predicate<T>} predicate Function to check a condition
+ * @param {(arg: T) => R)} fn Function to execute if predicate function is true
+ * @param {(arg: T) => ER)} elseFn Function to execute if predicate function is false
+ * @returns {any}
  * @example
  *  function isOdd(x: number): boolean { return x % 2 === 1 };
  *  function addOne(x: number): number { return x + 1 };

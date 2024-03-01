@@ -18,15 +18,7 @@ describe('CURRY', () => {
         const firstStep = curriedConcat();
 
         expect(firstStep('a','b')).toBe('ab');
-    })
-
-    test('Curry with spread args or optional parameters', () => {
-        const concat = (...args: string[]) => args.join('')
-        const curriedConcat = curry(concat, 5)
-
-        expect(typeof curriedConcat()).toBe('function')
-        expect(typeof curriedConcat('a')).toBe('function')
-        expect(curriedConcat('a')('b')('c','d')('e')).toBe('abcde')
-        expect(() => curriedConcat('a')('b')('c','d')('e')('f')).toThrowError()
+        expect(firstStep('a')('b')).toBe('ab');
+        expect(firstStep()('a')('b')).toBe('ab');
     })
 })

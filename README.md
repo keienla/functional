@@ -6,10 +6,11 @@ Functional is just a library for Functional Programming in Typescript.
 
 - [add](./src/add/add.md)
 - [and](./src/and/and.md)
+- [arity](./src/arity/arity.md)
 - [arrayIs](./src/arrayIs/arrayIs.md)
 - [compose](./src/compose/compose.md)
 - [constant](./src/constant/constant.md)
-- [curry](./src/curry/curry.md) (WIP - description + documentation - type with length)
+- [curry](./src/curry/curry.md)
 - [deepFreeze](./src/deepFreeze/deepFreeze.md)
 - [divide](./src/divide/divide.md)
 - [filter](./src/filter/filter.md)
@@ -21,7 +22,7 @@ Functional is just a library for Functional Programming in Typescript.
 - [is](./src/is/is.md)
 - [isLength](./src/isLength/isLength.md)
 - [isnt](./src/isnt/isnt.md)
-- [isType](./src/isType/isType.md) (test unknown, any)
+- [isType](./src/isType/isType.md)
 - [length](./src/length/length.md)
 - [map](./src/map/map.md)
 - [mapObject](./src/mapObject/mapObject.md)
@@ -45,19 +46,14 @@ Functional is just a library for Functional Programming in Typescript.
 - [transpoline](./src/transpoline/transpoline.md)
 - [type](./src/type/type.md)
 - [unAry](./src/unAry/unAry.md)
-- [uncurry](./src/uncurry/uncurry.md) (WIP - documentation - tests? - redo the type)
+- [uncurry](./src/uncurry/uncurry.md)
 - [when](./src/when/when.md)
 - [whenElse](./src/whenElse/whenElse.md)
-
-# TODO
-
-## Documentation
-- [ ] Add the args in documentation for each methods and the types
-- [ ] Check all examples
 
 # Maybe todo one day
 
 - [ ] Monades
+- [ ] Map/Filter function with Transducers?
 <!--
 ## Build
 

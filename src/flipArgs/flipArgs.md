@@ -10,10 +10,10 @@ The "**flipArgs**" function return the order of the two first parameters. So lik
 import { flipArgs } from '@keienla/functional';
 
 function calc(x: number, y: number, z: number): number { return (x / y) + z }
-const inversedCalc: (z: number, y: number, x: number) => number = reverseArgs(calc);
+const flippedCalc: (z: number, y: number, x: number) => number = flipArgs(calc);
 
 const number1 = calc(10, 5, 8);          // 10
-const number2 = inversedCalc(10, 5, 8);  // 8.5
+const number2 = flippedCalc(10, 5, 8);  // 8.5
 
 number1 !== number2
 ```

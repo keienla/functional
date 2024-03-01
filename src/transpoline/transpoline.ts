@@ -1,4 +1,4 @@
-import { Transpoline, TranspolineResult } from './../models/transpoline.model';
+import type { Transpoline, TranspolineResult } from './../models/transpoline.model';
 
 /**
  * The transpoline function is used to manage recursive functions. It wrap the recursive function in a loop. Under the hood, it call the recursive function piece by piece until it no longer produces recursive calls.
@@ -12,6 +12,9 @@ import { Transpoline, TranspolineResult } from './../models/transpoline.model';
  *  - the recursive function must be in tail position (https://2ality.com/2015/06/tail-call-optimization.html#checking-whether-a-function-call-is-in-a-tail-position)
  *
  * But for transpoline work, you have to change the default recursive function for something similar.
+ *
+ * @param { (...args: T) => R } fn
+ * @returns { (...args: T) => R }
  * @example
  *  // for a given number, add number below. Ex: defaultRecursive(5) = 5 + 4 + 3 + 2 + 1
  *  function defaultRecursive(n: number, sum = 0): number {
@@ -28,9 +31,6 @@ import { Transpoline, TranspolineResult } from './../models/transpoline.model';
  *  }
  *
  *  const transpolineRecursive = transpoline(recursiveForTranspoline);
- *
- * @param { (...args: T) => R } fn
- * @returns { (...args: T) => R }
  */
 export default function transpoline<T extends any[], R>(fn: Transpoline<(...args: T) => R>): (...args: T) => TranspolineResult<R> {
     return function transpolined(...args: T): TranspolineResult<R> {

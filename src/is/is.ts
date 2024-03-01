@@ -2,6 +2,10 @@ import _is from '../_internal/_is';
 
 /**
  * Check if two element are the same. Work for all type of element. For object check all the keys/value, same for array check all element and order.
+ *
+ * @param {any} el1
+ * @param {any} el2
+ * @returns { boolean }
  * @example
  *  const el1: number[] = [0,1];
  *  const el2: object = { x: 2 };
@@ -22,10 +26,6 @@ import _is from '../_internal/_is';
  *  is(el5, /a/g)       // true
  *  is(el5, /b/g)       // false
  *  is(el5, '/b/g')     // false
- *
- * @param {any} el1
- * @param {any} el2
- * @returns { boolean }
  */
 export default function is<T extends any>(el1: T, el2: T): boolean;
 export default function is<T extends any>(el1: T): (el2: T) => boolean;

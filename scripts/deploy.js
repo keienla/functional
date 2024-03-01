@@ -36,7 +36,7 @@ newPackage.files = ['**/*']
 
 fs.appendFileSync(DIST_FOLDER + '/package.json', JSON.stringify(newPackage))
 
-const filesToMove = ['LICENSE', 'README.md']
+const filesToMove = ['LICENSE']
 
 filesToMove.forEach(file => {
     console.log('-> move ' + file)

@@ -1,5 +1,5 @@
+import type { Predicate } from '../models/types.model';
 import curry from '../curry/curry';
-import { Predicate } from '../models/types.model';
 
 export const _when = curry(function when<T, R>(predicate: Predicate<T>, fn: (arg: T) => R): (arg: T) => R | T {
     return _defaultWhenElse(predicate, fn);

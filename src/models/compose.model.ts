@@ -1,5 +1,5 @@
-import { Pipe } from "./pipe.model"
-import { IsFinite, Tail, Params, TypeName, Next, Pos, Reverse, Last, Length } from "./types.model"
+import type { Pipe } from "./pipe.model"
+import type { IsFinite, Tail, Reverse, Length } from "./types.model"
 
 export type Fn = (...args: any) => any
 
