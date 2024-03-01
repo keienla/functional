@@ -1,9 +1,9 @@
-import { ReduceArrayReducer, ReduceGeneratorReducer, ReduceObjectReducer } from '../models/reduce.model';
-import { Transpoline } from '../models/transpoline.model';
+import type { ReduceArrayReducer, ReduceGeneratorReducer, ReduceObjectReducer } from '../models/reduce.model';
+import type { Transpoline } from '../models/transpoline.model';
+import type { TObject } from '../models/types.model';
 import freeze from '../freeze/freeze';
 import transpoline from '../transpoline/transpoline';
 import curry from '../curry/curry';
-import { TObject } from '../models/types.model';
 
 export const _arrayReduce = curry(function arrayReduce<T, R>(fn: ReduceArrayReducer<T, R>, initialValue: R, array: T[]): R {
     if(!array || array.length === 0) return initialValue;

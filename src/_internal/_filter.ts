@@ -1,8 +1,8 @@
-import { FilterArrayReducer, FilterObjectReducer, FilterGeneratorReducer, FilterGeneratorReturned } from '../models/filter.model';
+import type { FilterArrayReducer, FilterObjectReducer } from '../models/filter.model';
+import type { TObject } from '../models/types.model';
 import reduce from '../reduce/reduce';
 import reduceObject from '../reduceObject/reduceObject';
 import curry from '../curry/curry';
-import { TObject } from '../models/types.model';
 
 export const _arrayFilter = curry(function arrayFilter<T>(fn: FilterArrayReducer<T>, array: T[]): T[] {
     return reduce(function arrayFilterReducer(accumulator: T[], current, index, array){

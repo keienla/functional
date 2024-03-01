@@ -9,6 +9,7 @@ export type Predicate<T> = (value: T) => boolean;
 const fn00 = (name: string, age: number, single: boolean) => true
 const fn01 = (...args: string[]) => true
 const fn02 = () => true
+const fn03 = (arg1: string, ...args: number[]) => true
 
 // #region Params
 // Get the types of each argument in a function and return array of types
@@ -20,6 +21,7 @@ export type Params<F extends Function> =
 type testParams1 = Params<typeof fn00>  // [string, number, boolean]
 type testParams2 = Params<typeof fn01>  // string[]
 type testParams3 = Params<typeof fn02>  // []
+type testParams4 = Params<typeof fn03>  // [string,...number[]]
 // #endregion
 
 // #region Head
@@ -32,6 +34,8 @@ export type Head<T extends any[]> =
 type testHead1 = Head<[1, 2, string, number]>   // 1
 type testHead2 = Head<Params<typeof fn00>>      // string
 type testHead3 = Head<[]>                       // never
+type testHead4 = Head<[string]>                 // string
+type testHead5 = Head<any[]>                    // never
 // #endregion
 
 // #region Tail
@@ -46,18 +50,31 @@ type testTail2 = Tail<Params<typeof fn00>>      // [number, boolean]
 type testTail3 = Tail<testTail2>                // [boolean]
 type testTail4 = Tail<testTail3>                // []
 type testTail5 = Tail<testTail4>                // []
+type testTail6 = Tail<[number[]]>               // []
+type testTail7 = Tail<[...number[]]>            // number[]
+type testTail8 = Tail<[number, ...string[]]>    // string[]
+type testTail9 = Tail<[number, boolean, ...string[]]>    // [boolean, ...string]
+type testTail10 = Tail<[number, string[]]>       // [string[]]
 // #endregion
 
 // #region HasTail
 // Check if there is at least 2 value in an array
 export type HasTail<T extends any[]> =
-    T extends ([] | [any])
+    Length<T> extends 0
     ? false
-    : true
+    : Length<T> extends 1
+        ? Last<T> extends never
+            ? Last<T>
+            : true
+        : true
 
 type testHasTail1 = HasTail<Params<typeof fn00>>    // true, [2, string, number] => cause element > 1
 type testHasTail2 = HasTail<Tail<Params<typeof fn00>>>  // true, [number, boolean] => cause element > 1
 type testHasTail3 = HasTail<Tail<Tail<Params<typeof fn00>>>>  // false, [boolean] => cause there is only 1 element
+type testHasTail4 = HasTail<[number[]]> // false
+type testHasTail5 = HasTail<[...number[]]> // true
+type testHasTail6 = HasTail<[number, ...string[]]> // true
+type testHasTail7 = HasTail<[number, string[]]> // true
 // #endregion
 
 // #region First
@@ -68,6 +85,10 @@ export type First<T extends any[]> = Head<T> extends never
     : T extends [first: infer F, ...rest: infer R] ? F : never
 
 type testFirst1 = First<[1, 2, 3, 4]>     // 1
+type testFirst2 = First<[]>               // never
+type testFirst3 = First<any[]>            // never
+type testFirst4 = First<[string, ...number[]]>            // string
+type testFirst5 = First<[...number[]]>            // never
 // #endregion
 
 // #region Last
@@ -78,6 +99,38 @@ export type Last<T extends any[]> = Tail<T> extends never
     : T extends [...rest: infer R, last: infer L] ? L : never
 
 type testLast1 = Last<[1, 2, 3, 4]>     // 4
+type testLast2 = Last<[]>               // never
+type testLast3 = Last<any[]>            // never
+type testLast4 = Last<[string, ...number[]]> // never
+// #endregion
+
+// #region Pop
+// Remove the last element of a Tuple
+export type Pop<T extends any[], R extends any[] = [], I extends any[] = []> = {
+    continue: Pop<Tail<T>, Prepend<Head<T>,R>>
+    finish: Reverse<R>
+    empty: never
+    infinite: '[POP] Infinite Error Loop'
+} [
+    T extends any[]
+        ? First<T> extends never
+            ? 'finish'
+            : Last<T> extends never
+                ? Length<T> extends 0
+                    ? 'finish'
+                    : 'continue'
+                : Length<T> extends 0
+                    ? 'finish'
+                    : Length<T> extends 1
+                        ? 'finish'
+                        : 'continue'
+        : 'empty'
+]
+
+type testPop1 = Pop<[1,2,3,4]> // [1,2,3]
+type testPop2 = Pop<[]> // []
+type testPop3 = Pop<any[]> // []
+type testPop4 = Pop<[string, ...number[]]>
 // #endregion
 
 // #region Prepend
@@ -98,6 +151,7 @@ type testLength1 = Length<[]>                       // 0
 type testLength2 = Length<[any, any]>               // 2
 type testLength3 = Length<[1, 2, 3]>                // 3
 type testLength4 = Length<Prepend<any, [1, 2, 3]>>  // 4
+type testLength5 = Length<[string, ...number[]]>    // number
 // #endregion
 
 // #region Drop
@@ -125,25 +179,24 @@ export type Before<N extends number, T extends any[], R extends any[] = [], I ex
     finish: Reverse<R>
     finishWithHead: Reverse<Prepend<Head<T>, R>>
     empty: never
-    infinite: {}
+    infinite: '[BEFORE] Infinite Loop Error'
 } [
     T extends any[]
         ? IsFinite<T, Length<I> extends N
             ? 'finish'
             : Length<Tail<T>> extends 0
-                ? 'finishWithHead'
+                ? Length<T> extends 0
+                    ? 'finish'
+                    : 'finishWithHead'
                 : 'continue', 'infinite'>
         : 'empty'
-    // Length<I> extends N
-    //     ? 'finish'
-    //     : Length<Tail<T>> extends 0
-    //         ? 'finishWithHead'
-    //         : 'continue'
 ]
 
 type testBefore1 = Before<0, [0, 1, 2]>                     // []
 type testBefore2 = Before<5, ['a', 'b']>                    // ['a', 'b']
 type testBefore3 = Before<3, ['a', 'b', 'c', 'd', 'e']>     // ['a', 'b', 'c']
+type TestBefore4 = Before<5, []>                            // []
+
 // #region Cast
 // If same type return first type else return second type
 export type Cast<X, Y> =
@@ -159,8 +212,8 @@ type testCast2 = Cast<[string], number> // number
 export type Pos<I extends any[]> =
     Length<I>
 
-export type Next<I extends any[]> =
-    Prepend<any, I>
+export type Next<I extends any[], Type extends any = any> =
+    Prepend<Type, I>
 
 export type Prev<I extends any[]> =
     Tail<I>
@@ -169,19 +222,21 @@ type testPos = Pos<[any, any]>          // 2
 type testNext = Pos<Next<[any, any]>>   // 3
 type testPrev = Pos<Prev<[any, any]>>   // 1
 
-export type Iterator<Index extends number = 0, From extends any[] = [], I extends any[] = []> = {
-    0: Iterator<Index, Next<From>, Next<I>>
-    1: From
+export type Iterator<Index extends number = 0, Type extends any = any, From extends any[] = [], I extends any[] = []> = {
+    continue: Iterator<Index, Type, Next<From, Type>, Next<I>>
+    stop: From
 } [
     Pos<I> extends Index
-    ? 1
-    : 0
+    ? 'stop'
+    : 'continue'
 ]
 
 type testIterator1 = Iterator<2>                // [any, any]
-type testIterator2 = Iterator<3, testIterator1> // [any, any, any, any, any]
-type testIterator3 = Pos<testIterator1>         // 2
-type testIterator4 = Pos<testIterator2>         // 5
+type testIterator2 = Iterator<2, number>        // [number, number]
+type testIterator3 = Iterator<3, string, testIterator2> // [string, string, string, number, number]
+type testIterator4 = Pos<testIterator1>         // 2
+type testIterator5 = Pos<testIterator2>         // 5
+type testIterator6 = Iterator<5, any, [], Iterator<3>>   // [any, any], like => from 3 to 5
 // #endregion
 
 // #region Reverse
@@ -209,6 +264,7 @@ type testReverse3 = Reverse<[[2, 1], [3, 4]]>   // [[3, 4], [2, 1]]
 export type Concat<Left extends any[], Right extends any[]> = [...Left, ...Right]
 
 type testConcat1 = Concat<[1, 2], [3, 4]>       // [1, 2, 3, 4]
+type testConcat2 = Concat<[], [1, 2]>       // [1, 2]
 // #endregion
 
 // #region Append
