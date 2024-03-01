@@ -4,9 +4,12 @@ import curry from '../curry/curry';
 
 /**
  * Check if the element given is the same type that the returnedTypes given
+ *
  * @param {returnedTypes} typeToTest
  * @param {any} element
  * @returns {boolean}
+ * @example
+ *  isType('boolean', false) // true
  */
 const isType = curry(function isType(typeToTest: returnedTypes, element: any): boolean {
     return typeFn(element) === typeToTest;

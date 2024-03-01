@@ -4,18 +4,19 @@ import reduce from '../reduce/reduce';
 
 /**
  * Transform a deep function into a one list arguments function.
+ *
+ * @param {Function} fn Function
+ * @returns { (...args: any[]) => any } (...args: any[]) => any
  * @example
  *  function sum(x: number): (y: number) => number {
  *      return function add(y: number): number {
  *          return x + y;
  *      }
  *  }
- *  const uncurriedSum: (x: number, y: number) => number = uncurry(sum);
- *  // So
- *  sum(5)(8) === sum(5, 8);     // true
- *
- * @param {Function} fn Function
- * @returns { (...args: any[]) => any } (...args: any[]) => any
+ *  const uncurriedSum = uncurry(sum);
+ *  console.log(uncurriedSum(2,5)) // 7
+ *  // Will throw an error
+ *  uncurriedSum(8)(3)
  */
 export default function uncurry<
     F extends ((...args: any[]) => any) | Curry<any>

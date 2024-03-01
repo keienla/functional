@@ -5,6 +5,10 @@ import isnt from './../isnt/isnt';
 
 /**
  * Check if two objects are the same. For this check the length of each object, keys and values.
+ *
+ * @param {object} object
+ * @param {object} objectToCompare
+ * @returns {boolean}
  * @example
  *  const obj1: object = { a: 'a', b: 'b' };
  *  const obj2: object = { a: 'a', b: 'b' };
@@ -19,10 +23,6 @@ import isnt from './../isnt/isnt';
  *  objectIs(obj1, obj4);        // false
  *  objectIs(obj1, obj5);        // false
  *  objectIs(obj1, obj6);        // false
- *
- * @param {object} object
- * @param {object} objectToCompare
- * @returns {boolean}
  */
 const objectIs = curry(function objectIs(object: TObject, objectToCompare: TObject): boolean {
     if(notSameLength(object, objectToCompare)) return false;

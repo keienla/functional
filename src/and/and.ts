@@ -4,6 +4,10 @@ import _and from './../_internal/_and';
 
 /**
  * The "and" function compare the result of multiple predicate functions with same argument and check if all the functions return "true".
+ *
+ * @typedef { any } T - The type of the value to pass to execute the predicates method
+ * @param { ((value: T) => boolean)[] } predicates
+ * @returns { (value: T) => boolean }
  * @example
  *  function sup10(value: number): boolean { return value > 10 }
  *  function odd(value: number): boolean { return value % 2 === 1 }
@@ -12,9 +16,6 @@ import _and from './../_internal/_and';
  *  oddOrSup10(12)      // false
  *  oddOrSup10(11)      // true
  *  oddOrSup10(6)       // false
- * @typedef { any } T - The type of the value to pass to execute the predicates method
- * @param { ((value: T) => boolean)[] } predicates
- * @returns { (value: T) => boolean }
  */
 export default function and<T>(predicate1: Predicate<T>, predicate2: Predicate<T>, value: T): boolean;
 export default function and<T>(predicate1: Predicate<T>, predicate2: Predicate<T>): (value: T) => boolean;

@@ -17,5 +17,3 @@ console.log(sumCurry(1)(2)(3)); // 6
 console.log(sumCurry(1,2)(3)); // 6
 console.log(sumCurry(1)(2,3)); // 6
 ```
-
-TODO WITH Default Args + Length

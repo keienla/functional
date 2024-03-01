@@ -6,5 +6,7 @@ describe('UNCURRY', () => {
         const uncurried = uncurry(curried);
 
         expect(uncurried('a', 'b')).toBe('ab')
+        // @ts-ignore
+        expect(() => { uncurried('a')('b') }).toThrow()
     })
 })

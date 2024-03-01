@@ -2,6 +2,7 @@
 
 import add                 from './add/add';
 import and                 from './and/and';
+import arity               from './arity/arity';
 import arrayIs             from './arrayIs/arrayIs';
 import compose             from './compose/compose';
 import constant            from './constant/constant';
@@ -46,6 +47,7 @@ import whenElse            from './whenElse/whenElse';
 export {
     add,
     and,
+    arity,
     arrayIs,
     compose,
     constant,
