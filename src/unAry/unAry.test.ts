@@ -9,7 +9,7 @@ describe('UNARY', () => {
         return (arg1 * arg3) + arg2
     }
 
-    test('Check nAry', () => {
+    test('Check unAry', () => {
         const unAryFn = unAry(multipleArgsFn)
         expect(typeof unAryFn()).toBe('function')
         expect(unAryFn(5)).toBe('5')

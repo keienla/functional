@@ -10,6 +10,8 @@ import type from './../type/type';
  * If the element is a regexp: return the number of characters.
  * else return null
  *
+ * @param {any} el
+ * @returns { number | null } number | null
  * @example
  *  const el1: string = 'abc';
  *  const el2: string[] = ['a', 'b'];
@@ -30,9 +32,6 @@ import type from './../type/type';
  *  length(el7);         // null
  *  length(el8);         // null
  *  length(el9);         // null
- *
- * @param {any} el
- * @returns { number | null } number | null
  */
 export default function length(el: any): number | null {
     switch(type(el)) {

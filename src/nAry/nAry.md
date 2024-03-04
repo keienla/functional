@@ -28,8 +28,8 @@ const nAry3 = nAry(multipleArgsFn, 3)
 
 nAry0()             // 'NaN'
 nAry1(2)            // '2'
-nAry2(3, 'n'))      // '3n'
-nAry3(4, 'n', 3))   // '12n'
+nAry2(3, 'n')       // '3n'
+nAry3(4, 'n', 3)    // '12n'
 
 // Note that you can use function as curried
 nAry2(3)('n')       // '3n'

@@ -1,4 +1,3 @@
-import curry from '../curry/curry';
 import nAry from './nAry';
 
 describe('N_ARY', () => {

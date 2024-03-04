@@ -1,4 +1,4 @@
-import { ValueOf } from './types.model';
+import type { ValueOf } from './types.model';
 
 export type ReduceArrayReducer<T, R> =
     (accumulator: R, current: T, index: number, array: T[]) => R;

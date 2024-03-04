@@ -1,6 +1,6 @@
+import type { Transpoline } from '../models/transpoline.model';
 import curry from '../curry/curry';
 import notSameLength from '../notSameLength/notSameLength';
-import { Transpoline } from '../models/transpoline.model';
 import is from '../is/is';
 import transpoline from '../transpoline/transpoline';
 

@@ -4,6 +4,10 @@ import curry from '../curry/curry';
 /**
  * Check if two elements have the same length.
  * If one of the element type can't have a length that can be calculated, return false.
+ *
+ * @param {any} el1
+ * @param {any} el2
+ * @returns {boolean} boolean
  * @example
  *  const el1: string = 'ab';
  *  const el2: number[] = [1, 2];
@@ -12,10 +16,6 @@ import curry from '../curry/curry';
  *  sameLength(el1, el1);    // true
  *  sameLength(el1, el2);    // true
  *  sameLength(el1, el3);    // false
- *
- * @param {any} el1
- * @param {any} el2
- * @returns {boolean} boolean
  */
 export default curry(function sameLength(el1: any, el2: any): boolean {
     const el1Length: number | null = length(el1);
