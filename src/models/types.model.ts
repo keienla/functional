@@ -2,6 +2,8 @@ export type TObject = {
     [key: string]: any
 }
 
+export type List = any[]
+
 export type Fn = (...args: any[]) => any
 
 export type Predicate<T> = (value: T) => boolean;
@@ -26,8 +28,8 @@ type testParams4 = Params<typeof fn03>  // [string,...number[]]
 
 // #region Head
 // Get the first element in a array of type
-export type Head<T extends any[]> =
-    T extends [infer HeadElement, ...any[]]
+export type Head<T extends List> =
+    T extends [infer HeadElement, ...List]
     ? HeadElement
     : never
 
@@ -40,10 +42,12 @@ type testHead5 = Head<any[]>                    // never
 
 // #region Tail
 // Get all the elements except first in an array of type
-export type Tail<T extends any[]> =
-    ((...t: T) => any) extends ((_: any, ...tail: infer TailsElement) => any)
-    ? TailsElement
-    : never
+export type Tail<L extends List> =
+    L extends readonly []
+    ? L
+    : L extends readonly [any?, ...infer LTail]
+        ? LTail
+        : L
 
 type testTail1 = Tail<[1, 2, string, number]>   // [2, string, number]
 type testTail2 = Tail<Params<typeof fn00>>      // [number, boolean]
@@ -53,7 +57,7 @@ type testTail5 = Tail<testTail4>                // []
 type testTail6 = Tail<[number[]]>               // []
 type testTail7 = Tail<[...number[]]>            // number[]
 type testTail8 = Tail<[number, ...string[]]>    // string[]
-type testTail9 = Tail<[number, boolean, ...string[]]>    // [boolean, ...string]
+type testTail9 = Tail<[number, boolean, ...string[]]>    // [boolean, ...string[]]
 type testTail10 = Tail<[number, string[]]>       // [string[]]
 // #endregion
 
@@ -144,7 +148,7 @@ type testPrepend2 = Prepend<number, [1, 2]>     // [number, 1, 2]
 
 // #region Length
 // Get the length of an array of element
-export type Length<T extends any[]> =
+export type Length<T extends List> =
     T['length']
 
 type testLength1 = Length<[]>                       // 0
@@ -511,3 +515,79 @@ type testIsFinite1 = IsFinite<[string, number], true, false>        // true
 type testIsFinite2 = IsFinite<any[], true, false>                   // false
 type testIsFinite3 = IsFinite<[], true, false>                      // true
 // #endregion
+
+// #region IsDefinedNumber
+// Check if the given type is a number or just the default number type
+export type IsDefinedNumber<Number extends number> =
+    Number extends number
+        ? number extends Number
+            ? false
+            : true
+        : false
+
+type IsDefinedNumber1 = IsDefinedNumber<number> // false
+type IsDefinedNumber2 = IsDefinedNumber<1>      // true
+// #endregion
+
+// #region IsSpreadItem
+type IsSpreadItem<Item> = Item extends List
+    ? IsDefinedNumber<Length<Item>> extends true
+        ? false
+        : true
+    : false
+
+type IsSpreadItem1 = IsSpreadItem<[...any[]]>   // true
+type IsSpreadItem2 = IsSpreadItem<any[]>    // true
+type IsSpreadItem3 = IsSpreadItem<[string]>    // false
+type IsSpreadItem4 = IsSpreadItem<[string[]]>    // false
+type IsSpreadItem5 = IsSpreadItem<string>    // false
+// #endregion
+
+//#region SplitParams
+// TODO WORK IN PROGRESS
+// type SplitParams<Params extends List, ParamsSplit extends List[] = [], ParamsRest extends List = Tail<Params>> = {
+//     0: Params extends [...infer A, ...ParamsRest]
+//         ? SplitParams<Tail<Params>, [...ParamsSplit, A], Tail<ParamsRest>>
+//         : never
+//     1: ParamsSplit
+//     2: Params[number][][]
+// }[
+//     IsDefinedNumber<Length<Params>> extends false
+//         ? 2
+//         : Params extends []
+//             ? 1
+//             : 0
+// ]
+type SplitParams<Params extends List, ParamsSplit extends List[] = [], ParamsRest extends List = Tail<Params>> = {
+    // 0: Params extends [...infer A, ...ParamsRest]
+    //     ? SplitParams<Tail<Params>, [...ParamsSplit, [A]], Tail<ParamsRest>>
+    //     : never
+    Continue: Params extends [...infer A, ...ParamsRest]
+        ? SplitParams<Tail<Params>, [...ParamsSplit, A], Tail<ParamsRest>>
+        : never
+    EndParamsSplit: ParamsSplit
+    EndSpreadParams: ParamsSplit
+    Test: 'Test'
+}[
+    IsSpreadItem<Head<Params>> extends true
+        ? 'EndSpreadParams'
+        : Length<Params> extends 0
+            ? 'EndParamsSplit'
+            : 'Continue'
+    // Head<Params> extends List
+    //     ? IsSpreadItem<Head<Params>> extends true
+    //         ? 'EndSpreadParams'
+    //         : 'EndParamsSplit'
+    //     : IsSpreadItem<Head<Params>> extends true
+    //         ? 'EndSpreadParams'
+    //         : Params extends []
+    //             ? 'EndParamsSplit'
+    //             : 'Continue'
+]
+
+// type F = (hello: string, ...args: number[]) => number
+type F = (hello: string, ...args: number[]) => number
+type P = Parameters<F>
+type C = Head<P>
+type FT = SplitParams<P>
+//#endregion SplitParams

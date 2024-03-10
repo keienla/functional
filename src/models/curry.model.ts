@@ -1,4 +1,4 @@
-import type { Cast, Drop, Length, Tuple } from './types.model';
+import type { Cast, Drop, IsDefinedNumber, Length, List, Tail, Tuple } from './types.model';
 
 // ! https://medium.com/codex/currying-in-typescript-ca5226c85b85
 
