@@ -11,7 +11,7 @@ It mean that ```nAry(function t(arg1: any, ...args) {})``` or ```nAry(function t
 --------------
 #### Example:
 ``` typescript
-import { nAry } from '@keienla/functional';
+import { nAry } from '@kenla/functional';
 
 function multipleArgsFn(arg1: number, arg2: string, arg3: number) {
     // Define default value for arg2 && arg3

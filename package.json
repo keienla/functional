@@ -35,7 +35,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/keienla/functional.git"
+    "url": "git+https://github.com/kenla/functional.git"
   },
-  "homepage": "https://github.com/keienla/functional#readme"
+  "homepage": "https://github.com/kenla/functional#readme"
 }

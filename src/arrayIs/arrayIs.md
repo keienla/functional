@@ -7,7 +7,7 @@ The "**arrayIs**" function compare two array and check if the arrays have the sa
 --------------
 #### Example:
 ``` typescript
-import { arrayIs } from '@keienla/functional';
+import { arrayIs } from '@kenla/functional';
 
 const arr1: number[] = [0,1,2,3];
 const arr2: number[] = [0,1,2,3];

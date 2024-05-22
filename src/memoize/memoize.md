@@ -7,7 +7,7 @@ The "**memoize**" function accept a function as argument. Each time the new memo
 --------------
 #### Example:
 ``` typescript
-import { memoize } from '@keienla/functional';
+import { memoize } from '@kenla/functional';
 
 function sum(x: number, y: number): number { return x + y };
 const memoizedSum: (x: number, y: number) => number = memoize(sum);

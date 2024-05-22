@@ -7,7 +7,7 @@ The "**gatherArgs**" function transform a function multiple arguments to a funct
 --------------
 #### Example:
 ``` typescript
-import { gatherArgs } from '@keienla/functional';
+import { gatherArgs } from '@kenla/functional';
 
 function sum(...args: number[]): number { return numbers.reduce((result, value) => result + value, 0 ) };
 const gatheredSum: (n: number[]): number = gatherArgs(sum);

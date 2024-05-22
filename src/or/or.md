@@ -7,7 +7,7 @@ The "**or**" function compare the result of multiple predicate functions with sa
 --------------
 #### Example:
 ``` typescript
-import { or } from '@keienla/functional';
+import { or } from '@kenla/functional';
 
 // One predicate Function
 // Check if a number is superior of 10
