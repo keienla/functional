@@ -30,7 +30,7 @@
         "./not": "./src/not/not.ts",
         "./notSameLength": "./src/notSameLength/notSameLength.ts",
         "./objectIs": "./src/objectIs/objectIs.ts",
-        "./or": "./src/or/or",
+        "./or": "./src/or/or.ts",
         "./partial": "./src/partial/partial.ts",
         "./pick": "./src/pick/pick.ts",
         "./pickAll": "./src/pickAll/pickAll.ts",
