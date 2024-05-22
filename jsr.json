@@ -18,7 +18,7 @@
         "./freeze": "./src/freeze/freeze.ts",
         "./gatherArgs": "./src/gatherArgs/gatherArgs.ts",
         "./identity": "./src/identity/identity.ts",
-        "./is": "./src/is/is",
+        "./is": "./src/is/is.ts",
         "./isLength": "./src/isLength/isLength.ts",
         "./isnt": "./src/isnt/isnt.ts",
         "./isType": "./src/isType/isType.ts",
