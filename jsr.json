@@ -45,5 +45,10 @@
         "./type": "./src/type/type.ts",
         "./when": "./src/when/when.ts",
         "./whenElse": "./src/whenElse/whenElse.ts"
+    },
+    "publish": {
+        "exclude": [
+            "scripts/deploy.js"
+        ]
     }
 }
