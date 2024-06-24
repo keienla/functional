@@ -7,7 +7,7 @@ The "**identity**" function return the element given in arg.
 --------------
 #### Example:
 ``` typescript
-import { identity } from '@keienla/functional';
+import { identity } from '@kenla/functional';
 
 const nine = identity(9);
 

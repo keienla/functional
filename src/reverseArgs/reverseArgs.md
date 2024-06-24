@@ -9,7 +9,7 @@ The "**reverseArgs**" function take as parameter a function and return a functio
 --------------
 #### Example:
 ``` typescript
-import { reverseArgs } from '@keienla/functional';
+import { reverseArgs } from '@kenla/functional';
 
 function divide(x: number, y: number): number { return x / y }
 const inversedDivide: (y: number, x: number) => number = reverseArgs(divide);

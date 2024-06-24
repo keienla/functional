@@ -20,7 +20,7 @@ The "**type**" function check the element and return a specific type in string e
 --------------
 #### Example:
 ``` typescript
-import { type } from '@keienla/functional';
+import { type } from '@kenla/functional';
 
 type(undefined)     // undefined
 type(null)          // null

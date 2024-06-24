@@ -7,7 +7,7 @@ The "**filterObject**" function creates a new object with all elements that pass
 --------------
 #### Example:
 ``` typescript
-import { filterObject } from '@keienla/functional';
+import { filterObject } from '@kenla/functional';
 
 function filterOdd(x: number): boolean { return x % 2 === 1 };
 const filtered = filterObject(filterOdd, {a: 1, b: 5, c: 8});

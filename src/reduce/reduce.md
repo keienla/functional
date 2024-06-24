@@ -7,7 +7,7 @@ The "**reduce**" function return a single item by itering throught a given list.
 --------------
 #### Example:
 ``` typescript
-import { reduce } from '@keienla/functional';
+import { reduce } from '@kenla/functional';
 
 function reducer(x: number, y: number): number { return x + y };
 const reduced = reduce(reducer, 0, [8,8,1,3]);

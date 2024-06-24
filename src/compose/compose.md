@@ -9,7 +9,7 @@ Start from the last function to the first given.
 --------------
 #### Example:
 ``` typescript
-import { compose } from '@keienla/functional';
+import { compose } from '@kenla/functional';
 
 function addOne(value: number): number { return value + 1 };
 function mulTwo(value: number): number { return value * 2 };

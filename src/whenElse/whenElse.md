@@ -7,7 +7,7 @@ The "**whenElse**" check a predicate function with a given value. If pass execut
 --------------
 #### Example:
 ``` typescript
-import { whenElse } from '@keienla/functional';
+import { whenElse } from '@kenla/functional';
 
 function isOdd(x: number): boolean { return x % 2 === 1 };
 function addOne(x: number): number { return x + 1 };

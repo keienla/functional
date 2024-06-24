@@ -7,7 +7,7 @@ The "**spreadArgs**" function transform a function with only one array type argu
 --------------
 #### Example:
 ``` typescript
-import { spreadArgs } from '@keienla/functional';
+import { spreadArgs } from '@kenla/functional';
 
 function sum(numbers: number[]): number { return numbers.reduce((result, value) => result + value, 0 ) };
 const spreadedSum: (...args: number[]): number = spreadArgs(sum);

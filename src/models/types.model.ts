@@ -67,10 +67,10 @@ export type HasTail<T extends any[]> =
     Length<T> extends 0
     ? false
     : Length<T> extends 1
-        ? Last<T> extends never
-            ? Last<T>
-            : true
-        : true
+    ? Last<T> extends never
+    ? Last<T>
+    : true
+    : true
 
 type testHasTail1 = HasTail<Params<typeof fn00>>    // true, [2, string, number] => cause element > 1
 type testHasTail2 = HasTail<Tail<Params<typeof fn00>>>  // true, [number, boolean] => cause element > 1
@@ -111,27 +111,27 @@ type testLast4 = Last<[string, ...number[]]> // never
 // #region Pop
 // Remove the last element of a Tuple
 export type Pop<T extends any[], R extends any[] = [], I extends any[] = []> = {
-    continue: Pop<Tail<T>, Prepend<Head<T>,R>>
+    continue: Pop<Tail<T>, Prepend<Head<T>, R>>
     finish: Reverse<R>
     empty: never
     infinite: '[POP] Infinite Error Loop'
-} [
+}[
     T extends any[]
-        ? First<T> extends never
-            ? 'finish'
-            : Last<T> extends never
-                ? Length<T> extends 0
-                    ? 'finish'
-                    : 'continue'
-                : Length<T> extends 0
-                    ? 'finish'
-                    : Length<T> extends 1
-                        ? 'finish'
-                        : 'continue'
-        : 'empty'
+    ? First<T> extends never
+    ? 'finish'
+    : Last<T> extends never
+    ? Length<T> extends 0
+    ? 'finish'
+    : 'continue'
+    : Length<T> extends 0
+    ? 'finish'
+    : Length<T> extends 1
+    ? 'finish'
+    : 'continue'
+    : 'empty'
 ]
 
-type testPop1 = Pop<[1,2,3,4]> // [1,2,3]
+type testPop1 = Pop<[1, 2, 3, 4]> // [1,2,3]
 type testPop2 = Pop<[]> // []
 type testPop3 = Pop<any[]> // []
 type testPop4 = Pop<[string, ...number[]]>
@@ -164,7 +164,7 @@ export type Drop<N extends number, T extends any[], I extends any[] = []> = {
     continue: Drop<N, Tail<T>, Prepend<any, I>>
     return: T,
     infinite: {}
-} [
+}[
     Length<I> extends N
     ? 'return'
     : IsFinite<T, 'continue', 'infinite'>
@@ -172,28 +172,28 @@ export type Drop<N extends number, T extends any[], I extends any[] = []> = {
 
 type testDrop1 = Drop<2, ['a', 'b', 'c', 'd']>  // ['c', 'd']
 type testDrop2 = Drop<3, ['a', 'b', 'c', 'd']>  // ['d']
-type testDrop3 = Drop<any, [0,1,2]>             // [0,1,2]
+type testDrop3 = Drop<any, [0, 1, 2]>             // [0,1,2]
 type testDrop4 = Drop<3, ['a']>                 // []
 // #endregion
 
 // #region Before
 // Get all the arguments before the index given
 export type Before<N extends number, T extends any[], R extends any[] = [], I extends any[] = []> = {
-    continue: Before<N, Tail<T>, Prepend<Head<T>,R>, Next<I>>
+    continue: Before<N, Tail<T>, Prepend<Head<T>, R>, Next<I>>
     finish: Reverse<R>
     finishWithHead: Reverse<Prepend<Head<T>, R>>
     empty: never
     infinite: '[BEFORE] Infinite Loop Error'
-} [
+}[
     T extends any[]
-        ? IsFinite<T, Length<I> extends N
-            ? 'finish'
-            : Length<Tail<T>> extends 0
-                ? Length<T> extends 0
-                    ? 'finish'
-                    : 'finishWithHead'
-                : 'continue', 'infinite'>
-        : 'empty'
+    ? IsFinite<T, Length<I> extends N
+        ? 'finish'
+        : Length<Tail<T>> extends 0
+        ? Length<T> extends 0
+        ? 'finish'
+        : 'finishWithHead'
+        : 'continue', 'infinite'>
+    : 'empty'
 ]
 
 type testBefore1 = Before<0, [0, 1, 2]>                     // []
@@ -229,7 +229,7 @@ type testPrev = Pos<Prev<[any, any]>>   // 1
 export type Iterator<Index extends number = 0, Type extends any = any, From extends any[] = [], I extends any[] = []> = {
     continue: Iterator<Index, Type, Next<From, Type>, Next<I>>
     stop: From
-} [
+}[
     Pos<I> extends Index
     ? 'stop'
     : 'continue'
@@ -247,16 +247,13 @@ type testIterator6 = Iterator<5, any, [], Iterator<3>>   // [any, any], like => 
 export type Reverse<A extends any[], Prefix extends any[] = []> = {
     empty: Prefix,
     notEmpty: ((...args: A) => any) extends ((_: infer First, ...next: infer Next) => any)
-        ? Reverse<Next, Prepend<First, Prefix>>
-        : never,
-    infinite: {
-        ERROR: 'Cannot reverse an infinite array',
-        CODENAME: ['InfiniteArray', 'Infinite']
-    }
-} [
+    ? Reverse<Next, Prepend<First, Prefix>>
+    : never,
+    infinite: []
+}[
     A extends [any, ...any[]]
-        ? IsFinite<A, 'notEmpty', 'infinite'>
-        : 'empty'
+    ? IsFinite<A, 'notEmpty', 'infinite'>
+    : 'empty'
 ]
 
 type testReverse1 = Reverse<[1, 2, 3]>          // [3, 2, 1]
@@ -280,12 +277,12 @@ type testAppend1 = Append<3, [1, 2]>    // [1, 2, 3]
 // #endregion
 
 // #region NotNull
-export type NotNull<A,B> =
+export type NotNull<A, B> =
     A extends undefined
-        ? B
-        : A extends null
-            ? B
-            : A
+    ? B
+    : A extends null
+    ? B
+    : A
 
 type testNotNull1 = NotNull<number, string>     // number
 type testNotNull2 = NotNull<undefined, string>  // string
@@ -298,42 +295,42 @@ export type returnedTypes = 'any' | 'string' | 'array' | 'object' | 'number' | '
 
 export type TypeName<A> =
     unknown extends A
-        ? [keyof A] extends [never]
-            ? 'unknown'
-            : 'any'
+    ? [keyof A] extends [never]
+    ? 'unknown'
+    : 'any'
     : A extends Array<any>
-        ? 'array'
+    ? 'array'
     : A extends string
-        ? 'string'
+    ? 'string'
     : A extends number
-        ? 'number'
+    ? 'number'
     : A extends Function
-        ? 'function'
+    ? 'function'
     : A extends boolean
-        ? 'boolean'
+    ? 'boolean'
     : A extends undefined
-        ? 'undefined'
+    ? 'undefined'
     : A extends Symbol
-        ? 'symbol'
+    ? 'symbol'
     : A extends RegExp
-        ? 'regexp'
+    ? 'regexp'
     : A extends Generator
-        ? 'generator'
+    ? 'generator'
     : A extends null
-        ? 'null'
+    ? 'null'
     : A extends bigint
-        ? 'bigint'
+    ? 'bigint'
     : A extends object
-        ? 'object'
+    ? 'object'
     : 'unknown'
 
 const testTypeNameSymbol = Symbol('qzd');
 const testTypeNameRegexp = /a/g;
-function* testTypeNameGeneratorFunction() {}
+function* testTypeNameGeneratorFunction() { }
 const testTypeNameGenerator = testTypeNameGeneratorFunction();
 
 type testTypeName1 = TypeName<[]>                           // 'array'
-type testTypeName2 = TypeName<[0,1]>                        // 'array'
+type testTypeName2 = TypeName<[0, 1]>                        // 'array'
 type testTypeName3 = TypeName<''>                           // 'string'
 type testTypeName4 = TypeName<0>                            // 'number'
 type testTypeName5 = TypeName<() => {}>                     // 'function'
@@ -381,10 +378,10 @@ export type TypeOf<T> =
     ? T
     : unknown
 
-const testTypeOfFunction = (a: string): number => {return 0}
+const testTypeOfFunction = (a: string): number => { return 0 }
 type testTypeOf1 = TypeOf<[]>                           // any[]
 type testTypeOf2 = TypeOf<string[]>                     // string[]
-type testTypeOf3 = TypeOf<[0,1]>                        // number[]
+type testTypeOf3 = TypeOf<[0, 1]>                        // number[]
 type testTypeOf4 = TypeOf<''>                           // string
 type testTypeOf5 = TypeOf<string>                      // string
 type testTypeOf6 = TypeOf<0>                            // number
@@ -398,13 +395,13 @@ type testTypeOf13 = TypeOf<typeof testTypeNameRegexp>   // RegExp
 type testTypeOf14 = TypeOf<typeof testTypeNameGenerator>// Generator
 type testTypeOf15 = TypeOf<null>                        // null
 type testTypeOf16 = TypeOf<{}>                          // object
-type testTypeOf17 = TypeOf<{a: number, b: string}>      // {a: number, b: string}
+type testTypeOf17 = TypeOf<{ a: number, b: string }>      // {a: number, b: string}
 // #endregion
 
 // #region ValueOf
 export type ValueOf<T> = T[keyof T];
 
-type testValueOf = ValueOf<{a: string, b: number}>      // string | number
+type testValueOf = ValueOf<{ a: string, b: number }>      // string | number
 // #endregion
 
 // #region IntersectionFromUnion
@@ -464,7 +461,7 @@ type testTuple1 = Tuple<string>     // string[]
 export type TupleFromUnion<RemainingUnion, CurrentTuple extends any[] = []> = {
     0: TupleFromUnion<UnionExcludingLast<RemainingUnion>, Prepend<UnionLast<RemainingUnion>, CurrentTuple>>
     1: CurrentTuple
-} [
+}[
     [RemainingUnion] extends [never]
     ? 1
     : 0
@@ -499,15 +496,15 @@ type testSameValueInterface3 = SameValueInterface<svi1 & svi2, number>  // { a: 
 export type IsFinite<A extends any[], Finite, Infinite> = {
     empty: Finite,
     notEmpty: ((...args: A) => any) extends ((_firstArgs: infer First, ...args: infer Rest) => any)
-        ? IsFinite<Rest, Finite, Infinite>
-        : never
+    ? IsFinite<Rest, Finite, Infinite>
+    : never
     infinite: Infinite
 }[
     A extends [] ? 'empty'
     : A extends (infer Element)[] ?
-        Element[] extends A ?
-        'infinite'
-        : 'notEmpty'
+    Element[] extends A ?
+    'infinite'
+    : 'notEmpty'
     : never
 ]
 

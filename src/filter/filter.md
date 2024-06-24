@@ -7,7 +7,7 @@ The "**filter**" function creates a new array with all elements that pass the te
 --------------
 #### Example:
 ``` typescript
-import { filter } from '@keienla/functional';
+import { filter } from '@kenla/functional';
 
 function filterOdd(x: number): boolean { return x % 2 === 1 };
 const filtered = filter(filterOdd, [1,5,8]);

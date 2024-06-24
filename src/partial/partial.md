@@ -8,7 +8,7 @@ So it complete the x first arguments of a function.
 --------------
 #### Example:
 ``` typescript
-import { partial } from '@keienla/functional';
+import { partial } from '@kenla/functional';
 
 // Some function with multiple arguments
 function add(a: number, b: number) { return a + b }
