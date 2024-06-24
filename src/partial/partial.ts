@@ -19,6 +19,6 @@ export default function partial<
     GivenArgs = U extends any[] ? U : any[]
 >(fn: Fn, ...defaultArgs: U): (...args: Cast<Drop<Length<Cast<GivenArgs, any[]>>, Args>, any[]>) => Response {
     return function completeArgs(...args: Cast<Drop<Length<Cast<GivenArgs, any[]>>, Args>, any[]>): Response {
-        return fn(...defaultArgs, ...args);
+        return fn(...defaultArgs, ...(args as any[]));
     };
 }
