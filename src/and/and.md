@@ -7,7 +7,7 @@ The "**and**" function compare the result of multiple predicate functions with s
 --------------
 #### Example:
 ``` typescript
-import { and } from '@keienla/functional';
+import { and } from '@kenla/functional';
 
 // One predicate Function
 // Check if a number is superior of 10

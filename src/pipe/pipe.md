@@ -9,7 +9,7 @@ Start from the first function given to the last
 --------------
 #### Example:
 ``` typescript
-import { pipe } from '@keienla/functional';
+import { pipe } from '@kenla/functional';
 
 function addOne(value: number): number { return value + 1 };
 function mulTwo(value: number): number { return value * 2 };

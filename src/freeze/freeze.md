@@ -9,7 +9,7 @@ This operation only work on first level.
 --------------
 #### Example:
 ``` typescript
-import { freeze } from '@keienla/functional';
+import { freeze } from '@kenla/functional';
 
 const freezedEl = freeze({ a: 1 });
 freezedEl['a'] = 2;

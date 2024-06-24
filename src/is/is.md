@@ -7,7 +7,7 @@ The "**is**" function check if two element are the same. Work for all type of el
 --------------
 #### Example:
 ``` typescript
-import { is } from '@keienla/functional';
+import { is } from '@kenla/functional';
 
 const el1: number[] = [0,1];
 const el2: object = { x: 2 };

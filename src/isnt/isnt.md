@@ -9,7 +9,7 @@ So do the opposite of [is()](./../is/is.md)
 --------------
 #### Example:
 ``` typescript
-import { isnt } from '@keienla/functional';
+import { isnt } from '@kenla/functional';
 
 const el1: number[] = [0,1];
 const el2: object = { x: 2 };
