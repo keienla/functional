@@ -26,6 +26,13 @@ type testParams3 = Params<typeof fn02>  // []
 type testParams4 = Params<typeof fn03>  // [string,...number[]]
 // #endregion
 
+// #region IsNever
+export type IsNever<T> = [T] extends [never] ? true : false
+
+type testIsNever1 = IsNever<never>    // true
+type testIsNever2 = IsNever<any>      // false
+// #endregion IsNever
+
 // #region Head
 // Get the first element in a array of type
 export type Head<T extends List> =
@@ -46,11 +53,11 @@ export type Tail<L extends List> =
     L extends readonly []
     ? L
     : L extends readonly [any?, ...infer LTail]
-        ? LTail
-        : L
+    ? LTail
+    : L
 
 type testTail1 = Tail<[1, 2, string, number]>   // [2, string, number]
-type testTail2 = Tail<Params<typeof fn00>>      // [number, boolean]
+type testTail2 = Tail<Parameters<typeof fn00>>      // [number, boolean]
 type testTail3 = Tail<testTail2>                // [boolean]
 type testTail4 = Tail<testTail3>                // []
 type testTail5 = Tail<testTail4>                // []
@@ -61,30 +68,10 @@ type testTail9 = Tail<[number, boolean, ...string[]]>    // [boolean, ...string[
 type testTail10 = Tail<[number, string[]]>       // [string[]]
 // #endregion
 
-// #region HasTail
-// Check if there is at least 2 value in an array
-export type HasTail<T extends any[]> =
-    Length<T> extends 0
-    ? false
-    : Length<T> extends 1
-    ? Last<T> extends never
-    ? Last<T>
-    : true
-    : true
-
-type testHasTail1 = HasTail<Params<typeof fn00>>    // true, [2, string, number] => cause element > 1
-type testHasTail2 = HasTail<Tail<Params<typeof fn00>>>  // true, [number, boolean] => cause element > 1
-type testHasTail3 = HasTail<Tail<Tail<Params<typeof fn00>>>>  // false, [boolean] => cause there is only 1 element
-type testHasTail4 = HasTail<[number[]]> // false
-type testHasTail5 = HasTail<[...number[]]> // true
-type testHasTail6 = HasTail<[number, ...string[]]> // true
-type testHasTail7 = HasTail<[number, string[]]> // true
-// #endregion
-
 // #region First
 // Recursive type function
 // Check all the elements and get the last parameter
-export type First<T extends any[]> = Head<T> extends never
+export type First<T extends any[]> = IsNever<Head<T>> extends true
     ? never
     : T extends [first: infer F, ...rest: infer R] ? F : never
 
@@ -98,7 +85,7 @@ type testFirst5 = First<[...number[]]>            // never
 // #region Last
 // Recursive type function
 // Check all the elements and get the last parameter
-export type Last<T extends any[]> = Tail<T> extends never
+export type Last<T extends any[]> = IsNever<Tail<T>> extends true
     ? never
     : T extends [...rest: infer R, last: infer L] ? L : never
 
@@ -117,9 +104,9 @@ export type Pop<T extends any[], R extends any[] = [], I extends any[] = []> = {
     infinite: '[POP] Infinite Error Loop'
 }[
     T extends any[]
-    ? First<T> extends never
+    ? IsNever<First<T>> extends true
     ? 'finish'
-    : Last<T> extends never
+    : IsNever<Last<T>> extends true
     ? Length<T> extends 0
     ? 'finish'
     : 'continue'
@@ -156,6 +143,7 @@ type testLength2 = Length<[any, any]>               // 2
 type testLength3 = Length<[1, 2, 3]>                // 3
 type testLength4 = Length<Prepend<any, [1, 2, 3]>>  // 4
 type testLength5 = Length<[string, ...number[]]>    // number
+type testLength6 = Length<never>                    // never
 // #endregion
 
 // #region Drop
@@ -344,10 +332,6 @@ type testTypeName12 = TypeName<null>                        // 'null'
 type testTypeName13 = TypeName<{}>                          // 'object'
 type testTypeName14 = TypeName<any>                         // 'any'
 type testTypeName15 = TypeName<unknown>                     // 'unknown'
-
-type Tqzd = testTypeName14 extends 'any' ? 'true' : 'false'
-
-type truc = any extends 'any' ? 'true' : 'false'
 // #endregion
 
 // #region TypeOf
@@ -517,20 +501,22 @@ type testIsFinite3 = IsFinite<[], true, false>                      // true
 // Check if the given type is a number or just the default number type
 export type IsDefinedNumber<Number extends number> =
     Number extends number
-        ? number extends Number
-            ? false
-            : true
-        : false
+    ? number extends Number
+    ? false
+    : true
+    : false
 
 type IsDefinedNumber1 = IsDefinedNumber<number> // false
 type IsDefinedNumber2 = IsDefinedNumber<1>      // true
 // #endregion
 
 // #region IsSpreadItem
-type IsSpreadItem<Item> = Item extends List
+type IsSpreadItem<Item> = IsNever<Item> extends true
+    ? false
+    : Item extends List
     ? IsDefinedNumber<Length<Item>> extends true
-        ? false
-        : true
+    ? false
+    : true
     : false
 
 type IsSpreadItem1 = IsSpreadItem<[...any[]]>   // true
@@ -538,6 +524,7 @@ type IsSpreadItem2 = IsSpreadItem<any[]>    // true
 type IsSpreadItem3 = IsSpreadItem<[string]>    // false
 type IsSpreadItem4 = IsSpreadItem<[string[]]>    // false
 type IsSpreadItem5 = IsSpreadItem<string>    // false
+type IsSpreadItem6 = IsSpreadItem<never>    // false
 // #endregion
 
 //#region SplitParams
@@ -556,35 +543,37 @@ type IsSpreadItem5 = IsSpreadItem<string>    // false
 //             : 0
 // ]
 type SplitParams<Params extends List, ParamsSplit extends List[] = [], ParamsRest extends List = Tail<Params>> = {
-    // 0: Params extends [...infer A, ...ParamsRest]
-    //     ? SplitParams<Tail<Params>, [...ParamsSplit, [A]], Tail<ParamsRest>>
-    //     : never
     Continue: Params extends [...infer A, ...ParamsRest]
-        ? SplitParams<Tail<Params>, [...ParamsSplit, A], Tail<ParamsRest>>
-        : never
+    ? SplitParams<Tail<Params>, [...ParamsSplit, A], Tail<ParamsRest>>
+    : never
     EndParamsSplit: ParamsSplit
-    EndSpreadParams: ParamsSplit
-    Test: 'Test'
+    EndSpreadParams: 'Hello'
+    Infinite: 'Infinite'
 }[
     IsSpreadItem<Head<Params>> extends true
-        ? 'EndSpreadParams'
-        : Length<Params> extends 0
-            ? 'EndParamsSplit'
-            : 'Continue'
-    // Head<Params> extends List
-    //     ? IsSpreadItem<Head<Params>> extends true
-    //         ? 'EndSpreadParams'
-    //         : 'EndParamsSplit'
-    //     : IsSpreadItem<Head<Params>> extends true
-    //         ? 'EndSpreadParams'
-    //         : Params extends []
-    //             ? 'EndParamsSplit'
-    //             : 'Continue'
+    ? 'EndSpreadParams'
+    : Length<Params> extends 0
+    ? 'EndParamsSplit'
+    : IsFinite<Params, 'Continue', 'Infinite'>
 ]
 
 // type F = (hello: string, ...args: number[]) => number
-type F = (hello: string, ...args: number[]) => number
-type P = Parameters<F>
-type C = Head<P>
-type FT = SplitParams<P>
+export type Last2<T extends any[]> = IsNever<Tail<T>> extends true
+    ? 'qzd'
+    : T extends [...rest: infer R] ? R[1] : []
+
+type F1 = (hello: string, world?: number) => string
+type F2 = (hello: string, ...world: number[]) => string
+type F3 = (...hello: number[]) => string
+type F4 = (hello: string) => string
+
+// TODO
+// EN gérant bien avec le Length on peut savoir si il y a un rest parameter ou pas !
+// Et son type !!!
+// Faire les choses au propre, ça va tout déchirer :)
+
+type R1 = Last2<Parameters<F1>> // number | undefined
+type R2 = Last2<Parameters<F2>> // number
+type R3 = Last2<Parameters<F3>> // number
+type R4 = Last2<Parameters<F4>> // undefined
 //#endregion SplitParams
