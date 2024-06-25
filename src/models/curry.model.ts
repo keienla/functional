@@ -1,4 +1,4 @@
-import type { Cast, Drop, IsDefinedNumber, Length, List, Tail, Tuple } from './types.model';
+import type { Cast, Drop, IsDefinedNumber, Length, List, Tail, Tuple } from './utils';
 
 // ! https://medium.com/codex/currying-in-typescript-ca5226c85b85
 
@@ -11,15 +11,15 @@ export type Curry<F extends (...args: any[]) => any> =
         Drop<Length<T>, Parameters<F>> extends infer G
         // Get the length of remaining arguments
         ? Length<Cast<G, Tuple>> extends infer L
-            // If L == 0 so there is no more arguments
-            ? L extends 0
-                // Return the return type of the function
-                ? ReturnType<F>
-                // Else if at least one argument
-                : L extends 1
-                    // Return the function not curried
-                    ? (...args: Cast<G, Tuple>) => ReturnType<F>
-                    // If more return the curried function
-                    : Curry<(...args: Cast<G, Tuple>) => ReturnType<F>>
-            : never
+        // If L == 0 so there is no more arguments
+        ? L extends 0
+        // Return the return type of the function
+        ? ReturnType<F>
+        // Else if at least one argument
+        : L extends 1
+        // Return the function not curried
+        ? (...args: Cast<G, Tuple>) => ReturnType<F>
+        // If more return the curried function
+        : Curry<(...args: Cast<G, Tuple>) => ReturnType<F>>
+        : never
         : never

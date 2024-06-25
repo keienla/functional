@@ -1,5 +1,5 @@
 import type { Transpoline } from './../models/transpoline.model';
-import type { Predicate } from '../models/types.model';
+import type { Predicate } from '../models/utils';
 import transpoline from './../transpoline/transpoline';
 import curry from './../curry/curry';
 
@@ -38,7 +38,7 @@ export default curry(
             value: T,
             stopIfValue: boolean | null = null
         ): Transpoline<boolean> => {
-            if(!predicates || !predicates.length || defaultResult === stopIfValue) return defaultResult;
+            if (!predicates || !predicates.length || defaultResult === stopIfValue) return defaultResult;
 
             return () => {
                 return checking(checkMethod, predicates.slice(1), checkMethod(defaultResult, predicates[0](value)), value, stopIfValue)

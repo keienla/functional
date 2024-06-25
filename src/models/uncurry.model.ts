@@ -1,4 +1,4 @@
-import type { Concat, Cast, IsFinite, Tuple, Next, Length } from "./types.model";
+import type { Cast, IsFinite, Tuple, Next, Length, Concat } from "./utils";
 import type { Curry } from './curry.model';
 
 export type UncurryArgs<
@@ -20,13 +20,13 @@ export type UncurryArgs<
         ERROR: 'Cannot Get All the Args in UncurryArgs',
         CODENAME: 'InfiniteArray' & 'Infinite'
     }
-} [
+}[
     ReturnType<Fn> extends (...args: infer Z) => any
-        ? Length<I> extends Limit
-            ? 'infinite'
-            : IsFinite<Z, 'deeper', 'infinite'> // The IsFinite is a hack to evade probleme with infinite loop
-        : 'last'
-]
+    ? Length<I> extends Limit
+    ? 'infinite'
+    : IsFinite<Z, 'deeper', 'infinite'> // The IsFinite is a hack to evade probleme with infinite loop
+    : 'last'
+    ]
 
 export type UncurryFinalType<
     Current extends (...args: any) => any,
@@ -40,13 +40,13 @@ export type UncurryFinalType<
         ERROR: 'Cannot Get the response in UncurryFinalType',
         CODENAME: 'InfiniteArray' & 'Infinite'
     }
-} [
+}[
     ReturnType<Fn> extends (...args: any) => any
-        ? Length<I> extends Limit
-            ? 'infinite'
-            : 'deeper'
-        : 'last'
-]
+    ? Length<I> extends Limit
+    ? 'infinite'
+    : 'deeper'
+    : 'last'
+    ]
 
 export type Uncurry<
     Fn extends ((...args: any) => any) | Curry<any>,

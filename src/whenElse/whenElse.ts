@@ -1,4 +1,4 @@
-import type { Predicate } from '../models/types.model';
+import type { Predicate } from '../models/utils';
 import { _whenElse } from './../_internal/_when';
 
 /**

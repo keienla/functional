@@ -1,4 +1,4 @@
-import { Before, Cast, Concat, Head, IsNever, Iterator, Last, Length, Pop, Tail, Tuple } from "./types.model";
+import { Before, Cast, Concat, Head, IsNever, Iterator, Last, Length, Pop, Tail, Tuple } from "./utils";
 
 export type Arity<F extends (...args: any[]) => any, Size extends number> =
     Parameters<F> extends infer Params extends any[]

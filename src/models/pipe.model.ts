@@ -1,4 +1,4 @@
-import type { IsFinite, Tail, Reverse, Last, Length, Fn } from "./types.model"
+import type { IsFinite, Tail, Reverse, Last, Length, Fn } from "./utils"
 
 export type Pipe<
     FNS extends [Fn, ...Fn[]]

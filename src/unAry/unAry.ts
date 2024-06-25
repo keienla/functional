@@ -1,5 +1,5 @@
 import type { Curry } from '../models/curry.model';
-import type { Before } from '../models/types.model';
+import type { Before } from '../models/utils';
 import _nAry from '../nAry/nAry';
 
 /**

@@ -1,4 +1,4 @@
-import type { TObject } from "../models/types.model";
+import type { TObject } from "../models/utils";
 import curry from "./../curry/curry";
 import notSameLength from './../notSameLength/notSameLength';
 import isnt from './../isnt/isnt';
@@ -25,13 +25,13 @@ import isnt from './../isnt/isnt';
  *  objectIs(obj1, obj6);        // false
  */
 const objectIs = curry(function objectIs(object: TObject, objectToCompare: TObject): boolean {
-    if(notSameLength(object, objectToCompare)) return false;
-    if(object === objectToCompare) return true;
+    if (notSameLength(object, objectToCompare)) return false;
+    if (object === objectToCompare) return true;
 
     const keys: string[] = Object.keys(object);
 
-    for(let key of keys) {
-        if(
+    for (let key of keys) {
+        if (
             !(key in objectToCompare) ||
             isnt(object[key], objectToCompare[key])
         ) {

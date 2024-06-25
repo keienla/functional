@@ -1,5 +1,5 @@
 import type { Pipe } from "./pipe.model"
-import type { IsFinite, Tail, Reverse, Length } from "./types.model"
+import type { IsFinite, Tail, Reverse, Length } from "./utils"
 
 export type Fn = (...args: any) => any
 
@@ -15,17 +15,17 @@ export type ComposeArgs<
     reversedFNS extends Fn[] = Reverse<FNS>
 > = {
     empty: Length<result> extends 0
-        ? []
-        : result,
+    ? []
+    : result,
     notEmpty: previousFn extends void
-        ? ComposeArgs<Tail<reversedFNS>, [reversedFNS[0]], reversedFNS[0]>
-        : ComposeArgs<Tail<FNS>, [(arg: ReturnType<previousFn extends Fn ? previousFn : Fn>) => ReturnType<FNS[0]>, ...result], FNS[0]>
+    ? ComposeArgs<Tail<reversedFNS>, [reversedFNS[0]], reversedFNS[0]>
+    : ComposeArgs<Tail<FNS>, [(arg: ReturnType<previousFn extends Fn ? previousFn : Fn>) => ReturnType<FNS[0]>, ...result], FNS[0]>
     infinite: {
         ERROR: 'Cannot pipe on an infinite array',
         CODENAME: ['InfiniteArray', 'Infinite']
     }
-} [
+}[
     FNS extends [Fn, ...Fn[]]
-        ? IsFinite<FNS, 'notEmpty', 'not'>
-        : 'empty'
-]
+    ? IsFinite<FNS, 'notEmpty', 'not'>
+    : 'empty'
+    ]

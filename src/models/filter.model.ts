@@ -1,13 +1,13 @@
-import type { ValueOf } from './types.model';
+import type { ValueOf } from './utils';
 
-export type FilterArrayReducer<T> =
-    (value: T, index: number, array: T[]) => boolean;
+export type FilterArrayReducer<Item> =
+    (value: Item, index: number, array: Item[]) => boolean;
 
-export type FilterObjectReducer<T> =
-    (value: ValueOf<T>, key: string, object: T) => boolean;
+export type FilterObjectReducer<Item> =
+    (value: ValueOf<Item>, key: string, object: Item) => boolean;
 
-export type FilterGeneratorReducer<T> =
-    (value: T extends Generator<infer U, infer V, any> ? (U | V) : any) => boolean;
+export type FilterGeneratorReducer<Item> =
+    (value: Item extends Generator<infer U, infer V, any> ? (U | V) : any) => boolean;
 
-export type FilterGeneratorReturned<T> =
-    T extends Generator<infer U, infer V, any> ? (U | V)[] : any[];
+export type FilterGeneratorReturned<Item> =
+    Item extends Generator<infer U, infer V, any> ? (U | V)[] : any[];

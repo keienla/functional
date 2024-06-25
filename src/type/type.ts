@@ -1,4 +1,4 @@
-import type { returnedTypes } from './../models/types.model';
+import type { returnedTypes } from './../models/utils';
 
 /**
  * Return the type of the element (add array as a type)
@@ -19,8 +19,8 @@ import type { returnedTypes } from './../models/types.model';
  *  type(/a/g)          // regexp
  */
 export default function type(value: any): returnedTypes {
-    if(value === null) return 'null';
-    if(value === undefined) return 'undefined';
+    if (value === null) return 'null';
+    if (value === undefined) return 'undefined';
 
     return Object.prototype.toString.call(value).slice(8, -1).toLowerCase() as returnedTypes
 }

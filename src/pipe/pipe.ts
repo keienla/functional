@@ -1,5 +1,5 @@
 import type { Pipe, PipeArgs } from '../models/pipe.model'
-import type { Fn } from '../models/types.model';
+import type { Fn } from '../models/utils';
 import gatherArgs from '../gatherArgs/gatherArgs';
 import reduce from '../reduce/reduce';
 

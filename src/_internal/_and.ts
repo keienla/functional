@@ -1,4 +1,4 @@
-import type { Predicate } from '../models/types.model';
+import type { Predicate } from '../models/utils';
 import curry from '../curry/curry';
 import _check from './_check';
 

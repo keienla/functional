@@ -1,10 +1,10 @@
-import type { ValueOf } from './types.model';
+import type { ValueOf } from './utils';
 
-export type MapArrayReducer<T, R> =
-    (value: T, index: number, array: T[]) => R
+export type MapArrayReducer<Item, Response> =
+    (value: Item, index: number, array: Item[]) => Response
 
-export type MapObjectReducer<T, R> =
-    (value: ValueOf<T>, key: string, object: T) => R
+export type MapObjectReducer<Item, Response> =
+    (value: ValueOf<Item>, key: string, object: Item) => Response
 
-export type MapGeneratorReducer<T, R> =
-    (value: T extends Generator<infer U, any, any> ? U : any) => R
+export type MapGeneratorReducer<Item, Response> =
+    (value: Item extends Generator<infer U, any, any> ? U : any) => Response
