@@ -1,5 +1,5 @@
 import type { Curry } from '../models/curry.model';
-import type { Before, Params } from './../models/types.model';
+import type { Before } from './../models/types.model';
 // import curry from '../curry/curry';
 import arity from '../arity/arity';
 import curry from '../curry/curry';
@@ -21,7 +21,7 @@ import curry from '../curry/curry';
 export default function nAry<
     Fn extends (...args: any[]) => any,
     Size extends number,
-    Args extends any[] = Params<Fn>,
+    Args extends any[] = Parameters<Fn>,
     Response = ReturnType<Fn>
 >(fn: Fn, length: Size): Curry<(...args: Before<Size, Args> extends any[] ? Before<Size, Args> : []) => Response> {
     const max: number = fn.length <= length ? fn.length : length

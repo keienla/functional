@@ -1,10 +1,10 @@
-import { Before, Cast, Concat, First, IsNever, Iterator, Last, Length, Pop, Tail, Tuple } from "./types.model";
+import { Before, Cast, Concat, Head, IsNever, Iterator, Last, Length, Pop, Tail, Tuple } from "./types.model";
 
 export type Arity<F extends (...args: any[]) => any, Size extends number> =
     Parameters<F> extends infer Params extends any[]
     // Check if there is a first argument
     // If no, (F = () => any) || (F = (...args: any[]) => any)
-    ? IsNever<First<Params>> extends false
+    ? IsNever<Head<Params>> extends false
     // Check if Params have a length
     ? Length<Params> extends 0
     // If no it mean that F doesn't have any argument

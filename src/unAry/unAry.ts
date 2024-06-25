@@ -1,5 +1,5 @@
 import type { Curry } from '../models/curry.model';
-import type { Before, Params } from '../models/types.model';
+import type { Before } from '../models/types.model';
 import _nAry from '../nAry/nAry';
 
 /**
@@ -16,7 +16,7 @@ import _nAry from '../nAry/nAry';
  */
 export default function unAry<
     Fn extends (...args: any[]) => any,
-    Args extends any[] = Params<Fn>,
+    Args extends any[] = Parameters<Fn>,
     Response = ReturnType<Fn>
 >(fn: Fn): Curry<(...args: Before<1, Args> extends any[] ? Before<1, Args> : []) => Response> {
     return _nAry(fn, 1)
