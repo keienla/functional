@@ -3,6 +3,7 @@ import type { Before, Fn } from './../models/utils';
 // import curry from '../curry/curry';
 import arity from '../arity/arity';
 import curry from '../curry/curry';
+import { Arity } from '../models/arity.model';
 
 /**
  * The nAry function will limit the number of arguments of a function. So if a function have 5 necessary arguments, you can decide to limite to X <= 5.
@@ -23,7 +24,7 @@ export default function nAry<
     Size extends number,
     Args extends any[] = Parameters<F>,
     Response = ReturnType<F>
->(fn: F, length: Size): Curry<(...args: Before<Size, Args> extends any[] ? Before<Size, Args> : []) => Response> {
+>(fn: F, length: Size): Curry<Arity<F, Size>> {
     const max: number = fn.length <= length ? fn.length : length
     return curry(arity<F, Size>(function limite(...args) {
         const limitArgs: any[] = args.slice(0, length)
