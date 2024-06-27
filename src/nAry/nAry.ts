@@ -9,7 +9,7 @@ import { Arity } from '../models/arity.model';
  * The nAry function will limit the number of arguments of a function. So if a function have 5 necessary arguments, you can decide to limite to X <= 5.
  * The function doesn't count spread args or conditional args
  *
- * @param { (...args: any[]) => any } fn (args: any) => any
+ * @param { Fn } fn (args: any) => any
  * @param { number } length number
  * @typedef {Function} F Function - The function to limit the number of args
  * @typedef {number} length number - The number of args
@@ -21,9 +21,7 @@ import { Arity } from '../models/arity.model';
  */
 export default function nAry<
     F extends Fn,
-    Size extends number,
-    Args extends any[] = Parameters<F>,
-    Response = ReturnType<F>
+    Size extends number
 >(fn: F, length: Size): Curry<Arity<F, Size>> {
     const max: number = fn.length <= length ? fn.length : length
     return curry(arity<F, Size>(function limite(...args) {

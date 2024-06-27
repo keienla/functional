@@ -1,5 +1,6 @@
+import { Arity } from '../models/arity.model';
 import type { Curry } from '../models/curry.model';
-import type { Before, Fn } from '../models/utils';
+import type { Fn } from '../models/utils';
 import _nAry from '../nAry/nAry';
 
 /**
@@ -15,9 +16,7 @@ import _nAry from '../nAry/nAry';
  *  fn2(arg1) // will execute the function with only arg1
  */
 export default function unAry<
-    F extends Fn,
-    Args extends any[] = Parameters<F>,
-    Response = ReturnType<F>
->(fn: F): Curry<(...args: Before<1, Args> extends any[] ? Before<1, Args> : []) => Response> {
+    F extends Fn
+>(fn: F): Curry<Arity<F, 1>> {
     return _nAry(fn, 1)
 }
