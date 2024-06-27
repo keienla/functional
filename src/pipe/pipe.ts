@@ -1,5 +1,5 @@
-import type { Pipe, PipeArgs } from '../models/pipe.model'
-import type { Fn } from '../models/utils';
+import type { Pipe, PipeArguments } from '../models/pipe.model'
+import type { Cast, Fn, Head } from '../models/utils';
 import gatherArgs from '../gatherArgs/gatherArgs';
 import reduce from '../reduce/reduce';
 
@@ -20,7 +20,7 @@ import reduce from '../reduce/reduce';
  *      divSix
  *  )(1997) // => result: 666 - The response will be divSix(mulTwo(addOne(1997))) => 1997 + 1 = 1998 => 1998 * 2 = 3996 => 3996 / 6 = 666
  */
-export default function pipe<FNS extends [Fn, ...Fn[]]>(...fns: PipeArgs<FNS> & FNS): Pipe<FNS> {
+export default function pipe<FNS extends Fn[]>(...fns: PipeArguments<FNS> & FNS): Pipe<FNS> {
     return function piped(...args: any[]) {
         fns[0] = gatherArgs(fns[0])
         return reduce(function reduced(accumulator: any, fn: Function) {

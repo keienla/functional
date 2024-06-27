@@ -2,6 +2,7 @@ import type { Cast, Drop, IsDefinedNumber, Length, List, Tail, Tuple } from './u
 
 // ! https://medium.com/codex/currying-in-typescript-ca5226c85b85
 
+// TODO REFACTO
 export type Curry<F extends (...args: any[]) => any> =
     // T is the given arguments at least
     // If no arguments get the parameters of the function

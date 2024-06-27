@@ -1,5 +1,6 @@
 import { Before, Cast, Concat, Head, IsNever, Iterator, Last, Length, Pop, Tail, Tuple } from "./utils";
 
+// TODO REFACTO
 export type Arity<F extends (...args: any[]) => any, Size extends number> =
     Parameters<F> extends infer Params extends any[]
     // Check if there is a first argument

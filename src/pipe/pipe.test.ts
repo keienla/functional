@@ -9,9 +9,9 @@ describe('PIPE', () => {
         const result = pipe(
             map(add(1)),
             map(multiply(2))
-        )([1,2,3])
+        )([1, 2, 3])
 
-        expect(result).toEqual([4,6,8]);
+        expect(result).toEqual([4, 6, 8]);
     })
 
     test('pipe with first fn with multiple args', () => {

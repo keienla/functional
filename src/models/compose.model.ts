@@ -1,31 +1,30 @@
 import type { Pipe } from "./pipe.model"
-import type { IsFinite, Tail, Reverse, Length } from "./utils"
+import type { IsFinite, Tail, Reverse, Length, Fn, Cast, AppendItem, Head } from "./utils"
 
-export type Fn = (...args: any) => any
+export type Compose<FNS extends Fn[]> = Pipe<Reverse<FNS>>
 
-export type Compose<
-    FNS extends [Fn, ...Fn[]],
-    ReversedFNS extends [Fn, ...Fn[]] = Reverse<FNS> extends [Fn, ...Fn[]] ? Reverse<FNS> : never
-> = Pipe<ReversedFNS>
-
-export type ComposeArgs<
-    FNS extends Fn[],
-    result extends Fn[] = [],
-    previousFn extends Fn | void = void,
-    reversedFNS extends Fn[] = Reverse<FNS>
-> = {
-    empty: Length<result> extends 0
-    ? []
-    : result,
-    notEmpty: previousFn extends void
-    ? ComposeArgs<Tail<reversedFNS>, [reversedFNS[0]], reversedFNS[0]>
-    : ComposeArgs<Tail<FNS>, [(arg: ReturnType<previousFn extends Fn ? previousFn : Fn>) => ReturnType<FNS[0]>, ...result], FNS[0]>
+type ComposeFns<FNS extends Fn[], Result extends Fn[] = [], NextFn = FNS[1] extends Fn ? FNS[1] : void> = {
+    empty: []
+    continue: ComposeFns<
+        Tail<FNS>,
+        AppendItem<
+            NextFn extends Fn
+            ? (previousResult: ReturnType<NextFn>) => ReturnType<Head<FNS>[0]>
+            : Head<FNS>[0],
+            Result
+        >
+    >
+    finish: Result,
     infinite: {
-        ERROR: 'Cannot pipe on an infinite array',
+        ERROR: 'Cannot compose on an infinite array',
         CODENAME: ['InfiniteArray', 'Infinite']
     }
 }[
-    FNS extends [Fn, ...Fn[]]
-    ? IsFinite<FNS, 'notEmpty', 'not'>
-    : 'empty'
-    ]
+    IsFinite<FNS> extends true
+    ? Length<FNS> extends 0
+    ? 'finish'
+    : 'continue'
+    : 'infinite'
+]
+
+export type ComposeArguments<FNS extends Fn[]> = Cast<ComposeFns<FNS>, Fn[]>

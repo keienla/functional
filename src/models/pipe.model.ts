@@ -1,26 +1,30 @@
-import type { IsFinite, Tail, Reverse, Last, Length, Fn } from "./utils"
+import type { IsFinite, Tail, Reverse, Last, Length, Fn, AppendItem, Head, Cast } from "./utils"
 
-export type Pipe<
-    FNS extends [Fn, ...Fn[]]
-> = (...args: Parameters<FNS[0]>) => ReturnType<Last<FNS> extends Fn ? Last<FNS> : Fn>
+export type Pipe<FNS extends Fn[] = []> = (...args: Parameters<Cast<Head<FNS>[0], Fn>>) => ReturnType<Cast<Last<FNS>[0], Fn>>
 
-export type PipeArgs<
-    FNS extends Fn[],
-    result extends Fn[] = [],
-    previousFn extends Fn | void = void
-> = {
-    empty: Length<result> extends 0
-    ? []
-    : Reverse<result>,
-    notEmpty: previousFn extends void
-    ? PipeArgs<Tail<FNS>, [FNS[0]], FNS[0]>
-    : PipeArgs<Tail<FNS>, [(arg: ReturnType<previousFn extends Fn ? previousFn : Fn>) => ReturnType<FNS[0]>, ...result], FNS[0]>
+type PipeFns<FNS extends Fn[], Result extends Fn[] = [], PreviousFn extends Fn | void = void> = {
+    empty: []
+    continue: PipeFns<
+        Tail<FNS>,
+        AppendItem<
+            PreviousFn extends Fn
+            ? (previousResult: ReturnType<PreviousFn>) => ReturnType<Head<FNS>[0]>
+            : Head<FNS>[0],
+            Result
+        >,
+        Head<FNS>[0]
+    >
+    finish: Result,
     infinite: {
         ERROR: 'Cannot pipe on an infinite array',
         CODENAME: ['InfiniteArray', 'Infinite']
     }
 }[
-    FNS extends [Fn, ...Fn[]]
-    ? IsFinite<FNS, 'notEmpty', 'not'>
-    : 'empty'
-    ]
+    IsFinite<FNS> extends true
+    ? Length<FNS> extends 0
+    ? 'finish'
+    : 'continue'
+    : 'infinite'
+]
+
+export type PipeArguments<FNS extends Fn[]> = Cast<PipeFns<FNS>, Fn[]>
