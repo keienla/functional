@@ -1,12 +1,13 @@
 import type { Uncurry } from '../models/uncurry.model';
 import type { Curry } from '../models/curry.model';
 import reduce from '../reduce/reduce';
+import { Fn } from '../models/utils';
 
 /**
  * Transform a deep function into a one list arguments function.
  *
  * @param {Function} fn Function
- * @returns { (...args: any[]) => any } (...args: any[]) => any
+ * @returns { Fn } (...args: any[]) => any
  * @example
  *  function sum(x: number): (y: number) => number {
  *      return function add(y: number): number {
@@ -19,14 +20,14 @@ import reduce from '../reduce/reduce';
  *  uncurriedSum(8)(3)
  */
 export default function uncurry<
-    F extends ((...args: any[]) => any) | Curry<any>
+    F extends Fn | Curry<any>
 >(fn: F): Uncurry<F> {
     return function uncurried(...args: any[]): any {
         return reduce((f: any, current: any, index: number) => {
-            if(index === args.length - 1) {
+            if (index === args.length - 1) {
                 return f[0](...f[1], current)
             }
-            if(f[0].length === [...f[1], current].length) {
+            if (f[0].length === [...f[1], current].length) {
                 return [f[0](...f[1], current), []]
             }
             return [f[0], [...f[1], current]]

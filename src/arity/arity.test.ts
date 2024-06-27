@@ -33,7 +33,6 @@ describe('ARITY', () => {
         expect(arity5(1, 1, 1, 1, 1)).toBe(5)
         // @ts-ignore
         expect(arity5(1, 1, 1, 1, 1, 1, 1, 1)).toBe(5)
-        // TODO FIX
         expect(arity(textAndNumber, 3)('Hello', 2, 8)).toBe('Hello: 10')
 
         // @ts-ignore

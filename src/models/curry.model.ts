@@ -1,9 +1,9 @@
-import type { Cast, Drop, IsDefinedNumber, Length, List, Tail, Tuple } from './utils';
+import type { Cast, Drop, Fn, IsDefinedNumber, Length, List, Tail, Tuple } from './utils';
 
 // ! https://medium.com/codex/currying-in-typescript-ca5226c85b85
 
 // TODO REFACTO
-export type Curry<F extends (...args: any[]) => any> =
+export type Curry<F extends Fn> =
     // T is the given arguments at least
     // If no arguments get the parameters of the function
     // originaly: Cast<T, Partial<Parameters<F>>> and not Cast<Partial<Parameters<F>>, T>

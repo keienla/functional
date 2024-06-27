@@ -1,3 +1,5 @@
+import { Fn } from "../models/utils";
+
 /**
  * For a given function, gather an array of arguments multiple arguments.
  *
@@ -12,8 +14,8 @@
  *
  *  number1 === number2;     // true
  */
-export default function gatherArgs<Fn extends (...args: any[]) => any, R = Fn extends (...args: any[]) => (infer Response) ? Response : any>(fn: Fn): Parameters<Fn> extends [] ? () => R : (args: Parameters<Fn>) => R {
-    return function gather(args?: Parameters<Fn>): R {
+export default function gatherArgs<F extends Fn>(fn: F): Parameters<F> extends [] ? () => ReturnType<F> : (args: Parameters<F>) => ReturnType<F> {
+    return function gather(args?: Parameters<F>): ReturnType<F> {
         if (args && args.length) {
             return fn(...args);
         } else {

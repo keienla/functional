@@ -2,6 +2,7 @@ import { AppendItem, AppendList } from "./append"
 import { GetItemsBeforeRestItems } from "./getItemsBeforeRestItems"
 import { GetTypeRestItems } from "./getTypeRestItems"
 import { Head } from "./head"
+import { IsFinite } from "./isFinite"
 import { Length } from "./length"
 import { Tail } from "./tail"
 import { List } from "./types"
@@ -15,7 +16,8 @@ export type Before<Size extends number, BaseItems extends List, Result extends L
     nope: never
     infinite: '[BEFORE] Infinite Loop Error'
 }[
-    ItemsWithoutRestType extends List
+    IsFinite<ItemsWithoutRestType> extends true
+    ? ItemsWithoutRestType extends List
     ? Length<Result> extends Size
     ? 'finish'
     : Length<Tail<ItemsWithoutRestType>> extends 0
@@ -28,6 +30,7 @@ export type Before<Size extends number, BaseItems extends List, Result extends L
     : 'continue'
     : 'continue'
     : 'nope'
+    : 'infinite'
 ]
 
 type testBefore1 = Before<0, [0, 1, 2]>                                     // []

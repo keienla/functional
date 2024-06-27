@@ -1,17 +1,17 @@
-import type { Cast, IsFinite, Tuple, Next, Length, Concat } from "./utils";
+import type { Cast, IsFinite, Tuple, Next, Length, Concat, Fn } from "./utils";
 import type { Curry } from './curry.model';
 
 export type UncurryArgs<
-    Current extends ((...args: any[]) => any) | Curry<any>,
+    Current extends (Fn) | Curry<any>,
     Args extends any[] = [],
     Limit = 100,
     I extends any[] = [],
-    Fn extends (...args: any[]) => any = Current extends Curry<infer fn> ? fn : Current,
-    CurrentArgs extends Tuple = Fn extends (...args: infer U) => any ? U : [],
+    F extends Fn = Current extends Curry<infer fn> ? fn : Current,
+    CurrentArgs extends Tuple = F extends (...args: infer U) => any ? U : [],
 > = {
     last: Concat<Args, CurrentArgs>,
     deeper: UncurryArgs<
-        ReturnType<Fn>,
+        ReturnType<F>,
         Cast<Concat<Args, CurrentArgs>, any[]>,
         Limit,
         Next<I>
@@ -21,7 +21,7 @@ export type UncurryArgs<
         CODENAME: 'InfiniteArray' & 'Infinite'
     }
 }[
-    ReturnType<Fn> extends (...args: infer Z) => any
+    ReturnType<F> extends (...args: infer Z) => any
     ? Length<I> extends Limit
     ? 'infinite'
     : IsFinite<Z, 'deeper', 'infinite'> // The IsFinite is a hack to evade probleme with infinite loop
@@ -32,16 +32,16 @@ export type UncurryFinalType<
     Current extends (...args: any) => any,
     Limit = 100,
     I extends any[] = [],
-    Fn extends (...args: any[]) => any = Current extends Curry<infer fn> ? fn : Current,
+    F extends Fn = Current extends Curry<infer fn> ? fn : Current,
 > = {
-    last: ReturnType<Fn>,
-    deeper: UncurryFinalType<ReturnType<Fn>, Limit, Next<I>>,
+    last: ReturnType<F>,
+    deeper: UncurryFinalType<ReturnType<F>, Limit, Next<I>>,
     infinite: {
         ERROR: 'Cannot Get the response in UncurryFinalType',
         CODENAME: 'InfiniteArray' & 'Infinite'
     }
 }[
-    ReturnType<Fn> extends (...args: any) => any
+    ReturnType<F> extends (...args: any) => any
     ? Length<I> extends Limit
     ? 'infinite'
     : 'deeper'
@@ -49,7 +49,7 @@ export type UncurryFinalType<
     ]
 
 export type Uncurry<
-    Fn extends ((...args: any) => any) | Curry<any>,
-    Args extends Tuple = Cast<UncurryArgs<Fn>, any[]>,
-    Response = UncurryFinalType<Fn>
+    F extends ((...args: any) => any) | Curry<any>,
+    Args extends Tuple = Cast<UncurryArgs<F>, any[]>,
+    Response = UncurryFinalType<F>
 > = (...args: Args) => IsFinite<Tuple<Response>, Response, any> // The last IsFinite is a hack to evade fact that sometimes there is an error with infinite loop
