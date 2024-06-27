@@ -1,4 +1,4 @@
-import type { Transpoline, TranspolineResult } from './../models/transpoline.model';
+import type { Transpoline, TranspolineResult } from './transpoline.model';
 
 /**
  * The transpoline function is used to manage recursive functions. It wrap the recursive function in a loop. Under the hood, it call the recursive function piece by piece until it no longer produces recursive calls.

@@ -1,5 +1,5 @@
-import type { FilterArrayReducer, FilterObjectReducer } from '../models/filter.model';
-import type { TObject } from '../models/utils';
+import type { FilterArrayReducer, FilterObjectReducer } from '../filter/filter.model';
+import type { TObject } from '../models';
 import reduce from '../reduce/reduce';
 import reduceObject from '../reduceObject/reduceObject';
 import curry from '../curry/curry';

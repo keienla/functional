@@ -1,6 +1,6 @@
-import type { UncurryArgs } from '../models/uncurry.model';
-import type { Curry } from '../models/curry.model';
-import type { Cast } from '../models/utils';
+import type { UncurryArgs } from '../uncurry/uncurry.model';
+import type { Curry } from '../curry/curry.model';
+import type { Cast } from '../models';
 import uncurry from './../uncurry/uncurry';
 
 /**

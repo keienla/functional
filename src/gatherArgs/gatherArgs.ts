@@ -1,4 +1,4 @@
-import { Fn } from "../models/utils";
+import { Fn } from "../models";
 
 /**
  * For a given function, gather an array of arguments multiple arguments.

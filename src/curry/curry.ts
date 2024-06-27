@@ -1,5 +1,5 @@
-import { Fn } from '../models/utils';
-import type { Curry } from './../models/curry.model';
+import { Fn } from '../models';
+import type { Curry } from './curry.model';
 
 /**
  * Decompose a function to return another function while the user can set arguments.

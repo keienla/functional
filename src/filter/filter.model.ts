@@ -1,4 +1,4 @@
-import type { ValueOf } from './utils';
+import type { ValueOf } from '../models';
 
 export type FilterArrayReducer<Item> =
     (value: Item, index: number, array: Item[]) => boolean;

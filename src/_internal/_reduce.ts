@@ -1,6 +1,6 @@
-import type { ReduceArrayReducer, ReduceGeneratorReducer, ReduceObjectReducer } from '../models/reduce.model';
-import type { Transpoline } from '../models/transpoline.model';
-import type { TObject } from '../models/utils';
+import type { ReduceArrayReducer, ReduceGeneratorReducer, ReduceObjectReducer } from '../reduce/reduce.model';
+import type { Transpoline } from '../transpoline/transpoline.model';
+import type { TObject } from '../models';
 import freeze from '../freeze/freeze';
 import transpoline from '../transpoline/transpoline';
 import curry from '../curry/curry';

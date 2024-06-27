@@ -1,4 +1,4 @@
-import type { TObject } from "../models/utils";
+import type { TObject } from "../models";
 import curry from "./../curry/curry";
 import notSameLength from './../notSameLength/notSameLength';
 import isnt from './../isnt/isnt';

@@ -1,5 +1,5 @@
-import type { Transpoline } from './../models/transpoline.model';
-import type { Predicate } from '../models/utils';
+import type { Transpoline } from '../transpoline/transpoline.model';
+import type { Predicate } from '../models';
 import transpoline from './../transpoline/transpoline';
 import curry from './../curry/curry';
 

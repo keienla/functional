@@ -1,5 +1,5 @@
-import type { Cast, IsFinite, Tuple, Next, Length, Concat, Fn } from "./utils";
-import type { Curry } from './curry.model';
+import type { Cast, IsFinite, Tuple, Next, Length, Concat, Fn } from "../models";
+import type { Curry } from '../curry/curry.model';
 
 export type UncurryArgs<
     Current extends (Fn) | Curry<any>,

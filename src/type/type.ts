@@ -1,4 +1,4 @@
-import type { returnedTypes } from './../models/utils';
+import type { returnedTypes } from './../models';
 
 /**
  * Return the type of the element (add array as a type)

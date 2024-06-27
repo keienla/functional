@@ -1,4 +1,4 @@
-import type { Fn, Reverse } from './../models/utils';
+import type { Fn, Reverse } from './../models';
 
 /**
  * Reverse the arguments of the given function. Like this the first argument will be the last, the second the N - 1, ...

@@ -1,5 +1,5 @@
-import type { Pipe, PipeArguments } from '../models/pipe.model'
-import type { Cast, Fn, Head } from '../models/utils';
+import type { Pipe, PipeArguments } from './pipe.model'
+import type { Cast, Fn, Head } from '../models';
 import gatherArgs from '../gatherArgs/gatherArgs';
 import reduce from '../reduce/reduce';
 

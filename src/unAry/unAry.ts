@@ -1,6 +1,6 @@
-import { Arity } from '../models/arity.model';
-import type { Curry } from '../models/curry.model';
-import type { Fn } from '../models/utils';
+import type { Arity } from '../arity/arity.model';
+import type { Curry } from '../curry/curry.model';
+import type { Fn } from '../models';
 import _nAry from '../nAry/nAry';
 
 /**

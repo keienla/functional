@@ -1,5 +1,5 @@
-import type { Arity } from "../models/arity.model"
-import { Fn } from "../models/utils";
+import type { Arity } from "./arity.model"
+import { Fn } from "../models";
 
 /**
  * Create a new function with a given number of arguments. It can be usefull for functions with spread args to create a function with limited args

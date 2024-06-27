@@ -1,4 +1,4 @@
-import type { Length, Drop, Cast, Fn } from './../models/utils';
+import type { Length, Drop, Cast, Fn } from './../models';
 
 /**
  * Complete the x first arguments of a function.

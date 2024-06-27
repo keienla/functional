@@ -1,4 +1,4 @@
-import { Fn } from '../models/utils';
+import { Fn } from '../models';
 import is from './../is/is';
 
 /**

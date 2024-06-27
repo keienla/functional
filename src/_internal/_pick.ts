@@ -1,4 +1,4 @@
-import type { TObject } from "../models/utils";
+import type { TObject } from "../models";
 import curry from "../curry/curry";
 
 export default curry(function pick(obj: TObject, props: string[] = []): TObject {

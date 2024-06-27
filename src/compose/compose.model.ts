@@ -1,5 +1,5 @@
-import type { Pipe } from "./pipe.model"
-import type { IsFinite, Tail, Reverse, Length, Fn, Cast, AppendItem, Head } from "./utils"
+import type { Pipe } from "../pipe/pipe.model"
+import type { IsFinite, Tail, Reverse, Length, Fn, Cast, AppendItem, Head } from "../models"
 
 export type Compose<FNS extends Fn[]> = Pipe<Reverse<FNS>>
 

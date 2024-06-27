@@ -1,4 +1,4 @@
-import type { IsFinite, Tail, Reverse, Last, Length, Fn, AppendItem, Head, Cast } from "./utils"
+import type { IsFinite, Tail, Reverse, Last, Length, Fn, AppendItem, Head, Cast } from "../models"
 
 export type Pipe<FNS extends Fn[] = []> = (...args: Parameters<Cast<Head<FNS>[0], Fn>>) => ReturnType<Cast<Last<FNS>[0], Fn>>
 

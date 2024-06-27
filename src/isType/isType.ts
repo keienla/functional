@@ -1,4 +1,4 @@
-import type { returnedTypes } from './../models/utils';
+import type { returnedTypes } from './../models';
 import typeFn from './../type/type';
 import curry from '../curry/curry';
 

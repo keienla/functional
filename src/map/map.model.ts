@@ -1,4 +1,4 @@
-import type { ValueOf } from './utils';
+import type { ValueOf } from '../models';
 
 export type MapArrayReducer<Item, Response> =
     (value: Item, index: number, array: Item[]) => Response

@@ -1,5 +1,5 @@
-import type { Compose, ComposeArguments } from '../models/compose.model'
-import type { Fn } from '../models/utils';
+import type { Compose, ComposeArguments } from './compose.model'
+import type { Fn } from '../models';
 import pipe from './../pipe/pipe';
 
 /**

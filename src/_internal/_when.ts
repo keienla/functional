@@ -1,4 +1,4 @@
-import type { Predicate } from '../models/utils';
+import type { Predicate } from '../models';
 import curry from '../curry/curry';
 
 export const _when = curry(function when<T, R>(predicate: Predicate<T>, fn: (arg: T) => R): (arg: T) => R | T {
