@@ -1,4 +1,4 @@
-import type { Cast, Drop, Fn, IsDefinedNumber, Length, List, Tail, Tuple } from '../models';
+import type { Cast, Drop, Fn, Head, IsDefinedNumber, Length, List, Tail, Tuple } from '../models';
 
 // ! https://medium.com/codex/currying-in-typescript-ca5226c85b85
 
@@ -27,7 +27,54 @@ export type Curry<F extends Fn> =
 
 // Prendre exemple sur le Before pour la gestion de l'infini
 
-export type Curry2<F extends Fn> = {
+export default function curry<F extends Fn>(fn: F, args: Parameters<F>[] = []): Curry<F> {
+    return null as any
+}
 
-    finish: 'FINISH',
-}[]
+const fn1 = (key1: string, key2: number): boolean => { return true }
+const curriedFn1 = curry(fn1)(1)
+
+
+
+
+
+
+// REFACTO CURRY
+
+export type Curry2<F extends Fn> = Curry2Fn<F>
+
+type Curry2Fn<F extends Fn, Decomposed extends any[] = Decompose<Parameters<F>>, Result extends any = F> = {
+    continue: Curry2Fn<
+        F,
+        Tail<Decomposed>,
+        Result | ((...args: Head<Decomposed>) => ReturnType<F>)
+    >
+    finish: Result
+    infinite: 'INFINITE'
+}[
+    Decomposed extends DecomposeInfinite
+    ? 'infinite'
+    :
+    Length<Decomposed> extends 0
+    ? 'finish'
+    : 'continue'
+]
+
+type DecomposeInfinite = {
+    ERROR: 'Cannot Decompose on an infinite array',
+    TAGS: ['InfiniteArray', 'Infinite', 'Decompose']
+}
+
+type Decompose<Args extends Tuple> = {
+    continue: []
+    finish: Args
+    infinite: DecomposeInfinite
+}[
+    'continue'
+]
+
+type CurryTest1 = Curry2<(key1: string) => boolean>                                 // (key1: string) => boolean
+type CurryTest2 = Curry2<(key1: string, key2: number) => boolean>                   // (key1: string, key2: number) => boolean | (key1: string) => (key2: number) => boolean
+type CurryTest3 = Curry2<(key1: boolean, key2: string, key3: number) => Date>       // (key1: boolean, key2: string, key3: number) => Date | (key1: boolean) => (key2: string, key3: number) => Date | (key1: boolean, key2: string) => (key3: number) => Date | (key1: boolean) => (key2: string) => (key3: number) => Date
+type CurryTest4 = Curry2<(key1: number, key2?: number) => string>                   // (key1: number, key2?: number) => string | (key1: number) => string
+type CurryTest5 = Curry2<(key1: number, key2: number, ...rest: string[]) => string> // (key1: number, key2: number, ...rest: string[]) => string | (key1: number) => (key2: number, ...rest: string[]) => string | (key1: number, key2: number) => string | (key1: number) => (key2: number) => string

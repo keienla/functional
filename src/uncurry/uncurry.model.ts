@@ -22,10 +22,10 @@ export type Uncurry<Current extends Fn | Curry<any>, Params extends Tuple = [], 
     : 'finish'
 ]
 
-type fn1 = Uncurry<(key1: string, key2: number) => boolean>                                         // (key1: string, key2: number) => boolean
-type fn2 = Uncurry<(key1: string) => (key2: number, key3: boolean) => (key4: number) => boolean>    // (key1: string, key2: number, key3: boolean, key4: number) => boolean
-type fn3 = Uncurry<(key1: string) => () => () => (key2: boolean) => number>                         // (key1: string, key2: boolean) => number
-type fn4 = Uncurry<(key1: string, key2: number) => (key2: string) => Date>                          // (key1: string, key2: number, key2_1: string) => Date
-type fn5 = Uncurry<(key1: number) => (...rest: string[]) => string>                                 // (key1: number, ...rest: string[]) => string
-type fn6 = Uncurry<(key1: string) => (...rest: string[]) => (key3: boolean) => string>              // ERROR
-type fn7 = Uncurry<Curry<(key1: string, key2: number) => boolean>>                                  // (key1: string, key2: number) => boolean
+type UncurryTest1 = Uncurry<(key1: string, key2: number) => boolean>                                         // (key1: string, key2: number) => boolean
+type UncurryTest2 = Uncurry<(key1: string) => (key2: number, key3: boolean) => (key4: number) => boolean>    // (key1: string, key2: number, key3: boolean, key4: number) => boolean
+type UncurryTest3 = Uncurry<(key1: string) => () => () => (key2: boolean) => number>                         // (key1: string, key2: boolean) => number
+type UncurryTest4 = Uncurry<(key1: string, key2: number) => (key2: string) => Date>                          // (key1: string, key2: number, key2_1: string) => Date
+type UncurryTest5 = Uncurry<(key1: number) => (...rest: string[]) => string>                                 // (key1: number, ...rest: string[]) => string
+type UncurryTest6 = Uncurry<(key1: string) => (...rest: string[]) => (key3: boolean) => string>              // ERROR
+type UncurryTest7 = Uncurry<Curry<(key1: string, key2: number) => boolean>>                                  // (key1: string, key2: number) => boolean
