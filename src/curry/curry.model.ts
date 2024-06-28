@@ -24,3 +24,10 @@ export type Curry<F extends Fn> =
         : Curry<(...args: Cast<G, Tuple>) => ReturnType<F>>
         : never
         : never
+
+// Prendre exemple sur le Before pour la gestion de l'infini
+
+export type Curry2<F extends Fn> = {
+
+    finish: 'FINISH',
+}[]

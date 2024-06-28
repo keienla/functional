@@ -17,7 +17,7 @@ type PipeFns<FNS extends Fn[], Result extends Fn[] = [], PreviousFn extends Fn |
     finish: Result,
     infinite: {
         ERROR: 'Cannot pipe on an infinite array',
-        CODENAME: ['InfiniteArray', 'Infinite']
+        CODENAME: ['InfiniteArray', 'Infinite', 'Pipe']
     }
 }[
     IsFinite<FNS> extends true

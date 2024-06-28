@@ -17,7 +17,7 @@ type ComposeFns<FNS extends Fn[], Result extends Fn[] = [], NextFn = FNS[1] exte
     finish: Result,
     infinite: {
         ERROR: 'Cannot compose on an infinite array',
-        CODENAME: ['InfiniteArray', 'Infinite']
+        TAGS: ['InfiniteArray', 'Infinite', 'Compose']
     }
 }[
     IsFinite<FNS> extends true

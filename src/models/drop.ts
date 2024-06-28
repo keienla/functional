@@ -12,7 +12,10 @@ export type Drop<Size extends number, Items extends List, I extends List = []> =
     continue: Drop<Size, Tail<Items>, Next<I>>
     return: Items,
     returnRest: GetTypeRestItems<Items>[],
-    infinite: {}
+    infinite: {
+        ERROR: 'Cannot drop on an infinite array',
+        TAGS: ['InfiniteArray', 'Infinite', 'Drop']
+    }
 }[
     Length<I> extends Size
     ? 'return'

@@ -20,6 +20,8 @@ type testHead4 = Head<[string]>                                                 
 type testHead5 = Head<any[]>                                                            // never
 type testHead6 = Head<[...any[]]>                                                       // never
 type testHead7 = Head<[string, ...number[]]>                                            // [string]
+type testHead8 = Head<[test: number, test2: boolean, test3: number]>                    // [test: number]
 // ! Can't keep key name when rest...
 // TODO Refacto one day to try to make it possible, like this can keep key on almost everything
-type testHead8 = Head<[key: string, ...args: number[]]>                                 // [string]
+type testHead9 = Head<[key: string, ...args: number[]]>                                 // [string]
+type testHead10 = Head<[key: string]>                                                   // [key: string]

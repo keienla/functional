@@ -1,55 +1,31 @@
-import type { Cast, IsFinite, Tuple, Next, Length, Concat, Fn } from "../models";
+import type { IsFinite, Tuple, Next, Length, Concat, Fn } from "../models";
 import type { Curry } from '../curry/curry.model';
 
-export type UncurryArgs<
-    Current extends (Fn) | Curry<any>,
-    Args extends any[] = [],
-    Limit = 100,
-    I extends any[] = [],
-    F extends Fn = Current extends Curry<infer fn> ? fn : Current,
-    CurrentArgs extends Tuple = F extends (...args: infer U) => any ? U : [],
-> = {
-    last: Concat<Args, CurrentArgs>,
-    deeper: UncurryArgs<
+export type Uncurry<Current extends Fn | Curry<any>, Params extends Tuple = [], Index extends any[] = [], F extends Fn = Current extends Curry<infer fn> ? fn : Current> = {
+    continue: Uncurry<
         ReturnType<F>,
-        Cast<Concat<Args, CurrentArgs>, any[]>,
-        Limit,
-        Next<I>
-    >,
+        Concat<Params, Parameters<F>>,
+        Next<Index>
+    >
+    finish: (...args: Concat<Params, Parameters<F>>) => ReturnType<F>
     infinite: {
-        ERROR: 'Cannot Get All the Args in UncurryArgs',
-        CODENAME: 'InfiniteArray' & 'Infinite'
+        ERROR: 'Cannot continue on an infinite function',
+        TAGS: ['InfiniteFn', 'Infinite', 'Uncurry']
     }
 }[
-    ReturnType<F> extends (...args: infer Z) => any
-    ? Length<I> extends Limit
+    Length<Index> extends 100
     ? 'infinite'
-    : IsFinite<Z, 'deeper', 'infinite'> // The IsFinite is a hack to evade probleme with infinite loop
-    : 'last'
-    ]
+    : ReturnType<F> extends Fn
+    ? IsFinite<Parameters<F>> extends true
+    ? 'continue'
+    : 'infinite'
+    : 'finish'
+]
 
-export type UncurryFinalType<
-    Current extends (...args: any) => any,
-    Limit = 100,
-    I extends any[] = [],
-    F extends Fn = Current extends Curry<infer fn> ? fn : Current,
-> = {
-    last: ReturnType<F>,
-    deeper: UncurryFinalType<ReturnType<F>, Limit, Next<I>>,
-    infinite: {
-        ERROR: 'Cannot Get the response in UncurryFinalType',
-        CODENAME: 'InfiniteArray' & 'Infinite'
-    }
-}[
-    ReturnType<F> extends (...args: any) => any
-    ? Length<I> extends Limit
-    ? 'infinite'
-    : 'deeper'
-    : 'last'
-    ]
-
-export type Uncurry<
-    F extends ((...args: any) => any) | Curry<any>,
-    Args extends Tuple = Cast<UncurryArgs<F>, any[]>,
-    Response = UncurryFinalType<F>
-> = (...args: Args) => IsFinite<Tuple<Response>, Response, any> // The last IsFinite is a hack to evade fact that sometimes there is an error with infinite loop
+type fn1 = Uncurry<(key1: string, key2: number) => boolean>                                         // (key1: string, key2: number) => boolean
+type fn2 = Uncurry<(key1: string) => (key2: number, key3: boolean) => (key4: number) => boolean>    // (key1: string, key2: number, key3: boolean, key4: number) => boolean
+type fn3 = Uncurry<(key1: string) => () => () => (key2: boolean) => number>                         // (key1: string, key2: boolean) => number
+type fn4 = Uncurry<(key1: string, key2: number) => (key2: string) => Date>                          // (key1: string, key2: number, key2_1: string) => Date
+type fn5 = Uncurry<(key1: number) => (...rest: string[]) => string>                                 // (key1: number, ...rest: string[]) => string
+type fn6 = Uncurry<(key1: string) => (...rest: string[]) => (key3: boolean) => string>              // ERROR
+type fn7 = Uncurry<Curry<(key1: string, key2: number) => boolean>>                                  // (key1: string, key2: number) => boolean

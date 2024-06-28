@@ -14,7 +14,10 @@ export type Before<Size extends number, BaseItems extends List, Result extends L
     finish: Result
     finishWithHead: AppendList<Head<ItemsWithoutRestType>, Result>
     nope: never
-    infinite: '[BEFORE] Infinite Loop Error'
+    infinite: {
+        ERROR: 'Cannot Before on an infinite array',
+        TAGS: ['InfiniteArray', 'Infinite', 'Before']
+    }
 }[
     IsFinite<ItemsWithoutRestType> extends true
     ? ItemsWithoutRestType extends List
