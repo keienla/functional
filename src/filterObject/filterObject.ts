@@ -1,4 +1,4 @@
-import type { FilterObjectReducer } from '../models/filter.model';
+import type { FilterObjectReducer } from '../filter/filter.model';
 import { _objectFilter } from '../_internal/_filter';
 
 /**

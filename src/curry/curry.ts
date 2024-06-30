@@ -1,6 +1,6 @@
-import type { Curry } from './../models/curry.model';
-import { Params } from '../models/types.model';
 import { _BLANK, isBlank, replaceBlank } from '../utils/_blank'
+import { Fn } from '../models';
+import type { Curry } from './curry.model';
 
 /**
  * Decompose a function to return another function while the user can set arguments.
@@ -15,7 +15,7 @@ import { _BLANK, isBlank, replaceBlank } from '../utils/_blank'
  *  sum(1,2,3) === sumCurry(1,2)(3);         // true
  *  sum(1,2,3) === sumCurry(1)(2,3);         // true
  */
-export default function curry<F extends (...args: any[]) => any>(fn: F, args: Params<F>[] = []): Curry<F> {
+export default function curry<F extends Fn>(fn: F, args: Parameters<F>[] = []): Curry<F> {
     return function nested(...nextArgs: any[]) {
         const _args = replaceBlank(args, nextArgs);
 

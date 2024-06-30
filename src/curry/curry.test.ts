@@ -5,7 +5,7 @@ describe('CURRY', () => {
         const add4numbers = (a: number, b: number, c: number, d: number) => a + b + c + d;
         const curriedAd4numbers = curry(add4numbers);
 
-        const firstStep = curriedAd4numbers(1,2);
+        const firstStep = curriedAd4numbers(1, 2);
         const secondStep = firstStep(3);
 
         expect(secondStep(4)).toEqual(10)
@@ -17,8 +17,10 @@ describe('CURRY', () => {
 
         const firstStep = curriedConcat();
 
-        expect(firstStep('a','b')).toBe('ab');
+        expect(firstStep('a', 'b')).toBe('ab');
         expect(firstStep('a')('b')).toBe('ab');
         expect(firstStep()('a')('b')).toBe('ab');
     })
+
+    test.todo('CURRY WITH _BLANK')
 })

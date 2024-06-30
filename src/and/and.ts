@@ -1,5 +1,5 @@
-import type { Predicate } from '../models/types.model';
-import type { Curry } from '../models/curry.model';
+import type { Predicate } from '../models';
+import type { Curry } from '../curry/curry.model';
 import _and from './../_internal/_and';
 
 /**

@@ -1,6 +1,6 @@
 {
     "name": "@keienla/functional",
-    "version": "0.9.3",
+    "version": "0.10.1",
     "exports": {
         ".": "./src/functional.ts",
         "./add": "./src/add/add.ts",
