@@ -1,5 +1,5 @@
-import { Params } from '../models/types.model';
-import type { Curry } from './../models/curry.model';
+import { Fn } from '../models';
+import type { Curry } from './curry.model';
 
 /**
  * Decompose a function to return another function while the user can set arguments.
@@ -14,7 +14,7 @@ import type { Curry } from './../models/curry.model';
  *  sum(1,2,3) === sumCurry(1,2)(3);         // true
  *  sum(1,2,3) === sumCurry(1)(2,3);         // true
  */
-export default function curry<F extends (...args: any[]) => any>(fn: F, args: Params<F>[] = []): Curry<F> {
+export default function curry<F extends Fn>(fn: F, args: Parameters<F>[] = []): Curry<F> {
     return function nested(...nextArgs: any) {
         const _args = [...args, ...nextArgs];
 

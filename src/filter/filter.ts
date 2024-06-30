@@ -1,4 +1,4 @@
-import type { FilterArrayReducer } from '../models/filter.model';
+import type { FilterArrayReducer } from './filter.model';
 import { _arrayFilter } from '../_internal/_filter';
 
 /**

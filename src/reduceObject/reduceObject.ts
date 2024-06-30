@@ -1,5 +1,5 @@
-import type { ReduceObjectReducer } from './../models/reduce.model';
-import type { Curry } from '../models/curry.model';
+import type { ReduceObjectReducer } from '../reduce/reduce.model';
+import type { Curry } from '../curry/curry.model';
 import { _objectReduce } from '../_internal/_reduce';
 
 /**

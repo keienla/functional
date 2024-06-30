@@ -1,6 +1,6 @@
-import type { Curry } from '../models/curry.model';
-import type { Before, Params } from './../models/types.model';
-// import curry from '../curry/curry';
+import type { Curry } from '../curry/curry.model';
+import type { Fn } from './../models';
+import type { Arity } from '../arity/arity.model';
 import arity from '../arity/arity';
 import curry from '../curry/curry';
 
@@ -8,9 +8,9 @@ import curry from '../curry/curry';
  * The nAry function will limit the number of arguments of a function. So if a function have 5 necessary arguments, you can decide to limite to X <= 5.
  * The function doesn't count spread args or conditional args
  *
- * @param { (...args: any[]) => any } fn (args: any) => any
+ * @param { Fn } fn (args: any) => any
  * @param { number } length number
- * @typedef {Function} Fn Function - The function to limit the number of args
+ * @typedef {Function} F Function - The function to limit the number of args
  * @typedef {number} length number - The number of args
  * @returns { Curry<Before<length, Args> => R> } Curry<Before<length, Args> => R>
  * @example
@@ -19,14 +19,12 @@ import curry from '../curry/curry';
  *  fn2(arg1, arg2) // will execute the function with only arg1 and arg2
  */
 export default function nAry<
-    Fn extends (...args: any[]) => any,
-    Size extends number,
-    Args extends any[] = Params<Fn>,
-    Response = ReturnType<Fn>
->(fn: Fn, length: Size): Curry<(...args: Before<Size, Args> extends any[] ? Before<Size, Args> : []) => Response> {
+    F extends Fn,
+    Size extends number
+>(fn: F, length: Size): Curry<Arity<F, Size>> {
     const max: number = fn.length <= length ? fn.length : length
-    return curry(arity<Fn, Size>(function limite(...args) {
+    return curry(arity<F, Size>(function limite(...args) {
         const limitArgs: any[] = args.slice(0, length)
         return fn(...limitArgs)
-    } as Fn, max as any), [])
+    } as F, max as any), [])
 }

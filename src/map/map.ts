@@ -1,4 +1,4 @@
-import type { MapArrayReducer } from '../models/map.model';
+import type { MapArrayReducer } from './map.model';
 import { _arrayMap } from './../_internal/_map'
 
 /**
@@ -11,7 +11,7 @@ import { _arrayMap } from './../_internal/_map'
  *  function addOne(x: number): number { return x + 1 };
  *  map(addOne, [1,5,8]);        // [2,6,9]
  */
-export default function map<T, R>(fn: MapArrayReducer<T,R>, array: T[]): R[];
+export default function map<T, R>(fn: MapArrayReducer<T, R>, array: T[]): R[];
 export default function map<T, R>(fn: MapArrayReducer<T, R>): (array: T[]) => R[];
 export default function map(...args: any): any {
     return _arrayMap(...args);
