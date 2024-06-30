@@ -1,4 +1,4 @@
-import { _BLANK, isBlank, replaceBlank } from '../utils/_blank'
+import { _BLANK, replaceBlank } from '../utils/_blank'
 import { Fn } from '../models';
 import type { Curry } from './curry.model';
 
