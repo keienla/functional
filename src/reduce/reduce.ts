@@ -13,9 +13,18 @@ import { _arrayReduce } from '../_internal/_reduce';
  *  function reducer(x: number, y: number): number { return x + y };
  *  reduce(reducer, 0, [8,8,1,3])  // return 20 -> make 8 + 0 = 8 -> 8 + 8 = 16 -> 16 + 1 = 17 -> 17 + 3 = 20
  */
-export default function reduce<T, R>(fn: ReduceArrayReducer<T, R>, initialValue: R, array: T[]): R;
-export default function reduce<T, R>(fn: ReduceArrayReducer<T, R>, initialValue: R): (array: T[]) => R;
-export default function reduce<T, R>(fn: ReduceArrayReducer<T, R>): Curry<(initialValue: R, array: T[]) => R>;
+export default function reduce<T, R>(
+    fn: ReduceArrayReducer<T, R>,
+    initialValue: R,
+    array: T[],
+): R;
+export default function reduce<T, R>(
+    fn: ReduceArrayReducer<T, R>,
+    initialValue: R,
+): (array: T[]) => R;
+export default function reduce<T, R>(
+    fn: ReduceArrayReducer<T, R>,
+): Curry<(initialValue: R, array: T[]) => R>;
 export default function reduce<T, R>(...args: any): any {
     return _arrayReduce(...args);
 }

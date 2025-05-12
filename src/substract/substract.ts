@@ -11,5 +11,5 @@ import curry from '../curry/curry';
  *  console.log(substract(4)(1))      // 3
  */
 export default curry(function substract(num1: number, num2: number): number {
-    return num1 - num2
-})
+    return num1 - num2;
+});

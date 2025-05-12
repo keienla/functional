@@ -3,6 +3,7 @@
 # LENGTH
 
 The "**length**" function get the size of differents element:
+
 - If the element is an array: return the length of it.
 - If the element is a string: return the number of characters.
 - If the element is a function: return the number of required arguments.
@@ -10,9 +11,11 @@ The "**length**" function get the size of differents element:
 - If the element is a regexp: return the number of characters.
 - else return null
 
---------------
+---
+
 #### Example:
-``` typescript
+
+```typescript
 import { length } from '@kenla/functional';
 
 const el1: string = 'abc';

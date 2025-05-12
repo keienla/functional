@@ -2,7 +2,7 @@ import type { returnedTypes } from './../models';
 
 /**
  * Return the type of the element (add array as a type)
- * 
+ *
  * @param {any} value
  * @returns { 'string' | 'array' | 'object' | 'number' | 'function' | 'boolean' | 'undefined' | 'bigint' | 'symbol' | 'null' | 'regexp' | 'generator' | 'generatorfunction' } the type of the element
  * @example
@@ -22,5 +22,8 @@ export default function type(value: any): returnedTypes {
     if (value === null) return 'null';
     if (value === undefined) return 'undefined';
 
-    return Object.prototype.toString.call(value).slice(8, -1).toLowerCase() as returnedTypes
+    return Object.prototype.toString
+        .call(value)
+        .slice(8, -1)
+        .toLowerCase() as returnedTypes;
 }

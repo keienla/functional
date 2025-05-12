@@ -16,9 +16,16 @@ export default function partial<
     U extends Partial<Args>,
     Response = ReturnType<F>,
     Args extends any[] = F extends (...args: infer A) => any ? A : [],
-    GivenArgs = U extends any[] ? U : any[]
->(fn: F, ...defaultArgs: U): (...args: Cast<Drop<Length<Cast<GivenArgs, any[]>>, Args>, any[]>) => Response {
-    return function completeArgs(...args: Cast<Drop<Length<Cast<GivenArgs, any[]>>, Args>, any[]>): Response {
+    GivenArgs = U extends any[] ? U : any[],
+>(
+    fn: F,
+    ...defaultArgs: U
+): (
+    ...args: Cast<Drop<Length<Cast<GivenArgs, any[]>>, Args>, any[]>
+) => Response {
+    return function completeArgs(
+        ...args: Cast<Drop<Length<Cast<GivenArgs, any[]>>, Args>, any[]>
+    ): Response {
         return fn(...defaultArgs, ...(args as any[]));
     };
 }

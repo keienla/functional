@@ -12,7 +12,9 @@ import { _arrayFilter } from '../_internal/_filter';
  *  filter(filterOdd, [1,5,8]);        // [1,5]
  */
 export default function filter<T>(fn: FilterArrayReducer<T>, array: T[]): T[];
-export default function filter<T>(fn: FilterArrayReducer<T>): (array: T[]) => T[];
+export default function filter<T>(
+    fn: FilterArrayReducer<T>,
+): (array: T[]) => T[];
 export default function filter(...args: any): any {
     return _arrayFilter(...args);
 }

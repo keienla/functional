@@ -16,24 +16,27 @@ import is from './../is/is';
  *  memoizedSum(8,3);        // 11 => not stocked because the args are not in the same order.
  */
 export default function memoize<T extends Fn>(fn: T) {
-    let cache: { [key: string]: { args: any[], value: any } } = {};
+    let cache: { [key: string]: { args: any[]; value: any } } = {};
 
-    return function memoized(...args: T extends (...args: infer A) => any ? A : any[]): T extends (...args: any[]) => infer R ? R : any {
+    return function memoized(
+        ...args: T extends (...args: infer A) => any ? A : any[]
+    ): T extends (...args: any[]) => infer R ? R : any {
         const keys: string[] = Object.keys(cache);
 
         for (let key of keys) {
             if (is(cache[key].args, args)) {
-                return cache[key].value
+                return cache[key].value;
             }
         }
 
         cache = {
-            ...cache, [keys.length.toString()]: {
+            ...cache,
+            [keys.length.toString()]: {
                 args: args,
-                value: fn(...args)
-            }
-        }
+                value: fn(...args),
+            },
+        };
 
         return cache[keys.length.toString()].value;
-    }
+    };
 }

@@ -23,28 +23,39 @@ import curry from './../curry/curry';
  * @param {T} value
  * @param {boolean |null} stopIfValue Stop if the result at each step is equal to this result
  */
-export default curry(
-    function check<T extends any>(
+export default curry(function check<T extends any>(
+    checkMethod: (accumulator: boolean, current: boolean) => boolean,
+    predicates: Predicate<T>[],
+    defaultResult: boolean,
+    value: T,
+    stopIfValue: boolean | null,
+): boolean {
+    const checking = (
         checkMethod: (accumulator: boolean, current: boolean) => boolean,
-        predicates: (Predicate<T>)[],
+        predicates: ((value: T) => boolean)[],
         defaultResult: boolean,
         value: T,
-        stopIfValue: boolean | null
-    ): boolean {
-        const checking = (
-            checkMethod: (accumulator: boolean, current: boolean) => boolean,
-            predicates: ((value: T) => boolean)[],
-            defaultResult: boolean,
-            value: T,
-            stopIfValue: boolean | null = null
-        ): Transpoline<boolean> => {
-            if (!predicates || !predicates.length || defaultResult === stopIfValue) return defaultResult;
+        stopIfValue: boolean | null = null,
+    ): Transpoline<boolean> => {
+        if (!predicates || !predicates.length || defaultResult === stopIfValue)
+            return defaultResult;
 
-            return () => {
-                return checking(checkMethod, predicates.slice(1), checkMethod(defaultResult, predicates[0](value)), value, stopIfValue)
-            }
-        }
+        return () => {
+            return checking(
+                checkMethod,
+                predicates.slice(1),
+                checkMethod(defaultResult, predicates[0](value)),
+                value,
+                stopIfValue,
+            );
+        };
+    };
 
-        return transpoline(checking)(checkMethod, predicates, defaultResult, value, stopIfValue);
-    }
-)
+    return transpoline(checking)(
+        checkMethod,
+        predicates,
+        defaultResult,
+        value,
+        stopIfValue,
+    );
+});

@@ -8,47 +8,46 @@ export type Curry<F extends Fn> =
     // T is the given arguments at least
     // If no arguments get the parameters of the function
     // originaly: Cast<T, Partial<Parameters<F>>> and not Cast<Partial<Parameters<F>>, T>
-    <T extends Tuple>(...args: Cast<Partial<Parameters<F>>, T>) =>
-        // Get the remaining arguments
-        Drop<Length<T>, Parameters<F>> extends infer G
-        // Get the length of remaining arguments
-        ? Length<Cast<G, Tuple>> extends infer L
-        // If L == 0 so there is no more arguments
-        ? L extends 0
-        // Return the return type of the function
-        ? ReturnType<F>
-        // Else if at least one argument
-        : L extends 1
-        // Return the function not curried
-        ? (...args: Cast<G, Tuple>) => ReturnType<F>
-        // If more return the curried function
-        : Curry<(...args: Cast<G, Tuple>) => ReturnType<F>>
-        : never
-        : never
-
+    <T extends Tuple>(
+        ...args: Cast<Partial<Parameters<F>>, T>
+    ) => // Get the remaining arguments
+    Drop<Length<T>, Parameters<F>> extends infer G
+        ? // Get the length of remaining arguments
+          Length<Cast<G, Tuple>> extends infer L
+            ? // If L == 0 so there is no more arguments
+              L extends 0
+                ? // Return the return type of the function
+                  ReturnType<F>
+                : // Else if at least one argument
+                  L extends 1
+                  ? // Return the function not curried
+                    (...args: Cast<G, Tuple>) => ReturnType<F>
+                  : // If more return the curried function
+                    Curry<(...args: Cast<G, Tuple>) => ReturnType<F>>
+            : never
+        : never;
 
 // Prendre exemple sur le Before pour la gestion de l'infini
 type Curry2<F extends Fn> = <
     Params extends Parameters<F>,
-    Result extends any = ReturnType<F>
->(...args: Parameters<F> | Params) =>
-    ExtractBlank<Params, Parameters<F>> extends infer G
-    ? G
-    : Result
+    Result extends any = ReturnType<F>,
+>(
+    ...args: Parameters<F> | Params
+) => ExtractBlank<Params, Parameters<F>> extends infer G ? G : Result;
 
-export default function curry<F extends Fn>(fn: F, args: Parameters<F>[] = []): Curry2<F> {
-    return null as any
+export default function curry<F extends Fn>(
+    fn: F,
+    args: Parameters<F>[] = [],
+): Curry2<F> {
+    return null as any;
 }
 
-const fn1 = (key1: string, key2: number, key3: boolean): boolean => { return true }
+const fn1 = (key1: string, key2: number, key3: boolean): boolean => {
+    return true;
+};
 // ! SHOULD BE ERROR
-const curriedFn1 = curry(fn1)('hello')
-const curriedFn2 = curry(fn1)(1)('2')
-
-
-
-
-
+const curriedFn1 = curry(fn1)('hello');
+const curriedFn2 = curry(fn1)(1)('2');
 
 // REFACTO CURRY
 

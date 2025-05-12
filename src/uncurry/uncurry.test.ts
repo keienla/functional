@@ -5,8 +5,10 @@ describe('UNCURRY', () => {
         const curried = (a: string) => (b: string) => a + b;
         const uncurried = uncurry(curried);
 
-        expect(uncurried('a', 'b')).toBe('ab')
+        expect(uncurried('a', 'b')).toBe('ab');
         // @ts-ignore
-        expect(() => { uncurried('a')('b') }).toThrow()
-    })
-})
+        expect(() => {
+            uncurried('a')('b');
+        }).toThrow();
+    });
+});

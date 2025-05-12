@@ -17,9 +17,18 @@ import { _whenElse } from './../_internal/_when';
  *  transformEvenOrAdd(11)       // 12
  *  transformEvenOrAdd(6)        // 8
  */
-export default function whenElse<T, R, ER>(predicate: Predicate<T>, fn: (arg: T) => R, elseFn: (arg: T) => ER): (arg: T) => R | T | ER;
-export default function whenElse<T, R, ER>(predicate: Predicate<T>, fn: (arg: T) => R): (elseFn: (arg: T) => ER) => (arg: T) => R | T | ER;
-export default function whenElse<T, R, ER>(predicate: Predicate<T>): (fn: (arg: T) => R) => (elseFn: (arg: T) => ER) => (arg: T) => R | T | ER;
+export default function whenElse<T, R, ER>(
+    predicate: Predicate<T>,
+    fn: (arg: T) => R,
+    elseFn: (arg: T) => ER,
+): (arg: T) => R | T | ER;
+export default function whenElse<T, R, ER>(
+    predicate: Predicate<T>,
+    fn: (arg: T) => R,
+): (elseFn: (arg: T) => ER) => (arg: T) => R | T | ER;
+export default function whenElse<T, R, ER>(
+    predicate: Predicate<T>,
+): (fn: (arg: T) => R) => (elseFn: (arg: T) => ER) => (arg: T) => R | T | ER;
 export default function whenElse<T, R, ER>(...args: any): any {
     return _whenElse(...args);
 }

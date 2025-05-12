@@ -4,12 +4,14 @@
 
 The "**identity**" function return the element given in arg.
 
---------------
+---
+
 #### Example:
-``` typescript
+
+```typescript
 import { identity } from '@kenla/functional';
 
 const nine = identity(9);
 
-console.log(nine)     // return 9
+console.log(nine); // return 9
 ```

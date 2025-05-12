@@ -1,4 +1,4 @@
-import { _BLANK, replaceBlank } from '../utils/_blank'
+import { _BLANK, replaceBlank } from '../utils/_blank';
 import { Fn } from '../models';
 import type { Curry } from './curry.model';
 
@@ -15,15 +15,17 @@ import type { Curry } from './curry.model';
  *  sum(1,2,3) === sumCurry(1,2)(3);         // true
  *  sum(1,2,3) === sumCurry(1)(2,3);         // true
  */
-export default function curry<F extends Fn>(fn: F, args: Parameters<F>[] = []): Curry<F> {
+export default function curry<F extends Fn>(
+    fn: F,
+    args: Parameters<F>[] = [],
+): Curry<F> {
     return function nested(...nextArgs: any[]) {
         const _args = replaceBlank(args, nextArgs);
 
-        if ((fn.length - _args.length) <= 0) {
+        if (fn.length - _args.length <= 0) {
             return fn(..._args);
         }
 
         return curry(fn, _args);
     };
 }
-

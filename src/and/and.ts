@@ -17,9 +17,18 @@ import _and from './../_internal/_and';
  *  oddOrSup10(11)      // true
  *  oddOrSup10(6)       // false
  */
-export default function and<T>(predicate1: Predicate<T>, predicate2: Predicate<T>, value: T): boolean;
-export default function and<T>(predicate1: Predicate<T>, predicate2: Predicate<T>): (value: T) => boolean;
-export default function and<T>(predicate1: Predicate<T>): Curry<(predicate2: Predicate<T>, value: T) => boolean>;
+export default function and<T>(
+    predicate1: Predicate<T>,
+    predicate2: Predicate<T>,
+    value: T,
+): boolean;
+export default function and<T>(
+    predicate1: Predicate<T>,
+    predicate2: Predicate<T>,
+): (value: T) => boolean;
+export default function and<T>(
+    predicate1: Predicate<T>,
+): Curry<(predicate2: Predicate<T>, value: T) => boolean>;
 export default function and<T>(...args: any): any {
     return _and(...args);
 }

@@ -34,7 +34,7 @@ import type from './../type/type';
  *  length(el9);         // null
  */
 export default function length(el: any): number | null {
-    switch(type(el)) {
+    switch (type(el)) {
         case 'array':
         case 'function':
         case 'string':

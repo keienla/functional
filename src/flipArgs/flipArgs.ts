@@ -12,7 +12,9 @@
  *
  *  number1 !== number2
  */
-export default function flipArgs<T1, T2, T extends any[], R>(fn: (a: T1, b: T2, ...args: T) => R): (arg1: T2, arg2: T1, ...args: T) => R {
+export default function flipArgs<T1, T2, T extends any[], R>(
+    fn: (a: T1, b: T2, ...args: T) => R,
+): (arg1: T2, arg2: T1, ...args: T) => R {
     return function flipped(arg1: T2, arg2: T1, ...args: T): R {
         return fn(arg2, arg1, ...args);
     };

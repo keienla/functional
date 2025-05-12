@@ -19,18 +19,20 @@ import { Fn } from '../models';
  *  // Will throw an error
  *  uncurriedSum(8)(3)
  */
-export default function uncurry<
-    F extends Fn | Curry<any>
->(fn: F): Uncurry<F> {
+export default function uncurry<F extends Fn | Curry<any>>(fn: F): Uncurry<F> {
     return function uncurried(...args: any[]): any {
-        return reduce((f: any, current: any, index: number) => {
-            if (index === args.length - 1) {
-                return f[0](...f[1], current)
-            }
-            if (f[0].length === [...f[1], current].length) {
-                return [f[0](...f[1], current), []]
-            }
-            return [f[0], [...f[1], current]]
-        }, [fn, []] as any, args);
-    } as Uncurry<F>
+        return reduce(
+            (f: any, current: any, index: number) => {
+                if (index === args.length - 1) {
+                    return f[0](...f[1], current);
+                }
+                if (f[0].length === [...f[1], current].length) {
+                    return [f[0](...f[1], current), []];
+                }
+                return [f[0], [...f[1], current]];
+            },
+            [fn, []] as any,
+            args,
+        );
+    } as Uncurry<F>;
 }

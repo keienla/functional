@@ -4,9 +4,9 @@ import arrayIs from '../arrayIs/arrayIs';
 import objectIs from '../objectIs/objectIs';
 
 export default curry(function is(el1: any, el2: any): boolean {
-    if(type(el1) !== type(el2)) return false;
+    if (type(el1) !== type(el2)) return false;
 
-    switch(type(el1)) {
+    switch (type(el1)) {
         case 'array':
             return arrayIs(el1, el2);
         case 'object':
@@ -17,4 +17,4 @@ export default curry(function is(el1: any, el2: any): boolean {
         default:
             return el1 === el2;
     }
-})
+});

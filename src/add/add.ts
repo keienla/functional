@@ -11,5 +11,5 @@ import curry from '../curry/curry';
  *  console.log(add(3)(4))      // 7
  */
 export default curry(function add(num1: number, num2: number) {
-    return num1 + num2
-})
+    return num1 + num2;
+});

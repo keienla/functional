@@ -18,13 +18,19 @@ import curry from '../curry/curry';
  *  const fn2 = nAry(fn1, 2); // So when i'll call fn2 now i'll can set only two arguments, the first and the second
  *  fn2(arg1, arg2) // will execute the function with only arg1 and arg2
  */
-export default function nAry<
-    F extends Fn,
-    Size extends number
->(fn: F, length: Size): Curry<Arity<F, Size>> {
-    const max: number = fn.length <= length ? fn.length : length
-    return curry(arity<F, Size>(function limite(...args) {
-        const limitArgs: any[] = args.slice(0, length)
-        return fn(...limitArgs)
-    } as F, max as any), [])
+export default function nAry<F extends Fn, Size extends number>(
+    fn: F,
+    length: Size,
+): Curry<Arity<F, Size>> {
+    const max: number = fn.length <= length ? fn.length : length;
+    return curry(
+        arity<F, Size>(
+            function limite(...args) {
+                const limitArgs: any[] = args.slice(0, length);
+                return fn(...limitArgs);
+            } as F,
+            max as any,
+        ),
+        [],
+    );
 }

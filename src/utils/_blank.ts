@@ -1,14 +1,14 @@
 /**
  * The _BLANK constant is used to move an argument in a curry function
  */
-export const _BLANK = Symbol('BLANK')
+export const _BLANK = Symbol('BLANK');
 
 /**
  * Check if the item is a blank item
  * @param  {any} item
  */
 export function isBlank(item: any) {
-    return item === _BLANK
+    return item === _BLANK;
 }
 
 /**
@@ -19,21 +19,20 @@ export function isBlank(item: any) {
  */
 export function replaceBlank(items: any[], addItems: any[]): any[] {
     if (!addItems?.length) {
-        if (!items?.length)
-            return []
-        return [...items]
+        if (!items?.length) return [];
+        return [...items];
     }
 
     if (!items?.length) {
-        return [...addItems]
+        return [...addItems];
     }
 
-    const [firstItem, ...restItems] = items
+    const [firstItem, ...restItems] = items;
 
     if (isBlank(items[0])) {
-        const [, ...restAddItems] = addItems
-        return [addItems[0], ...replaceBlank(restItems, restAddItems)]
+        const [, ...restAddItems] = addItems;
+        return [addItems[0], ...replaceBlank(restItems, restAddItems)];
     }
 
-    return [firstItem, ...replaceBlank(restItems, addItems)]
+    return [firstItem, ...replaceBlank(restItems, addItems)];
 }

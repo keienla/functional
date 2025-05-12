@@ -54,7 +54,8 @@ Functional is just a library for Functional Programming in Typescript.
 
 - [ ] Monades
 - [ ] Map/Filter function with Transducers?
-<!--
+  <!--
+
 ## Build
 
 After npm run build, if want to create a pack folder, go to the dist folder and run "npm pack"

@@ -6,16 +6,20 @@ The "**reverseArgs**" function take as parameter a function and return a functio
 
 /!\ The function with spread arguments can't be reversed!
 
---------------
+---
+
 #### Example:
-``` typescript
+
+```typescript
 import { reverseArgs } from '@kenla/functional';
 
-function divide(x: number, y: number): number { return x / y }
+function divide(x: number, y: number): number {
+    return x / y;
+}
 const inversedDivide: (y: number, x: number) => number = reverseArgs(divide);
 
-const number1 = divide(10, 5);           // 2
-const number2 = inversedDivide(10, 5);   // 0.5
+const number1 = divide(10, 5); // 2
+const number2 = inversedDivide(10, 5); // 0.5
 
-number1 !== number2
+number1 !== number2;
 ```

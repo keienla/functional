@@ -30,5 +30,5 @@ import _is from '../_internal/_is';
 export default function is<T extends any>(el1: T, el2: T): boolean;
 export default function is<T extends any>(el1: T): (el2: T) => boolean;
 export default function is<T extends any>(...args: T[]): any {
-    return _is(...args)
+    return _is(...args);
 }

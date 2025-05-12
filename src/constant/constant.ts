@@ -9,6 +9,6 @@
  */
 export default function constant<T = any>(v: T): () => T {
     return function value(): T {
-        return v
-    }
+        return v;
+    };
 }

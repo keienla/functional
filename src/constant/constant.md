@@ -4,13 +4,15 @@
 
 The "**contant**" function stock a given value and restitute it when called.
 
---------------
+---
+
 #### Example:
-``` typescript
+
+```typescript
 import { constant } from '@kenla/functional';
 
 // Stock the element
 const three: () => number = constant(3);
 
-console.log(three())    // 3
+console.log(three()); // 3
 ```

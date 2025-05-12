@@ -15,9 +15,5 @@ import mapObject from '../mapObject/mapObject';
  *  console.log(obj.key.a); // 0
  */
 export default function deepFreeze<A extends any[] | object>(value: A): A {
-    return freeze(mapObject(
-        when(
-            or(isArray, isObject),
-            freeze
-        ), value));
+    return freeze(mapObject(when(or(isArray, isObject), freeze), value));
 }

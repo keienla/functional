@@ -15,11 +15,13 @@ import uncurry from './../uncurry/uncurry';
  *  isTrue(false);       // return false;
  *  isFalse(false);      // return true;
  */
-export default function not<
-    F extends Fn,
->(predicate: F): (...args: Parameters<Cast<Uncurry<F>, Fn>>) => boolean {
-    return function negated(...args: Parameters<Cast<Uncurry<F>, Fn>>): boolean {
+export default function not<F extends Fn>(
+    predicate: F,
+): (...args: Parameters<Cast<Uncurry<F>, Fn>>) => boolean {
+    return function negated(
+        ...args: Parameters<Cast<Uncurry<F>, Fn>>
+    ): boolean {
         const uncurried = uncurry(predicate) as any;
-        return !uncurried(...args as any)
-    }
+        return !uncurried(...(args as any));
+    };
 }

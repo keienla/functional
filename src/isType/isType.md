@@ -4,11 +4,13 @@
 
 The "**isType**" function check if the element type is the same that the returnedTypes given.
 
---------------
+---
+
 #### Example:
-``` typescript
+
+```typescript
 import { isType } from '@kenla/functional';
 
-console.log(isType('number', 'a'));     // false
-console.log(isType('number', 123));     // true
+console.log(isType('number', 'a')); // false
+console.log(isType('number', 123)); // true
 ```

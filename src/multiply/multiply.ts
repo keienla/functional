@@ -10,5 +10,5 @@ import curry from '../curry/curry';
  *  console.log(multiply(3,5))       // 15
  */
 export default curry(function multiply(num1: number, num2: number): number {
-    return num1 * num2
-})
+    return num1 * num2;
+});

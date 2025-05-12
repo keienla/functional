@@ -6,36 +6,38 @@ The "**nAry**" function will limit the number of arguments of a function. So if 
 
 **The function doesn't count spread args or conditional args**
 
-It mean that ```nAry(function t(arg1: any, ...args) {})``` or ```nAry(function t(arg1: any, arg2?: any) {})``` will always be limited to 1 argument.
+It mean that `nAry(function t(arg1: any, ...args) {})` or `nAry(function t(arg1: any, arg2?: any) {})` will always be limited to 1 argument.
 
---------------
+---
+
 #### Example:
-``` typescript
+
+```typescript
 import { nAry } from '@kenla/functional';
 
 function multipleArgsFn(arg1: number, arg2: string, arg3: number) {
     // Define default value for arg2 && arg3
     // because inference type can't get optional or spread types
-    arg2 ??= ''
-    arg3 ??= 1
-    return (arg1 * arg3) + arg2
+    arg2 ??= '';
+    arg3 ??= 1;
+    return arg1 * arg3 + arg2;
 }
 
-const nAry0 = nAry(multipleArgsFn, 0)
-const nAry1 = nAry(multipleArgsFn, 1)
-const nAry2 = nAry(multipleArgsFn, 2)
-const nAry3 = nAry(multipleArgsFn, 3)
+const nAry0 = nAry(multipleArgsFn, 0);
+const nAry1 = nAry(multipleArgsFn, 1);
+const nAry2 = nAry(multipleArgsFn, 2);
+const nAry3 = nAry(multipleArgsFn, 3);
 
-nAry0()             // 'NaN'
-nAry1(2)            // '2'
-nAry2(3, 'n')       // '3n'
-nAry3(4, 'n', 3)    // '12n'
+nAry0(); // 'NaN'
+nAry1(2); // '2'
+nAry2(3, 'n'); // '3n'
+nAry3(4, 'n', 3); // '12n'
 
 // Note that you can use function as curried
-nAry2(3)('n')       // '3n'
+nAry2(3)('n'); // '3n'
 ```
 
-``` typescript
+```typescript
 // Doesn't working example
 
 function multipleArgsFn(arg1?: any, arg2?: any): any {}
@@ -43,10 +45,10 @@ function multipleArgsFn(arg1?: any, arg2?: any): any {}
 // Even 1 is passed as argument
 // the number of argument permitted is 0
 // because multipleArgsFn.length = 0
-const nAry1 = nAry(multipleArgsFn, 1)
+const nAry1 = nAry(multipleArgsFn, 1);
 
 // Doesn't work
-nAry1('test')
+nAry1('test');
 // Work
-nAry1()
+nAry1();
 ```

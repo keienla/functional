@@ -1,4 +1,4 @@
-import curry from "./../curry/curry";
+import curry from './../curry/curry';
 import getLength from './../length/length';
 
 /**
@@ -15,6 +15,6 @@ import getLength from './../length/length';
  */
 const isLength = curry(function isLength(length: number, el: any): boolean {
     return getLength(el) === length;
-})
+});
 
 export default isLength;

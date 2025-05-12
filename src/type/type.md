@@ -3,6 +3,7 @@
 # TYPE
 
 The "**type**" function check the element and return a specific type in string element. The types are :
+
 - 'string'
 - 'array'
 - 'object'
@@ -17,20 +18,22 @@ The "**type**" function check the element and return a specific type in string e
 - 'generator'
 - 'generatorfunction'
 
---------------
+---
+
 #### Example:
-``` typescript
+
+```typescript
 import { type } from '@kenla/functional';
 
-type(undefined)     // undefined
-type(null)          // null
-type('a')           // string
-type([])            // array
-type({})            // object
-type(1)             // number
-type(() => {})      // function
-type(false)         // boolean
-type(BigInt(10))    // bigint
-type(Symbol('foo')) // symbol
-type(/a/g)          // regexp
+type(undefined); // undefined
+type(null); // null
+type('a'); // string
+type([]); // array
+type({}); // object
+type(1); // number
+type(() => {}); // function
+type(false); // boolean
+type(BigInt(10)); // bigint
+type(Symbol('foo')); // symbol
+type(/a/g); // regexp
 ```

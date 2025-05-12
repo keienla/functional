@@ -13,13 +13,15 @@
  *  number1 === number2;     // true
  */
 export default function spreadArgs<R>(fn: () => R): () => R;
-export default function spreadArgs<T, R>(fn: (arg: T[]) => R): (...args: T[]) => R;
+export default function spreadArgs<T, R>(
+    fn: (arg: T[]) => R,
+): (...args: T[]) => R;
 export default function spreadArgs<T, R>(fn: any): any {
     return function spread(...args: T[]): R {
-        if(args.length) {
+        if (args.length) {
             return fn(args);
         } else {
             return fn();
         }
-    }
+    };
 }

@@ -1,4 +1,4 @@
-import { Fn } from "../models";
+import { Fn } from '../models';
 
 /**
  * For a given function, gather an array of arguments multiple arguments.
@@ -14,12 +14,16 @@ import { Fn } from "../models";
  *
  *  number1 === number2;     // true
  */
-export default function gatherArgs<F extends Fn>(fn: F): Parameters<F> extends [] ? () => ReturnType<F> : (args: Parameters<F>) => ReturnType<F> {
+export default function gatherArgs<F extends Fn>(
+    fn: F,
+): Parameters<F> extends []
+    ? () => ReturnType<F>
+    : (args: Parameters<F>) => ReturnType<F> {
     return function gather(args?: Parameters<F>): ReturnType<F> {
         if (args && args.length) {
             return fn(...args);
         } else {
-            return fn()
+            return fn();
         }
-    }
+    };
 }

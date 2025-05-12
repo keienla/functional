@@ -1,1 +1,1 @@
-export * from './_blank'
+export * from './_blank';

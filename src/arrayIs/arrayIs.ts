@@ -18,7 +18,9 @@ import _arrayIs from '../_internal/_arrayIs';
  *  arrayIs(arr1, arr4);     // false
  */
 export default function arrayIs<T extends any[]>(array1: T, array2: T): boolean;
-export default function arrayIs<T extends any[]>(array1: T): (array2: T) => boolean;
+export default function arrayIs<T extends any[]>(
+    array1: T,
+): (array2: T) => boolean;
 export default function arrayIs<T extends any[]>(...args: any): any {
     return _arrayIs(...args);
 }

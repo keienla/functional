@@ -11,9 +11,12 @@ import curry from '../curry/curry';
  * @example
  *  isType('boolean', false) // true
  */
-const isType = curry(function isType(typeToTest: returnedTypes, element: any): boolean {
+const isType = curry(function isType(
+    typeToTest: returnedTypes,
+    element: any,
+): boolean {
     return typeFn(element) === typeToTest;
-})
+});
 
 export default isType;
 

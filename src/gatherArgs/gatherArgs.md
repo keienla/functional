@@ -4,9 +4,11 @@
 
 The "**gatherArgs**" function transform a function multiple arguments to a function with only one array arguments.
 
---------------
+---
+
 #### Example:
-``` typescript
+
+```typescript
 import { gatherArgs } from '@kenla/functional';
 
 function sum(...args: number[]): number { return numbers.reduce((result, value) => result + value, 0 ) };

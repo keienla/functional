@@ -5,4 +5,4 @@ import uncurry from '../uncurry/uncurry';
 
 export default curry(function isnt<T>(el1: T, el2: T): boolean {
     return not(uncurry(is))(el1, el2);
-})
+});

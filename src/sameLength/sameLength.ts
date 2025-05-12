@@ -21,7 +21,7 @@ export default curry(function sameLength(el1: any, el2: any): boolean {
     const el1Length: number | null = length(el1);
     const el2Length: number | null = length(el2);
 
-    if(el1Length === null || el2Length === null) return false;
+    if (el1Length === null || el2Length === null) return false;
 
     return el1Length === el2Length;
-})
+});

@@ -1,4 +1,4 @@
-import type { Compose, ComposeArguments } from './compose.model'
+import type { Compose, ComposeArguments } from './compose.model';
 import type { Fn } from '../models';
 import pipe from './../pipe/pipe';
 
@@ -18,8 +18,8 @@ import pipe from './../pipe/pipe';
  *      addOne
  *  )(1997) // => result: 666 - The response will be divSix(mulTwo(addOne(1997))) => 1997 + 1 = 1998 => 1998 * 2 = 3996 => 3996 / 6 = 666
  */
-export default function compose<
-    FNS extends Fn[],
->(...fns: ComposeArguments<FNS> & FNS): Compose<FNS> {
+export default function compose<FNS extends Fn[]>(
+    ...fns: ComposeArguments<FNS> & FNS
+): Compose<FNS> {
     return pipe(...fns.reverse()) as any;
 }

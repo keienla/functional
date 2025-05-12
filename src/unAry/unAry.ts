@@ -15,8 +15,6 @@ import _nAry from '../nAry/nAry';
  *  const fn2 = unAry(fn1); // So when i'll call fn2 now i'll can set only one argument, the first
  *  fn2(arg1) // will execute the function with only arg1
  */
-export default function unAry<
-    F extends Fn
->(fn: F): Curry<Arity<F, 1>> {
-    return _nAry(fn, 1)
+export default function unAry<F extends Fn>(fn: F): Curry<Arity<F, 1>> {
+    return _nAry(fn, 1);
 }

@@ -32,7 +32,9 @@ import type { Transpoline, TranspolineResult } from './transpoline.model';
  *
  *  const transpolineRecursive = transpoline(recursiveForTranspoline);
  */
-export default function transpoline<T extends any[], R>(fn: Transpoline<(...args: T) => R>): (...args: T) => TranspolineResult<R> {
+export default function transpoline<T extends any[], R>(
+    fn: Transpoline<(...args: T) => R>,
+): (...args: T) => TranspolineResult<R> {
     return function transpolined(...args: T): TranspolineResult<R> {
         var result = fn(...args);
 
@@ -41,5 +43,5 @@ export default function transpoline<T extends any[], R>(fn: Transpoline<(...args
         }
 
         return result as TranspolineResult<R>;
-    }
+    };
 }

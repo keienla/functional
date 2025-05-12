@@ -18,7 +18,7 @@ import type { Fn, Reverse } from './../models';
 export default function reverseArgs<
     F extends Fn,
     R = ReturnType<F>,
-    Args extends any[] = F extends (...args: infer A) => any ? A : []
+    Args extends any[] = F extends (...args: infer A) => any ? A : [],
 >(fn: F): (...args: Reverse<Args>) => R {
     return function reversed(...args: Reverse<Args>): R {
         return fn(...args.reverse());
