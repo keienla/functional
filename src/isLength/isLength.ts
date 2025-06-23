@@ -13,8 +13,6 @@ import getLength from './../length/length';
  *  isLength(5, el);     // true
  *  isLength(10, 10);    // false
  */
-const isLength = curry(function isLength(length: number, el: any): boolean {
+export default curry(function isLength(length: number, el: any): boolean {
     return getLength(el) === length;
 });
-
-export default isLength;

@@ -55,6 +55,7 @@ import spreadArgs from './spreadArgs/spreadArgs';
 import substract from './substract/substract';
 import transpoline from './transpoline/transpoline';
 import type from './type/type';
+import uncurry from './uncurry/uncurry';
 import when from './when/when';
 import whenElse from './whenElse/whenElse';
 
@@ -112,6 +113,7 @@ export {
     substract,
     transpoline,
     type,
+    uncurry,
     when,
     whenElse,
 };

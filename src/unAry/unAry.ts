@@ -16,5 +16,5 @@ import _nAry from '../nAry/nAry';
  *  fn2(arg1) // will execute the function with only arg1
  */
 export default function unAry<F extends Fn>(fn: F): Curry<Arity<F, 1>> {
-    return _nAry(fn, 1);
+    return _nAry<F, 1>(fn, 1);
 }

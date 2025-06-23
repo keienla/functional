@@ -5,7 +5,7 @@ describe('SAME_LENGTH', () => {
         const arr: any[] = [0, 1, 2, 3, 4];
         const str: string = 'abcde';
         const reg: RegExp = /ab/g;
-        const fn: Function = (a, b, c, d, e) => {};
+        const fn: Function = (a: any, b: any, c: any, d: any, e: any) => {};
         const obj: object = { a: 0, b: 1, c: 2, d: 3, e: 4 };
 
         expect(sameLength(arr, str)).toBe(true);

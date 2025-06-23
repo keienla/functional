@@ -1,5 +1,6 @@
-import type { Cast, Drop, Fn, Length, Tuple } from '../models';
-import type { BLANK, ExtractBlank, IsBlank } from '../utils/_blank.model';
+import type { Cast, Drop, Fn, Head, Length, Tail, Tuple } from '../models';
+import type { ExtractBlank, ReplaceBlank } from '../utils/_blank.model';
+import { BLANK, type Blank } from '../utils/_blank';
 
 // ! https://medium.com/codex/currying-in-typescript-ca5226c85b85
 
@@ -7,7 +8,6 @@ import type { BLANK, ExtractBlank, IsBlank } from '../utils/_blank.model';
 export type Curry<F extends Fn> =
     // T is the given arguments at least
     // If no arguments get the parameters of the function
-    // originaly: Cast<T, Partial<Parameters<F>>> and not Cast<Partial<Parameters<F>>, T>
     <T extends Tuple>(
         ...args: Cast<Partial<Parameters<F>>, T>
     ) => // Get the remaining arguments
@@ -27,64 +27,62 @@ export type Curry<F extends Fn> =
             : never
         : never;
 
-// Prendre exemple sur le Before pour la gestion de l'infini
-type Curry2<F extends Fn> = <
-    Params extends Parameters<F>,
-    Result extends any = ReturnType<F>,
->(
-    ...args: Parameters<F> | Params
-) => ExtractBlank<Params, Parameters<F>> extends infer G ? G : Result;
+// TODO: REFACTO CURRY
 
-export default function curry<F extends Fn>(
-    fn: F,
-    args: Parameters<F>[] = [],
-): Curry2<F> {
+function curry<
+    F extends Fn,
+    DefaultArgs extends CurryPartialParameters<Parameters<F>>,
+>(fn: F, ...args: DefaultArgs): Curry2<F, DefaultArgs> {
     return null as any;
 }
 
-const fn1 = (key1: string, key2: number, key3: boolean): boolean => {
-    return true;
-};
-// ! SHOULD BE ERROR
-const curriedFn1 = curry(fn1)('hello');
-const curriedFn2 = curry(fn1)(1)('2');
+/**
+ * Transform the parameters of the function to make it optional or Blank.
+ * @example
+ * type MyFn = (key1: string, key2: number) => boolean;
+ * type MyFnCurryParameters = CurryPartialParameters<Parameters<MyFn>> // [key1?: string | Blank | undefined, key2?: number | Blank | undefined]
+ */
+export type CurryPartialParameters<P extends Tuple> = {
+    [K in keyof P]?: P[K] | boolean | Blank;
+} extends infer T
+    ? Cast<T, Tuple>
+    : never;
 
-// REFACTO CURRY
+/**
+ * Get the remaining parameters of the function and work with Blank to keep the good params
+ * @example
+ * type MyFn = (key1: string, key2: number) => boolean;
+ * type remainingParameters = CurryRemainingParameters<[Blank, number], Parameters<MyFn>> // [key1: string]
+ * type remainingParameters2 = CurryRemainingParameters<[], Parameters<MyFn>> // [key1: string, key2: number]
+ * type remainingParameters3 = CurryRemainingParameters<['Foo'], Parameters<MyFn>> // [key2: number]
+ * type remainingParameters4 = CurryRemainingParameters<['Foo', number], Parameters<MyFn>> // []
+ */
+type CurryRemainingParameters<
+    Provided extends Tuple,
+    Expected extends Tuple,
+> = Cast<ExtractBlank<Provided, Expected>, Tuple>;
 
-// export type Curry2<F extends Fn> = Curry2Fn<F>
+type Curry2<F extends Fn, ProvidedArgs extends Tuple> = <
+    NewArgs extends CurryPartialParameters<
+        CurryRemainingParameters<ProvidedArgs, Parameters<F>>
+    >,
+>(
+    ...args: NewArgs
+) => ExtractBlank<ProvidedArgs, Parameters<F>> extends infer RemainingArgs
+    ? Length<Cast<RemainingArgs, Tuple>> extends infer LengthRemainingArgs
+        ? LengthRemainingArgs extends Length<NewArgs>
+            ? ReturnType<F>
+            : // : Curry2<
+              //       (...args: Cast<RemainingArgs, Tuple>) => ReturnType<F>,
+              //       Cast<ReplaceBlank<ProvidedArgs, NewArgs>, Tuple>
+              //   >
+              //   ReplaceBlank<NewArgs, Cast<RemainingArgs, Tuple>>
+              Parameters<F>
+        : never
+    : never;
 
-// type Curry2Fn<F extends Fn, Decomposed extends any[] = Decompose<Parameters<F>>, Result extends any = F> = {
-//     continue: Curry2Fn<
-//         F,
-//         Tail<Decomposed>,
-//         Result | ((...args: Head<Decomposed>) => ReturnType<F>)
-//     >
-//     finish: Result
-//     infinite: 'INFINITE'
-// }[
-//     Decomposed extends DecomposeInfinite
-//     ? 'infinite'
-//     :
-//     Length<Decomposed> extends 0
-//     ? 'finish'
-//     : 'continue'
-// ]
-
-// type DecomposeInfinite = {
-//     ERROR: 'Cannot Decompose on an infinite array',
-//     TAGS: ['InfiniteArray', 'Infinite', 'Decompose']
-// }
-
-// type Decompose<Args extends Tuple> = {
-//     continue: []
-//     finish: Args
-//     infinite: DecomposeInfinite
-// }[
-//     'continue'
-// ]
-
-// type CurryTest1 = Curry2<(key1: string) => boolean>                                 // (key1: string) => boolean
-// type CurryTest2 = Curry2<(key1: string, key2: number) => boolean>                   // (key1: string, key2: number) => boolean | (key1: string) => (key2: number) => boolean
-// type CurryTest3 = Curry2<(key1: boolean, key2: string, key3: number) => Date>       // (key1: boolean, key2: string, key3: number) => Date | (key1: boolean) => (key2: string, key3: number) => Date | (key1: boolean, key2: string) => (key3: number) => Date | (key1: boolean) => (key2: string) => (key3: number) => Date
-// type CurryTest4 = Curry2<(key1: number, key2?: number) => string>                   // (key1: number, key2?: number) => string | (key1: number) => string
-// type CurryTest5 = Curry2<(key1: number, key2: number, ...rest: string[]) => string> // (key1: number, key2: number, ...rest: string[]) => string | (key1: number) => (key2: number, ...rest: string[]) => string | (key1: number, key2: number) => string | (key1: number) => (key2: number) => string
+const t = curry(
+    (a: number, b: string, c: boolean): number => 0,
+    BLANK,
+    'Hello',
+)();

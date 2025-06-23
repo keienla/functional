@@ -1,4 +1,4 @@
-import { _BLANK, replaceBlank } from '../utils/_blank';
+import { isBlank, replaceBlank } from '../utils/_blank';
 import { Fn } from '../models';
 import type { Curry } from './curry.model';
 
@@ -17,10 +17,15 @@ import type { Curry } from './curry.model';
  */
 export default function curry<F extends Fn>(
     fn: F,
-    args: Parameters<F>[] = [],
+    defaultArgs?: Parameters<F>,
 ): Curry<F> {
     return function nested(...nextArgs: any[]) {
-        const _args = replaceBlank(args, nextArgs);
+        const _args = replaceBlank(
+            defaultArgs || [],
+            nextArgs,
+        ) as Parameters<F>;
+
+        if (_args.some((arg) => isBlank(arg))) return curry(fn, _args);
 
         if (fn.length - _args.length <= 0) {
             return fn(..._args);

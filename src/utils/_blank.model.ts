@@ -8,30 +8,40 @@ import {
     Tail,
     Tuple,
 } from '../models';
-import { _BLANK } from './_blank';
-
-export type BLANK = typeof _BLANK;
+import type { Blank } from './_blank';
 
 // #region IsBlank
-export type IsBlank<Value, Is = true, Isnt = false> = Value extends BLANK
-    ? Is
-    : Isnt;
-
-type IsBlankTest1 = IsBlank<0>; // false
-type IsBlankTest2 = IsBlank<never>; // never
-type IsBlankTest3 = IsBlank<BLANK>; // true
-type IsBlankTest4 = IsBlank<null>; // false
-type IsBlankTest5 = IsBlank<undefined>; // false
-type IsBlankTest6 = IsBlank<typeof _BLANK>; // true
-const sh = Symbol('Hello');
-type tSh = typeof sh;
-type IsBlankTest7 = IsBlank<tSh>; // false
-const sb = Symbol('BLANK');
-type tSb = typeof sb;
-type IsBlankTest8 = IsBlank<tSb>; // false
+/**
+ * Check if the item is Blank type
+ * @example
+ * type A = IsBlank<0> // false
+ * type B = IsBlank<Blank> // true
+ * type C = IsBlank<never> // false
+ * const sh = Symbol('Hello');
+ * type D = IsBlank<typeof sh> // false
+ * const sb = Symbol('BLANK');
+ * type E = IsBlank<typeof sb> // false
+ */
+export type IsBlank<Value, Is = true, Isnt = false> = IsNever<
+    Value,
+    Isnt,
+    Value extends Blank ? Is : Isnt
+>;
 // #endregion IsBlank
 
 // #region ReplaceBlank
+/**
+ * Merge two array. If the first array have some BLANK items, there will be replace by items of second group if exist
+ * @example
+ * type A = ReplaceBlank<[], []>; // []
+ * type B = ReplaceBlank<[0, 1, 2, 3], []>; // [0, 1, 2, 3]
+ * type C = ReplaceBlank<[0, 1, 2, 3], [4, 5, 6]>; // [0, 1, 2, 3]
+ * type D = ReplaceBlank<[Blank, 1, 2, 3], ['Hello']>; // ['Hello', 1, 2, 3]
+ * type E = ReplaceBlank<[0, 1, Blank, 3], ['Foo']>; // [0, 1, 'Foo', 3]
+ * type F = ReplaceBlank<string[], []>; // 'ERROR'
+ * type G = ReplaceBlank<[0, Blank, Blank, 3], [Blank, 'Bar']>; // [0, '__BLANK__', 'Foo', 3]
+ * type H = ReplaceBlank<G, ['Foo']>; // [0, 'Foo', 'Bar', 3]
+ */
 export type ReplaceBlank<
     Items extends Tuple,
     NewItems extends Tuple,
@@ -65,15 +75,20 @@ type ReplaceBlankFn<
           ? 'finishNewItems'
           : IsBlank<Head<Items>[0], 'continueNewItems', 'continueItems'>
     : 'infinite'];
-
-type ReplaceBlankTest1 = ReplaceBlank<[], []>; // []
-type ReplaceBlankTest2 = ReplaceBlank<[0, 1, 2, 3], []>; // [0, 1, 2, 3]
-type ReplaceBlankTest3 = ReplaceBlank<[0, 1, 2, 3], [4, 5, 6]>; // [0, 1, 2, 3]
-type ReplaceBlankTest4 = ReplaceBlank<[BLANK, 1, 2, 3], ['Hello']>; // ['Hello', 1, 2, 3]
-type ReplaceBlankTest5 = ReplaceBlank<string[], []>; // 'ERROR'
 // #endregion ReplaceBlank
 
 // #region ExtractBlank
+/**
+ * Extract all arguments that are not initialized yet with a value
+ * @example
+ * type A = ExtractBlank<[], []>; // []
+ * type B = ExtractBlank<[], [arg1: boolean]>; // [arg1: boolean]
+ * type C = ExtractBlank<['hello'], [arg1: string, arg2: boolean, arg3: number]>; // [arg2: boolean, arg3: number]
+ * type D = ExtractBlank<[Blank, true], [arg1: string, arg2: boolean, arg3: number]>; // [arg1: string, arg3: number]
+ * type E = ExtractBlank<['A', Blank, 'C'], string[]>; // [string, ...string[]]
+ * type F = ExtractBlank<['A', Blank, 'C'], [string, number, ...string[]]>; // [number, ...string[]]
+ * type G = ExtractBlank<string[], []>; // 'ERROR'
+ */
 export type ExtractBlank<
     Given extends Tuple,
     Desired extends Tuple,
@@ -100,20 +115,4 @@ type ExtractBlankFn<
         ? 'finish'
         : IsBlank<Head<Given>[0], 'addDesired', 'continue'>
     : 'infinite'];
-
-type ExtractBlankTest1 = ExtractBlank<[], []>; // []
-type ExtractBlankTest2 = ExtractBlank<
-    ['hello'],
-    [arg1: string, arg2: boolean, arg3: number]
->; // [arg2: boolean, arg3: number]
-type ExtractBlankTest3 = ExtractBlank<
-    [BLANK, true],
-    [arg1: string, arg2: boolean, arg3: number]
->; // [arg1: string, arg3: number]
-type ExtractBlankTest4 = ExtractBlank<['A', BLANK, 'C'], string[]>; // [string, ...string[]]
-type ExtractBlankTest5 = ExtractBlank<
-    ['A', BLANK, 'C'],
-    [string, number, ...string[]]
->; // [number, ...string[]]
-type ExtractBlankTest6 = ExtractBlank<string[], []>; // 'ERROR'
 // #endregion ExtractBlank

@@ -6,16 +6,22 @@ describe('FREEZE', () => {
 
         expect(() => {
             freezedArr[0] = 5;
-        }).toThrowError();
+        }).toThrow();
         expect(freezedArr[0]).toBe(0);
     });
 
     test('Check if second level array is freezed too', () => {
-        const freezedArr = deepFreeze([['a', 'b', 'c', 'd'], 1, 2, 3, 4]);
+        const freezedArr: [string[], ...number[]] = deepFreeze([
+            ['a', 'b', 'c', 'd'],
+            1,
+            2,
+            3,
+            4,
+        ]);
 
         expect(() => {
             freezedArr[0][0] = 'e';
-        }).toThrowError();
+        }).toThrow();
         expect(freezedArr[0][0]).toBe('a');
     });
 
@@ -24,7 +30,7 @@ describe('FREEZE', () => {
 
         expect(() => {
             freezedObj.a = 5;
-        }).toThrowError();
+        }).toThrow();
         expect(freezedObj.a).toBe(0);
     });
 
@@ -33,7 +39,7 @@ describe('FREEZE', () => {
 
         expect(() => {
             freezedObj.a.d = 5;
-        }).toThrowError();
+        }).toThrow();
         expect(freezedObj.a.d).toBe(0);
     });
 });

@@ -1,17 +1,23 @@
-import { List } from './types';
+import type { List } from './types';
 
-// It adds a type E at the beginning of the given array of type
+/**
+ * Add the given item to the start of the given array
+ * @example
+ * type A = PrependItem<string, []>; // [string]
+ * type B = PrependItem<number, [1, 2]>; // [number, 1, 2]
+ * type C = PrependItem<[string], [1, 2]>; // [[string], 1, 2]
+ * type D = PrependItem<[key: string], [1, 2]>; // [[key: string], 1, 2]
+ */
 export type PrependItem<AddStart, Base extends List> = [AddStart, ...Base];
+
+/**
+ * Merge the two list and set the first one at the beginning if the second one
+ * @example
+ * type A = PrependList<[string], []>; // [string]
+ * type B = PrependList<[string], [1, 2]>; // [string, 1, 2]
+ * type C = PrependList<[key: string], [1, 2]>; // [key: string, 1, 2]
+ */
 export type PrependList<AddStart extends List, Base extends List> = [
     ...AddStart,
     ...Base,
 ];
-
-type testPrependItem1 = PrependItem<string, []>; // [string]
-type testPrependItem2 = PrependItem<number, [1, 2]>; // [number, 1, 2]
-type testPrependItem3 = PrependItem<[string], [1, 2]>; // [[string], 1, 2]
-type testPrependItem4 = PrependItem<[key: string], [1, 2]>; // [[key: string], 1, 2]
-
-type testPrependList1 = PrependList<[string], []>; // [string]
-type testPrependList2 = PrependList<[string], [1, 2]>; // [string, 1, 2]
-type testPrependList3 = PrependList<[key: string], [1, 2]>; // [key: string, 1, 2]

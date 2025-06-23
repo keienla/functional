@@ -5,7 +5,7 @@ export default curry(function pick(
     obj: TObject,
     props: string[] = [],
 ): TObject {
-    var newObj: TObject = {};
+    const newObj: TObject = {};
 
     for (let key of props) {
         newObj[key] = obj[key];

@@ -16,7 +16,7 @@ import isType, {
 
 describe('IS_TYPE', () => {
     test('Check is array', () => {
-        const arr = [];
+        const arr: any[] = [];
         const obj = {};
 
         expect(isType('array', arr)).toBe(true);
@@ -27,8 +27,8 @@ describe('IS_TYPE', () => {
     });
 
     test('Check is object', () => {
+        const arr: any[] = [];
         const obj = {};
-        const arr = [];
 
         expect(isType('object', obj)).toBe(true);
         expect(isObject(obj)).toBe(true);
@@ -48,10 +48,10 @@ describe('IS_TYPE', () => {
     });
 
     test('Check is function', () => {
+        const arr: any[] = [];
         const fn0 = () => {};
         const fn1 = function () {};
         const fn2 = new Function('a', 'b', 'return a + b');
-        const arr = [];
 
         expect(isType('function', fn0)).toBe(true);
         expect(isFunction(fn0)).toBe(true);
@@ -65,8 +65,8 @@ describe('IS_TYPE', () => {
     });
 
     test('Check is generator function', () => {
+        const arr: any[] = [];
         const fn = function* () {};
-        const arr = [];
 
         expect(isType('generatorfunction', fn)).toBe(true);
         expect(isGeneratorFunction(fn)).toBe(true);
@@ -76,8 +76,8 @@ describe('IS_TYPE', () => {
     });
 
     test('Check is generator', () => {
+        const arr: any[] = [];
         const fn = function* () {};
-        const arr = [];
 
         expect(isType('generator', fn())).toBe(true);
         expect(isGenerator(fn())).toBe(true);

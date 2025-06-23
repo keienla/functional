@@ -1,19 +1,26 @@
-import { IsFinite } from './isFinite';
-import { List } from './types';
+import type { IsFinite } from './isFinite';
+import type { List } from './types';
 
-// Che
+/**
+ * Check if the given array contain rest items
+ *
+ * - Can add a second parameter to return if IS REST ITEM
+ * - Can add a third parameter to return if IS NO REST ITEM
+ *
+ * ! If the given value is "any[]", will return true as an infinite list is considered as rest items
+ * @example
+ * type A = IsRestItems<[...any[]]>; // true
+ * type B = IsRestItems<any[]>; // true
+ * type C = IsRestItems<[string]>; // false
+ * type D = IsRestItems<[string[]]>; // false
+ * type E = IsRestItems<never>; // false
+ * type F = IsRestItems<[hello: string, world: number | undefined]>; // false
+ * type G = IsRestItems<[hello: string, ...world: number[]]>; // true
+ * type H = IsRestItems<[...hello: string[]]>; // true
+ * type I = IsRestItems<[hello: string]>; // false
+ * type J = IsRestItems<[hello: string, world: number[]]>; // false
+ * type K = IsRestItems<any[], 'Hello'>; // 'Hello'
+ * type L = IsRestItems<[any], 'Hello', 'World'>; // 'World'
+ */
 export type IsRestItems<Items extends List, Is = true, Isnt = false> =
     IsFinite<Items> extends true ? Isnt : Is;
-
-type IsRestItems1 = IsRestItems<[...any[]]>; // true
-type IsRestItems2 = IsRestItems<any[]>; // true
-type IsRestItems3 = IsRestItems<[string]>; // false
-type IsRestItems4 = IsRestItems<[string[]]>; // false
-type IsRestItems6 = IsRestItems<never>; // false
-type IsRestItems7 = IsRestItems<[hello: string, world: number | undefined]>; // false
-type IsRestItems8 = IsRestItems<[hello: string, ...world: number[]]>; // true
-type IsRestItems9 = IsRestItems<[...hello: string[]]>; // true
-type IsRestItems10 = IsRestItems<[hello: string]>; // false
-type IsRestItems11 = IsRestItems<[hello: string, world: number[]]>; // false
-type IsRestItems12 = IsRestItems<any[], 'Hello'>; // 'Hello'
-type IsRestItems13 = IsRestItems<[any], 'Hello', 'World'>; // 'World'

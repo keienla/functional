@@ -23,5 +23,7 @@ describe('CURRY', () => {
         expect(firstStep()('a')('b')).toBe('ab');
     });
 
+    test.todo('CURRY WITH DEFAULT PARAMS');
     test.todo('CURRY WITH _BLANK');
+    // const t = curry((a: number, b: string, c: boolean) => 0, [BLANK, 'Hello'])(5)()(true)
 });

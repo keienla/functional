@@ -1,9 +1,26 @@
-import { AppendList } from './append';
-import { Head } from './head';
-import { IsNever } from './isNever';
-import { IsRestItems } from './isRestItems';
-import { Tail } from './tail';
-import { List } from './types';
+import type { AppendList } from './append';
+import type { Head } from './head';
+import type { IsNever } from './isNever';
+import type { IsRestItems } from './isRestItems';
+import type { Tail } from './tail';
+import type { List } from './types';
+
+/**
+ * Return a new List without the last element
+ * @example
+ * type A = PopLoop<[1, 2, 3, 4]>; // [1,2,3]
+ * type B = PopLoop<[]>; // []
+ * type C = PopLoop<any[]>; // []
+ * type D = PopLoop<[string, ...number[]]>; // [string]
+ * type E = PopLoop<[key1: string, key2: number, key3: boolean]>; // [key1: string, key2: number]
+ * type F = PopLoop<[key1: string, key2: number, ...key3: boolean[]]>; // [string, number]
+ */
+export type Pop<T extends List> =
+    IsRestItems<T> extends false
+        ? T extends [...infer Heads, any]
+            ? Heads
+            : []
+        : PopLoop<T>;
 
 type PopLoop<T extends List, R extends List = []> = {
     continue: PopLoop<Tail<T>, AppendList<Head<T>, R>>;
@@ -17,18 +34,3 @@ type PopLoop<T extends List, R extends List = []> = {
             : 'finish'
         : 'continue'
     : 'empty'];
-
-// Return a new list without the last element
-export type Pop<T extends List> =
-    IsRestItems<T> extends false
-        ? T extends [...infer Heads, any]
-            ? Heads
-            : []
-        : PopLoop<T>;
-
-type testPop1 = PopLoop<[1, 2, 3, 4]>; // [1,2,3]
-type testPop2 = PopLoop<[]>; // []
-type testPop3 = PopLoop<any[]>; // []
-type testPop4 = PopLoop<[string, ...number[]]>; // [string]
-type testPop5 = PopLoop<[key1: string, key2: number, key3: boolean]>; // [key1: string, key2: number]
-type testPop6 = PopLoop<[key1: string, key2: number, ...key3: boolean[]]>; // [string, number]

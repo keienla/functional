@@ -7,7 +7,7 @@ describe('AND', () => {
     function odd(value: number): boolean {
         return value % 2 === 1;
     }
-    const oddAndSup10: (value: number) => boolean = and(sup10, odd);
+    const oddAndSup10 = and(sup10, odd);
     let number: number = 0;
 
     test('All predicate function return false should return false', () => {

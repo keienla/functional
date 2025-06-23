@@ -1,8 +1,16 @@
-import { IsNever } from './isNever';
-import { Tail } from './tail';
-import { List } from './types';
+import type { IsNever } from './isNever';
+import type { Tail } from './tail';
+import type { List } from './types';
 
-// Get the last element of a List
+/**
+ * Get the last element of a List
+ * @example
+ * type A = Last<[1, 2, 3, 4]>; // [4]
+ * type B = Last<[param1: number, param2: string]>; // [param2: string]
+ * type C = Last<[]>; // never
+ * type D = Last<any[]>; // never
+ * type E = Last<[string, ...number[]]>; // never
+ */
 export type Last<Items extends List> =
     IsNever<Tail<Items>> extends true
         ? never
@@ -11,9 +19,3 @@ export type Last<Items extends List> =
               ? L
               : never
           : never;
-
-type testLast1 = Last<[1, 2, 3, 4]>; // [4]
-type testLast2 = Last<[param1: number, param2: string]>; // [param2: string]
-type testLast3 = Last<[]>; // never
-type testLast4 = Last<any[]>; // never
-type testLast5 = Last<[string, ...number[]]>; // never

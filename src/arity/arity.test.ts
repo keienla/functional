@@ -31,15 +31,18 @@ describe('ARITY', () => {
         const arityTextAndNumbersSum5 = arity(textAndNumber, 5);
         expect(arity5.length).toBe(5);
         expect(arity5(1, 1, 1, 1, 1)).toBe(5);
-        // @ts-ignore
+
+        // @ts-ignore: for tests, to check if stop with good number of parameters
         expect(arity5(1, 1, 1, 1, 1, 1, 1, 1)).toBe(5);
+
         expect(arity(textAndNumber, 3)('Hello', 2, 8)).toBe('Hello: 10');
 
-        // @ts-ignore
         expect(() => {
+            // @ts-ignore: for test to check if throw
             arityTextAndNumbersSum5();
         }).toThrow();
-        // @ts-ignore
+
+        // @ts-ignore: for test to check if args are goods
         expect(arityTextAndNumbersSum5('World', '1')).toBe('World: 1');
     });
 });

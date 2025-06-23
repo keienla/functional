@@ -1,13 +1,22 @@
-import { AppendItem, AppendList } from './append';
-import { GetItemsBeforeRestItems } from './getItemsBeforeRestItems';
-import { GetTypeRestItems } from './getTypeRestItems';
-import { Head } from './head';
-import { IsFinite } from './isFinite';
-import { Length } from './length';
-import { Tail } from './tail';
-import { List } from './types';
+import type { AppendItem, AppendList } from './append';
+import type { GetItemsBeforeRestItems } from './getItemsBeforeRestItems';
+import type { GetTypeRestItems } from './getTypeRestItems';
+import type { Head } from './head';
+import type { IsFinite } from './isFinite';
+import type { Length } from './length';
+import type { Tail } from './tail';
+import type { List } from './types';
 
-// Get all the arguments before the index given
+/**
+ * Get all the arguments before the index given
+ * @example
+ * type A = Before<0, [0, 1, 2]>; // []
+ * type B = Before<5, ['a', 'b']>; // ['a', 'b']
+ * type C = Before<3, ['a', 'b', 'c', 'd', 'e']>; // ['a', 'b', 'c']
+ * type D = Before<5, []>; // []
+ * type E = Before<2, [key1: string, key2: number, key3: boolean]>; // [key1: string, key2: number]
+ * type F = Before<4, [string, ...args: number[]]>; // [string, number, number, number]
+ */
 export type Before<
     Size extends number,
     BaseItems extends List,
@@ -51,10 +60,3 @@ export type Before<
               : 'continue'
         : 'nope'
     : 'infinite'];
-
-type testBefore1 = Before<0, [0, 1, 2]>; // []
-type testBefore2 = Before<5, ['a', 'b']>; // ['a', 'b']
-type testBefore3 = Before<3, ['a', 'b', 'c', 'd', 'e']>; // ['a', 'b', 'c']
-type TestBefore4 = Before<5, []>; // []
-type TestBefore5 = Before<2, [key1: string, key2: number, key3: boolean]>; // [key1: string, key2: number]
-type TestBefore6 = Before<4, [string, ...args: number[]]>; // [string, number, number, number]

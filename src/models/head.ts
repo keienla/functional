@@ -1,7 +1,22 @@
-import { IsRestItems } from './isRestItems';
-import { List } from './types';
+import type { IsRestItems } from './isRestItems';
+import type { List } from './types';
 
-// Extract the first item of a List and return it in an array (to keep key name)
+/**
+ * Extract the first item of a List and return it in an array (to keep key name)
+ * ! Can't keep key name when rest...
+ * @example
+ * type A = Head<[1, 2, string, number]>; // [1]
+ * type B = Head<Parameters<(name: string, age: number, single: boolean) => true>>; // [name: string]
+ * type C = Head<[]>; // never
+ * type D = Head<[string]>; // [string]
+ * type E = Head<any[]>; // never
+ * type F = Head<[...any[]]>; // never
+ * type H = Head<[string, ...number[]]>; // [string]
+ * type I = Head<[test: number, test2: boolean, test3: number]>; // [test: number]
+ * // ! Can't keep key name when rest...
+ * type J = Head<[key: string, ...args: number[]]>; // [string]
+ * type K = Head<[key: string]>; // [key: string]
+ */
 export type Head<T extends List> =
     IsRestItems<T> extends true
         ? T extends [infer F, ...any[]]
@@ -12,18 +27,3 @@ export type Head<T extends List> =
               ? F
               : never
           : never;
-
-type testHead1 = Head<[1, 2, string, number]>; // [1]
-type testHead2 = Head<
-    Parameters<(name: string, age: number, single: boolean) => true>
->; // [name: string]
-type testHead3 = Head<[]>; // never
-type testHead4 = Head<[string]>; // [string]
-type testHead5 = Head<any[]>; // never
-type testHead6 = Head<[...any[]]>; // never
-type testHead7 = Head<[string, ...number[]]>; // [string]
-type testHead8 = Head<[test: number, test2: boolean, test3: number]>; // [test: number]
-// ! Can't keep key name when rest...
-// TODO Refacto one day to try to make it possible, like this can keep key on almost everything
-type testHead9 = Head<[key: string, ...args: number[]]>; // [string]
-type testHead10 = Head<[key: string]>; // [key: string]
