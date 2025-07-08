@@ -42,22 +42,22 @@ export type IsBlank<Value, Is = true, Isnt = false> = IsNever<
  * type G = ReplaceBlank<[0, Blank, Blank, 3], [Blank, 'Bar']>; // [0, '__BLANK__', 'Foo', 3]
  * type H = ReplaceBlank<G, ['Foo']>; // [0, 'Foo', 'Bar', 3]
  */
-export type ReplaceBlank<
+export type ReplaceBlanks<
     Items extends Tuple,
     NewItems extends Tuple,
-> = ReplaceBlankFn<Items, NewItems>;
+> = ReplaceBlanksFn<Items, NewItems>;
 
-type ReplaceBlankFn<
+type ReplaceBlanksFn<
     Items extends Tuple,
     NewItems extends Tuple,
     Result extends Tuple = [],
 > = {
-    continueItems: ReplaceBlankFn<
+    continueItems: ReplaceBlanksFn<
         Tail<Items>,
         NewItems,
         AppendList<Head<Items>, Result>
     >;
-    continueNewItems: ReplaceBlankFn<
+    continueNewItems: ReplaceBlanksFn<
         Tail<Items>,
         Tail<NewItems>,
         AppendList<Head<NewItems>, Result>
@@ -81,26 +81,26 @@ type ReplaceBlankFn<
 /**
  * Extract all arguments that are not initialized yet with a value
  * @example
- * type A = ExtractBlank<[], []>; // []
- * type B = ExtractBlank<[], [arg1: boolean]>; // [arg1: boolean]
- * type C = ExtractBlank<['hello'], [arg1: string, arg2: boolean, arg3: number]>; // [arg2: boolean, arg3: number]
- * type D = ExtractBlank<[Blank, true], [arg1: string, arg2: boolean, arg3: number]>; // [arg1: string, arg3: number]
- * type E = ExtractBlank<['A', Blank, 'C'], string[]>; // [string, ...string[]]
- * type F = ExtractBlank<['A', Blank, 'C'], [string, number, ...string[]]>; // [number, ...string[]]
- * type G = ExtractBlank<string[], []>; // 'ERROR'
+ * type A = ExtractBlanks<[], []>; // []
+ * type B = ExtractBlanks<[], [arg1: boolean]>; // [arg1: boolean]
+ * type C = ExtractBlanks<['hello'], [arg1: string, arg2: boolean, arg3: number]>; // [arg2: boolean, arg3: number]
+ * type D = ExtractBlanks<[Blank, true], [arg1: string, arg2: boolean, arg3: number]>; // [arg1: string, arg3: number]
+ * type E = ExtractBlanks<['A', Blank, 'C'], string[]>; // [string, ...string[]]
+ * type F = ExtractBlanks<['A', Blank, 'C'], [string, number, ...string[]]>; // [number, ...string[]]
+ * type G = ExtractBlanks<string[], []>; // 'ERROR'
  */
-export type ExtractBlank<
+export type ExtractBlanks<
     Given extends Tuple,
     Desired extends Tuple,
-> = ExtractBlankFn<Given, Desired>;
+> = ExtractBlanksFn<Given, Desired>;
 
-type ExtractBlankFn<
+type ExtractBlanksFn<
     Given extends Tuple,
     Desired extends Tuple,
     Result extends Tuple = [],
 > = {
-    continue: ExtractBlankFn<Tail<Given>, Tail<Desired>, Result>;
-    addDesired: ExtractBlankFn<
+    continue: ExtractBlanksFn<Tail<Given>, Tail<Desired>, Result>;
+    addDesired: ExtractBlanksFn<
         Tail<Given>,
         Tail<Desired>,
         AppendList<IsNever<Head<Desired>, [Desired[0]], Head<Desired>>, Result>

@@ -1,5 +1,5 @@
 import type { Cast, Drop, Fn, Head, Length, Tail, Tuple } from '../models';
-import type { ExtractBlank, ReplaceBlank } from '../utils/_blank.model';
+import type { ExtractBlanks, ReplaceBlanks } from '../utils/_blank.model';
 import { BLANK, type Blank } from '../utils/_blank';
 
 // ! https://medium.com/codex/currying-in-typescript-ca5226c85b85
@@ -52,7 +52,7 @@ export type CurryPartialParameters<P extends Tuple> = {
  * Get the remaining parameters of the function and work with Blank to keep the good params
  * @example
  * type MyFn = (key1: string, key2: number) => boolean;
- * type remainingParameters = CurryRemainingParameters<[Blank, number], Parameters<MyFn>> // [key1: string]
+ * type remainingParameters1 = CurryRemainingParameters<[Blank, number], Parameters<MyFn>> // [key1: string]
  * type remainingParameters2 = CurryRemainingParameters<[], Parameters<MyFn>> // [key1: string, key2: number]
  * type remainingParameters3 = CurryRemainingParameters<['Foo'], Parameters<MyFn>> // [key2: number]
  * type remainingParameters4 = CurryRemainingParameters<['Foo', number], Parameters<MyFn>> // []
@@ -60,24 +60,36 @@ export type CurryPartialParameters<P extends Tuple> = {
 type CurryRemainingParameters<
     Provided extends Tuple,
     Expected extends Tuple,
-> = Cast<ExtractBlank<Provided, Expected>, Tuple>;
+> = Cast<ExtractBlanks<Provided, Expected>, Tuple>;
 
-type Curry2<F extends Fn, ProvidedArgs extends Tuple> = <
+/**
+ * The Curry2 function that should replace the curry function type
+ * This type accept BLANK parameters and replace it until the function is completed.
+ * @param {Fn} F The function to curried
+ * @param {Tuple} ProvidedArgs The arguments provided by the user
+ * @param {ReturnType<F>} Result The return type of the function
+ */
+type Curry2<
+    F extends Fn,
+    ProvidedArgs extends Tuple,
+    Result = ReturnType<F>,
+> = <
+    // It's the args given during each partial call of the function
     NewArgs extends CurryPartialParameters<
         CurryRemainingParameters<ProvidedArgs, Parameters<F>>
     >,
 >(
     ...args: NewArgs
-) => ExtractBlank<ProvidedArgs, Parameters<F>> extends infer RemainingArgs
-    ? Length<Cast<RemainingArgs, Tuple>> extends infer LengthRemainingArgs
-        ? LengthRemainingArgs extends Length<NewArgs>
-            ? ReturnType<F>
-            : // : Curry2<
-              //       (...args: Cast<RemainingArgs, Tuple>) => ReturnType<F>,
-              //       Cast<ReplaceBlank<ProvidedArgs, NewArgs>, Tuple>
-              //   >
-              //   ReplaceBlank<NewArgs, Cast<RemainingArgs, Tuple>>
-              Parameters<F>
+) => ExtractBlanks<ProvidedArgs, Parameters<F>> extends infer RemainingArgs
+    ? ReplaceBlanks<ProvidedArgs, NewArgs> extends infer NewProvidedArgs
+        ? Length<Cast<RemainingArgs, Tuple>> extends infer LengthRemainingArgs
+            ? LengthRemainingArgs extends Length<NewArgs>
+                ? Result
+                : Curry2<
+                      (...args: Cast<RemainingArgs, Tuple>) => Result,
+                      Cast<NewProvidedArgs, Tuple>
+                  >
+            : never
         : never
     : never;
 
@@ -85,4 +97,4 @@ const t = curry(
     (a: number, b: string, c: boolean): number => 0,
     BLANK,
     'Hello',
-)();
+);
