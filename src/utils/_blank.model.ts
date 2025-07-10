@@ -32,37 +32,50 @@ export type IsBlank<Value, Is = true, Isnt = false> = IsNever<
 // #region ReplaceBlank
 /**
  * Merge two array. If the first array have some BLANK items, there will be replace by items of second group if exist
+ * @params {Tuple} Items The default list with some items that can be BLANK item
+ * @params {Tuple} NewItems The items to add to the first group and replace the BLANK items
+ * @params {true|false} AddRestingItems If there is some items in NewItems
+ *  - if false (default): the remaining items of NewItems will be ignored
+ *  - if true: the remaining items of NewItems will be added to the result
  * @example
- * type A = ReplaceBlank<[], []>; // []
- * type B = ReplaceBlank<[0, 1, 2, 3], []>; // [0, 1, 2, 3]
- * type C = ReplaceBlank<[0, 1, 2, 3], [4, 5, 6]>; // [0, 1, 2, 3]
- * type D = ReplaceBlank<[Blank, 1, 2, 3], ['Hello']>; // ['Hello', 1, 2, 3]
- * type E = ReplaceBlank<[0, 1, Blank, 3], ['Foo']>; // [0, 1, 'Foo', 3]
- * type F = ReplaceBlank<string[], []>; // 'ERROR'
- * type G = ReplaceBlank<[0, Blank, Blank, 3], [Blank, 'Bar']>; // [0, '__BLANK__', 'Foo', 3]
- * type H = ReplaceBlank<G, ['Foo']>; // [0, 'Foo', 'Bar', 3]
+ * type A = ReplaceBlanks<[], []>; // []
+ * type B = ReplaceBlanks<[0, 1, 2, 3], []>; // [0, 1, 2, 3]
+ * type C = ReplaceBlanks<[0, 1, 2, 3], [4, 5, 6]>; // [0, 1, 2, 3]
+ * type D = ReplaceBlanks<[0, 1, 2, 3], [4, 5, 6], true>; // [0, 1, 2, 3, 4, 5, 6]
+ * type E = ReplaceBlanks<[Blank, 1, 2, 3], ['Hello']>; // ['Hello', 1, 2, 3]
+ * type F = ReplaceBlanks<[0, 1, Blank, 3], ['Foo', 'Bar']>; // [0, 1, 'Foo', 3]
+ * type G = ReplaceBlanks<[0, 1, Blank, 3], ['Foo', 'Bar'], true>; // [0, 1, 'Foo', 3, 'Bar']
+ * type H = ReplaceBlanks<string[], []>; // 'ERROR'
+ * type I = ReplaceBlanks<[0, Blank, Blank, 3], [Blank, 'Bar']>; // [0, '__BLANK__', 'Foo', 3]
+ * type J = ReplaceBlanks<I, ['Foo']>; // [0, 'Foo', 'Bar', 3]
  */
 export type ReplaceBlanks<
     Items extends Tuple,
     NewItems extends Tuple,
-> = ReplaceBlanksFn<Items, NewItems>;
+    AddRestingItems extends boolean = false,
+> = ReplaceBlanksFn<Items, NewItems, AddRestingItems>;
 
 type ReplaceBlanksFn<
     Items extends Tuple,
     NewItems extends Tuple,
+    AddRestingItems extends boolean = false,
     Result extends Tuple = [],
 > = {
     continueItems: ReplaceBlanksFn<
         Tail<Items>,
         NewItems,
+        AddRestingItems,
         AppendList<Head<Items>, Result>
     >;
     continueNewItems: ReplaceBlanksFn<
         Tail<Items>,
         Tail<NewItems>,
+        AddRestingItems,
         AppendList<Head<NewItems>, Result>
     >;
-    finishItems: Result;
+    finishItems: AddRestingItems extends false
+        ? Result
+        : Concat<Result, NewItems>;
     finishNewItems: Concat<Result, Items>;
     infinite: {
         ERROR: 'Cannot ReplaceBlank on an infinite array';
@@ -116,3 +129,36 @@ type ExtractBlanksFn<
         : IsBlank<Head<Given>[0], 'addDesired', 'continue'>
     : 'infinite'];
 // #endregion ExtractBlank
+
+// #region RemoveBlanks
+/**
+ * Remove all the items that are Blank
+ * @param {Tuple} Given The tuple to remove the Blank items
+ * @returns {Tuple}
+ * @example
+ * type A = RemoveBlanks<[]>; // []
+ * type B = RemoveBlanks<[0, 1, 2, 3]>; // [0, 1, 2, 3]
+ * type C = RemoveBlanks<[0, 1, Blank, 3]>; // [0, 1, 3]
+ * type D = RemoveBlanks<[0, Blank, Blank, 3]>; // [0, 3]
+ * type E = RemoveBlanks<[Blank]>; // []
+ * type F = RemoveBlanks<string[]>; // 'ERROR'
+ */
+export type RemoveBlanks<Given extends Tuple> = RemoveBlanksFn<Given>;
+
+type RemoveBlanksFn<Given extends Tuple, Result extends Tuple = []> = {
+    continueWithValue: RemoveBlanksFn<
+        Tail<Given>,
+        AppendList<Head<Given>, Result>
+    >;
+    continueWithoutBlank: RemoveBlanksFn<Tail<Given>, Result>;
+    finish: Result;
+    infinite: {
+        ERROR: 'Cannot RemoveBlank on an infinite array';
+        TAGS: ['InfiniteArray', 'Infinite', 'RemoveBlank'];
+    };
+}[IsFinite<Given> extends true
+    ? Length<Given> extends 0
+        ? 'finish'
+        : IsBlank<Head<Given>[0], 'continueWithoutBlank', 'continueWithValue'>
+    : 'infinite'];
+// #endregion RemoveBlanks

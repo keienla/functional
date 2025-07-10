@@ -1,5 +1,5 @@
 import { isBlank, replaceBlank } from '../utils/_blank';
-import { Fn } from '../models';
+import { Fn, Tuple } from '../models';
 import type { Curry } from './curry.model';
 
 /**
@@ -18,7 +18,7 @@ import type { Curry } from './curry.model';
 export default function curry<F extends Fn>(
     fn: F,
     defaultArgs?: Parameters<F>,
-): Curry<F> {
+): Curry<F, typeof defaultArgs extends Tuple ? typeof defaultArgs : []> {
     return function nested(...nextArgs: any[]) {
         const _args = replaceBlank(
             defaultArgs || [],

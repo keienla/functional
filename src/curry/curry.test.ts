@@ -8,6 +8,7 @@ describe('CURRY', () => {
 
         const firstStep = curriedAd4numbers(1, 2);
         const secondStep = firstStep(3);
+        const thridStep = secondStep(4);
 
         expect(secondStep(4)).toEqual(10);
     });

@@ -1,40 +1,10 @@
-import type { Cast, Drop, Fn, Head, Length, Tail, Tuple } from '../models';
-import type { ExtractBlanks, ReplaceBlanks } from '../utils/_blank.model';
-import { BLANK, type Blank } from '../utils/_blank';
-
-// ! https://medium.com/codex/currying-in-typescript-ca5226c85b85
-
-// TODO REFACTO
-export type Curry<F extends Fn> =
-    // T is the given arguments at least
-    // If no arguments get the parameters of the function
-    <T extends Tuple>(
-        ...args: Cast<Partial<Parameters<F>>, T>
-    ) => // Get the remaining arguments
-    Drop<Length<T>, Parameters<F>> extends infer G
-        ? // Get the length of remaining arguments
-          Length<Cast<G, Tuple>> extends infer L
-            ? // If L == 0 so there is no more arguments
-              L extends 0
-                ? // Return the return type of the function
-                  ReturnType<F>
-                : // Else if at least one argument
-                  L extends 1
-                  ? // Return the function not curried
-                    (...args: Cast<G, Tuple>) => ReturnType<F>
-                  : // If more return the curried function
-                    Curry<(...args: Cast<G, Tuple>) => ReturnType<F>>
-            : never
-        : never;
-
-// TODO: REFACTO CURRY
-
-function curry<
-    F extends Fn,
-    DefaultArgs extends CurryPartialParameters<Parameters<F>>,
->(fn: F, ...args: DefaultArgs): Curry2<F, DefaultArgs> {
-    return null as any;
-}
+import type { Cast, Fn, Length, Tuple } from '../models';
+import type {
+    ExtractBlanks,
+    RemoveBlanks,
+    ReplaceBlanks,
+} from '../utils/_blank.model';
+import { type Blank } from '../utils/_blank';
 
 /**
  * Transform the parameters of the function to make it optional or Blank.
@@ -63,16 +33,23 @@ type CurryRemainingParameters<
 > = Cast<ExtractBlanks<Provided, Expected>, Tuple>;
 
 /**
- * The Curry2 function that should replace the curry function type
+ * The Curry function that should replace the curry function type
  * This type accept BLANK parameters and replace it until the function is completed.
  * @param {Fn} F The function to curried
  * @param {Tuple} ProvidedArgs The arguments provided by the user
- * @param {ReturnType<F>} Result The return type of the function
  */
-type Curry2<
+export type Curry<F extends Fn, ProvidedArgs extends Tuple> = CurryFn<
+    F,
+    ProvidedArgs
+>;
+
+type CurryFn<
+    // The function to curry
     F extends Fn,
-    ProvidedArgs extends Tuple,
-    Result = ReturnType<F>,
+    // The given arguments to the function
+    ProvidedArgs extends Tuple = [],
+    // All the parameters of the original function
+    OriginalParameters extends Tuple = Parameters<F>,
 > = <
     // It's the args given during each partial call of the function
     NewArgs extends CurryPartialParameters<
@@ -80,21 +57,34 @@ type Curry2<
     >,
 >(
     ...args: NewArgs
-) => ExtractBlanks<ProvidedArgs, Parameters<F>> extends infer RemainingArgs
-    ? ReplaceBlanks<ProvidedArgs, NewArgs> extends infer NewProvidedArgs
-        ? Length<Cast<RemainingArgs, Tuple>> extends infer LengthRemainingArgs
-            ? LengthRemainingArgs extends Length<NewArgs>
-                ? Result
-                : Curry2<
-                      (...args: Cast<RemainingArgs, Tuple>) => Result,
-                      Cast<NewProvidedArgs, Tuple>
+) => ExtractBlanks<ProvidedArgs, OriginalParameters> extends infer RemainingArgs
+    ? ReplaceBlanks<ProvidedArgs, NewArgs, true> extends infer NewProvidedArgs
+        ? Length<
+              Cast<RemoveBlanks<Cast<NewProvidedArgs, Tuple>>, Tuple>
+          > extends infer LengthProvidedArgs
+            ? LengthProvidedArgs extends Length<OriginalParameters>
+                ? ReturnType<F>
+                : CurryFn<
+                      (...args: Cast<RemainingArgs, Tuple>) => ReturnType<F>,
+                      Cast<NewProvidedArgs, Tuple>,
+                      OriginalParameters
                   >
             : never
         : never
     : never;
 
-const t = curry(
-    (a: number, b: string, c: boolean): number => 0,
-    BLANK,
-    'Hello',
-);
+// ! PROBLEM
+function curry<
+    F extends Fn,
+    DefaultArgs extends CurryPartialParameters<Parameters<F>>,
+>(fn: F, ...args: DefaultArgs): Curry<F, DefaultArgs> {
+    return null as any;
+}
+
+const add4numbers = (a: number, b: number, c: number, d: number) =>
+    a + b + c + d;
+const curriedAd4numbers = curry(add4numbers);
+
+const firstStep = curriedAd4numbers(1, 2);
+const secondStep = firstStep(3);
+const thridStep = secondStep(4);
