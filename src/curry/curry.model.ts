@@ -13,7 +13,7 @@ import { type Blank } from '../utils/_blank';
  * type MyFnCurryParameters = CurryPartialParameters<Parameters<MyFn>> // [key1?: string | Blank | undefined, key2?: number | Blank | undefined]
  */
 export type CurryPartialParameters<P extends Tuple> = {
-    [K in keyof P]?: P[K] | boolean | Blank;
+    [K in keyof P]?: P[K] | Blank;
 } extends infer T
     ? Cast<T, Tuple>
     : never;
@@ -38,7 +38,7 @@ type CurryRemainingParameters<
  * @param {Fn} F The function to curried
  * @param {Tuple} ProvidedArgs The arguments provided by the user
  */
-export type Curry<F extends Fn, ProvidedArgs extends Tuple> = CurryFn<
+export type Curry<F extends Fn, ProvidedArgs extends Tuple = []> = CurryFn<
     F,
     ProvidedArgs
 >;
@@ -53,7 +53,7 @@ type CurryFn<
 > = <
     // It's the args given during each partial call of the function
     NewArgs extends CurryPartialParameters<
-        CurryRemainingParameters<ProvidedArgs, Parameters<F>>
+        CurryRemainingParameters<ProvidedArgs, OriginalParameters>
     >,
 >(
     ...args: NewArgs
@@ -72,19 +72,3 @@ type CurryFn<
             : never
         : never
     : never;
-
-// ! PROBLEM
-function curry<
-    F extends Fn,
-    DefaultArgs extends CurryPartialParameters<Parameters<F>>,
->(fn: F, ...args: DefaultArgs): Curry<F, DefaultArgs> {
-    return null as any;
-}
-
-const add4numbers = (a: number, b: number, c: number, d: number) =>
-    a + b + c + d;
-const curriedAd4numbers = curry(add4numbers);
-
-const firstStep = curriedAd4numbers(1, 2);
-const secondStep = firstStep(3);
-const thridStep = secondStep(4);

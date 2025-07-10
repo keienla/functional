@@ -1,3 +1,4 @@
+import { BLANK } from '../utils/_blank';
 import curry from './curry';
 
 describe('CURRY', () => {
@@ -8,7 +9,6 @@ describe('CURRY', () => {
 
         const firstStep = curriedAd4numbers(1, 2);
         const secondStep = firstStep(3);
-        const thridStep = secondStep(4);
 
         expect(secondStep(4)).toEqual(10);
     });
@@ -24,7 +24,22 @@ describe('CURRY', () => {
         expect(firstStep()('a')('b')).toBe('ab');
     });
 
-    test.todo('CURRY WITH DEFAULT PARAMS');
+    test('When setted with default params must add params as desired', () => {
+        const someFn = (s: string, b: boolean, n: number) => (b ? s + n : s);
+        const curriedConcat = curry(someFn, 'a');
+
+        expect(curriedConcat(true, 1)).toBe('a1');
+        expect(curriedConcat(false, 1)).toBe('a');
+    });
+
+    test('When set some BLANK default params must after replace it correctly', () => {
+        const someFn = (s: string, b: boolean, n: number) => (b ? s + n : s);
+        const curriedConcat = curry(someFn, BLANK, true);
+
+        expect(curriedConcat('a', 1)).toBe('a1');
+    });
+
+    // TODO THE REST OF TESTS
     test.todo('CURRY WITH _BLANK');
     // const t = curry((a: number, b: string, c: boolean) => 0, [BLANK, 'Hello'])(5)()(true)
 });
