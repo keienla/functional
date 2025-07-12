@@ -1,6 +1,6 @@
 {
     "name": "@keienla/functional",
-    "version": "0.10.1",
+    "version": "0.10.4",
     "description": "Just a functional library in TypeScript to do Functional Programming",
     "keywords": [
         "typescript",
@@ -10,10 +10,13 @@
         "lib"
     ],
     "scripts": {
-        "build": "npm run build:cjs && npm run build:esm && npm run build:package",
+        "build": "npm run build:cjs && npm run minify:cjs && npm run build:esm && npm run minify:esm && npm run build:package",
         "build:cjs": "tsc -p tsconfig.cjs.json",
-        "build:esm": "tsc -p tsconfig.esm.json", 
+        "build:esm": "tsc -p tsconfig.esm.json",
+        "minify:cjs": "node scripts/minify.js cjs",
+        "minify:esm": "node scripts/minify.js esm",
         "build:package": "node scripts/generate-dist-package.js",
+        "build:dev": "npm run build:cjs && npm run build:esm && npm run build:package",
         "npmjs": "npm run build && node ./scripts/deploy.js",
         "test": "jest --env=node --colors",
         "test:watch": "jest --env=node --colors --watchAll",
@@ -27,6 +30,7 @@
     "devDependencies": {
         "@types/jest": "^30.0.0",
         "esbuild": "^0.25.6",
+        "esbuild-wasm": "^0.25.6",
         "jest": "^30.0.4",
         "prettier": "^3.6.2",
         "ts-jest": "^29.4.0",
