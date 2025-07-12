@@ -23,7 +23,7 @@ import curry from './../curry/curry';
  * @param {T} value
  * @param {boolean |null} stopIfValue Stop if the result at each step is equal to this result
  */
-export default curry(function check<T extends any>(
+export default function _check<T>(
     checkMethod: (accumulator: boolean, current: boolean) => boolean,
     predicates: Predicate<T>[],
     defaultResult: boolean,
@@ -32,7 +32,7 @@ export default curry(function check<T extends any>(
 ): boolean {
     const checking = (
         checkMethod: (accumulator: boolean, current: boolean) => boolean,
-        predicates: ((value: T) => boolean)[],
+        predicates: Predicate<T>[],
         defaultResult: boolean,
         value: T,
         stopIfValue: boolean | null = null,
@@ -58,4 +58,4 @@ export default curry(function check<T extends any>(
         value,
         stopIfValue,
     );
-});
+}

@@ -1,9 +1,9 @@
 /**
  * The BLANK constant is used to move an argument in a curry function
  */
-export const BLANK = Symbol('BLANK');
+export const _ = Symbol('BLANK');
 
-export type Blank = typeof BLANK;
+export type Blank = typeof _;
 
 /**
  * Check if the item is a blank item
@@ -11,7 +11,7 @@ export type Blank = typeof BLANK;
  * @returns {boolean}
  */
 export function isBlank(item: unknown): item is Blank {
-    return item === BLANK;
+    return item === _;
 }
 
 /**

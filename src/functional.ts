@@ -4,6 +4,7 @@ import add from './add/add';
 import and from './and/and';
 import arity from './arity/arity';
 import arrayIs from './arrayIs/arrayIs';
+import * as blank from './blank/blank';
 import compose from './compose/compose';
 import constant from './constant/constant';
 import curry from './curry/curry';
@@ -64,6 +65,7 @@ export {
     and,
     arity,
     arrayIs,
+    blank,
     compose,
     constant,
     curry,

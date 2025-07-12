@@ -1,10 +1,13 @@
-import _arrayIs from '../_internal/_arrayIs';
+import notSameLength from '../notSameLength/notSameLength';
+import transpoline from '../transpoline/transpoline';
+import is from '../is/is';
+import type { Transpoline } from '../transpoline/transpoline.model';
 
 /**
  * Check if two arrays are the same.
  *
- * @param {any[]} array
- * @param {any[]} arrayToCompare
+ * @param {Type[]} array
+ * @param {Type[]} arrayToCompare
  * @returns {boolean}
  * @example
  *  const arr1: number[] = [0,1,2,3];
@@ -17,10 +20,27 @@ import _arrayIs from '../_internal/_arrayIs';
  *  arrayIs(arr1, arr3);     // false
  *  arrayIs(arr1, arr4);     // false
  */
-export default function arrayIs<T extends any[]>(array1: T, array2: T): boolean;
-export default function arrayIs<T extends any[]>(
-    array1: T,
-): (array2: T) => boolean;
-export default function arrayIs<T extends any[]>(...args: any): any {
-    return _arrayIs(...args);
+export default function arrayIs<Type>(
+    array: Type[],
+    arrayToCompare: Type[],
+): boolean {
+    if (notSameLength(array, arrayToCompare)) return false;
+    if (array === arrayToCompare) return true;
+
+    const checkArrayIs = (
+        result: boolean = true,
+        index: number = 0,
+    ): Transpoline<boolean> => {
+        if (!result) return false;
+        if (index === array.length) return result;
+
+        return () => {
+            return checkArrayIs(
+                is(array[index], arrayToCompare[index]),
+                index + 1,
+            );
+        };
+    };
+
+    return transpoline(checkArrayIs)();
 }

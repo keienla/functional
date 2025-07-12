@@ -8,7 +8,7 @@ import {
     Tail,
     Tuple,
 } from '../models';
-import type { Blank } from './_blank';
+import type { Blank } from './blank';
 
 // #region IsBlank
 /**

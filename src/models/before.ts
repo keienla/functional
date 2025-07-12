@@ -3,6 +3,7 @@ import type { GetItemsBeforeRestItems } from './getItemsBeforeRestItems';
 import type { GetTypeRestItems } from './getTypeRestItems';
 import type { Head } from './head';
 import type { IsFinite } from './isFinite';
+import { IsNever } from './isNever';
 import type { Length } from './length';
 import type { Tail } from './tail';
 import type { List } from './types';
@@ -51,12 +52,8 @@ export type Before<
             ? 'finish'
             : Length<Tail<ItemsWithoutRestType>> extends 0
               ? Length<ItemsWithoutRestType> extends 0
-                  ? RestType extends undefined
-                      ? 'finish'
-                      : 'continueWithRest'
-                  : RestType extends undefined
-                    ? 'finishWithHead'
-                    : 'continue'
+                  ? IsNever<RestType, 'finish', 'continueWithRest'>
+                  : IsNever<RestType, 'finishWithHead', 'continue'>
               : 'continue'
         : 'nope'
     : 'infinite'];

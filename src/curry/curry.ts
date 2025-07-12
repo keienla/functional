@@ -1,4 +1,4 @@
-import { isBlank, replaceBlank } from '../utils/_blank';
+import { isBlank, replaceBlank } from '../blank/blank';
 import type { Cast, Fn, Tuple } from '../models';
 import type { Curry, CurryPartialParameters } from './curry.model';
 
