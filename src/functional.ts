@@ -33,7 +33,7 @@ import {
     isFunction,
     isRegexp,
     isUndefined,
-    isNull,
+    isNull
 } from './isType/isType';
 import length from './length/length';
 import map from './map/map';
@@ -117,5 +117,5 @@ export {
     type,
     uncurry,
     when,
-    whenElse,
+    whenElse
 };

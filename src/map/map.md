@@ -9,7 +9,7 @@ The "**map**" function creates a new array with the results of calling a provide
 #### Example:
 
 ```typescript
-import { map } from '@kenla/functional';
+import map from '@keienla/functional/map';
 
 function addOne(x: number): number {
     return x + 1;

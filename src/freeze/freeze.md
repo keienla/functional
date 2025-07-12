@@ -11,7 +11,7 @@ This operation only work on first level.
 #### Example:
 
 ```typescript
-import { freeze } from '@kenla/functional';
+import freeze from '@keienla/functional/freeze';
 
 const freezedEl = freeze({ a: 1 });
 freezedEl['a'] = 2;

@@ -1,6 +1,6 @@
 import type { Predicate } from '../models';
 
-export default function _defaultWhenElse<Type, Result, ErrorResult>(
+export default function _defaultWhenElse<Type, Result>(
     predicate: Predicate<Type>,
     fn: (arg: Type) => Result,
 ): (arg: Type) => Result | Type;

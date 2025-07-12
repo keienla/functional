@@ -26,11 +26,12 @@ export default function curry<
             nextArgs,
         ) as Parameters<F>;
 
-        if (_args.some((arg) => isBlank(arg)))
+        if (_args.some((arg) => isBlank(arg))) {
             return curry(
                 fn,
                 ...(_args as unknown as CurryPartialParameters<Parameters<F>>),
             );
+        }
 
         if (fn.length - _args.length <= 0) {
             return fn(..._args);
@@ -40,5 +41,5 @@ export default function curry<
             fn,
             ...(_args as unknown as CurryPartialParameters<Parameters<F>>),
         );
-    };
+    } as Curry<F, Cast<DefaultArgs, Tuple>>;
 }

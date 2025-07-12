@@ -9,7 +9,7 @@ The "**arity**" function create a new function with a given number of arguments.
 #### Example:
 
 ```typescript
-import { arity } from '@keienla/functional';
+import arity from '@keienla/functional/arity';
 
 function textAndNumbersSum(text: string, ...numbers: number[]) {
     return text + ': ' + numbers.reduce((acc, n) => n + acc, 0);

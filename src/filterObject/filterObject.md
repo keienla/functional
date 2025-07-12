@@ -9,7 +9,7 @@ The "**filterObject**" function creates a new object with all elements that pass
 #### Example:
 
 ```typescript
-import { filterObject } from '@kenla/functional';
+import filterObject from '@keienla/functional/filterObject';
 
 function filterOdd(x: number): boolean {
     return x % 2 === 1;

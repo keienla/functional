@@ -9,7 +9,7 @@ The "**divide**" function get a numerator and denominator argument add make a di
 #### Example:
 
 ```typescript
-import { divide } from '@kenla/functional';
+import divide from '@keienla/functional/divide';
 
 console.log(divide(50, 100)); // 0.5
 ```

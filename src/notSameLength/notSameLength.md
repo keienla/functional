@@ -9,7 +9,7 @@ The "**notSameLength**" function return the opposite of "[**sameLength**](./../s
 #### Example:
 
 ```typescript
-import { notSameLength } from '@kenla/functional';
+import notSameLength from '@keienla/functional/notSameLength';
 
 const el1: string = 'a';
 const el2: number[] = [0, 1];

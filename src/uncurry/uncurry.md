@@ -11,7 +11,7 @@ See also: [curry](./../curry/curry.md)
 #### Example:
 
 ```typescript
-import { uncurry } from '@keienla/functional';
+import uncurry from '@keienla/functional/uncurry';
 
 function sum(x: number): (y: number) => number {
     return function add(y: number): number {

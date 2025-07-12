@@ -30,7 +30,7 @@ export default function pipe<FNS extends Fn[]>(
                 return fn(accumulator);
             },
             args,
-            fns || [],
+            fns || []
         );
     };
 }

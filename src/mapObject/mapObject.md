@@ -9,7 +9,7 @@ The "**mapObject**" function creates a new object with the results of calling a 
 #### Example:
 
 ```typescript
-import { mapObject } from '@kenla/functional';
+import mapObject from '@keienla/functional/mapObject';
 
 function addOne(x: number): number {
     return x + 1;

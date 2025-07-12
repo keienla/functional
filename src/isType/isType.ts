@@ -13,7 +13,7 @@ import curry from '../curry/curry';
  */
 const isType = curry(function isType(
     typeToTest: returnedTypes,
-    element: unknown,
+    element: unknown
 ): boolean {
     return typeFn(element) === typeToTest;
 });

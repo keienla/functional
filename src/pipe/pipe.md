@@ -11,7 +11,7 @@ Start from the first function given to the last
 #### Example:
 
 ```typescript
-import { pipe } from '@kenla/functional';
+import pipe from '@keienla/functional/pipe';
 
 function addOne(value: number): number {
     return value + 1;

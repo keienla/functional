@@ -9,7 +9,7 @@ The "**isType**" function check if the element type is the same that the returne
 #### Example:
 
 ```typescript
-import { isType } from '@kenla/functional';
+import isType from '@keienla/functional/isType';
 
 console.log(isType('number', 'a')); // false
 console.log(isType('number', 123)); // true

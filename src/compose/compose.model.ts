@@ -7,7 +7,7 @@ import type {
     Fn,
     Cast,
     AppendItem,
-    Head,
+    Head
 } from '../models';
 
 export type Compose<FNS extends Fn[]> = Pipe<Reverse<FNS>>;

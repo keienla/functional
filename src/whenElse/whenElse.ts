@@ -20,7 +20,7 @@ import _defaultWhenElse from './../_internal/_when';
 export default function whenElse<Type, Result, ErrorResult>(
     predicate: Predicate<Type>,
     fn: (arg: Type) => Result,
-    elseFn: (arg: Type) => ErrorResult,
+    elseFn: (arg: Type) => ErrorResult
 ): (arg: Type) => Result | ErrorResult {
     return _defaultWhenElse(predicate, fn, elseFn);
 }

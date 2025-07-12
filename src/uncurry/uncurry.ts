@@ -32,7 +32,7 @@ export default function uncurry<F extends Fn | Curry<any>>(fn: F): Uncurry<F> {
                 return [f[0], [...f[1], current]];
             },
             [fn, []] as any,
-            args,
+            args
         );
     } as Uncurry<F>;
 }

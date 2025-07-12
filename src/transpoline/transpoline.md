@@ -15,7 +15,7 @@ Since few year (ES2015), Javascript implement PTC (proper tail calls). It permit
 #### Example:
 
 ```typescript
-import { transpoline } from '@kenla/functional';
+import transpoline from '@keienla/functional/transpoline';
 
 // for a given number, add number below. Ex: defaultRecursive(5) = 5 + 4 + 3 + 2 + 1
 function defaultRecursive(n: number, sum = 0): number {

@@ -26,14 +26,14 @@ import isnt from './../isnt/isnt';
  */
 export default function objectIs(
     object: TObject,
-    objectToCompare: TObject,
+    objectToCompare: TObject
 ): boolean {
-    if (notSameLength(object, objectToCompare)) return false;
-    if (object === objectToCompare) return true;
+    if (notSameLength(object, objectToCompare)) {return false;}
+    if (object === objectToCompare) {return true;}
 
     const keys: string[] = Object.keys(object);
 
-    for (let key of keys) {
+    for (const key of keys) {
         if (
             !(key in objectToCompare) ||
             isnt(object[key], objectToCompare[key])

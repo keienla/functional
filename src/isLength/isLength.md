@@ -9,7 +9,7 @@ The "**isLength**" function check and the length of the given element and return
 #### Example:
 
 ```typescript
-import { isLength } from '@kenla/functional';
+import isLength from '@keienla/functional/isLength';
 
 const el: number[] = [0, 1, 2, 3, 4];
 

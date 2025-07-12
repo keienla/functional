@@ -10,7 +10,7 @@ import _check from '../_internal/_check';
  * @example
  *  function sup10(value: number): boolean { return value > 10 }
  *  function odd(value: number): boolean { return value % 2 === 1 }
- *  const oddAndSup10: (value: number) => boolean = and(sup10, odd);
+ *  const oddAndSup10: (value: number) => boolean = curry(and<number>)(sup10, odd);
  *  oddAndSup10(5)       // false
  *  oddAndSup10(12)      // false
  *  oddAndSup10(11)      // true

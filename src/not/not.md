@@ -9,7 +9,7 @@ The "**not**" function create a new function than original but return the opposi
 #### Example:
 
 ```typescript
-import { not } from '@kenla/functional';
+import not from '@keienla/functional/not';
 
 function isTrue(value: boolean): boolean {
     return value === true;

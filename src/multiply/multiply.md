@@ -9,7 +9,7 @@ The "**multiply**" function get two numbers as argument and multiply the first w
 #### Example:
 
 ```typescript
-import { multiply } from '@kenla/functional';
+import multiply from '@keienla/functional/multiply';
 
 console.log(multiply(3, 5)); // 15
 ```

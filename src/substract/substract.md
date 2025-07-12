@@ -9,8 +9,7 @@ The "**substract**" function get two numbers and return the substract of the fir
 #### Example:
 
 ```typescript
-import { substract } from '@kenla/functional';
+import substract from '@keienla/functional/substract';
 
 console.log(substract(5, 3)); // 2
-console.log(substract(4)(1)); // 3
 ```

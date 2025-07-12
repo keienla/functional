@@ -22,22 +22,22 @@ import type { Transpoline } from '../transpoline/transpoline.model';
  */
 export default function arrayIs<Type>(
     array: Type[],
-    arrayToCompare: Type[],
+    arrayToCompare: Type[]
 ): boolean {
-    if (notSameLength(array, arrayToCompare)) return false;
-    if (array === arrayToCompare) return true;
+    if (notSameLength(array, arrayToCompare)) {return false;}
+    if (array === arrayToCompare) {return true;}
 
     const checkArrayIs = (
         result: boolean = true,
-        index: number = 0,
+        index: number = 0
     ): Transpoline<boolean> => {
-        if (!result) return false;
-        if (index === array.length) return result;
+        if (!result) {return false;}
+        if (index === array.length) {return result;}
 
         return () => {
             return checkArrayIs(
                 is(array[index], arrayToCompare[index]),
-                index + 1,
+                index + 1
             );
         };
     };

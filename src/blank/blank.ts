@@ -7,8 +7,8 @@ export type Blank = typeof _;
 
 /**
  * Check if the item is a blank item
- * @param {any} item
- * @returns {boolean}
+ * @param {unknown} item The item to check
+ * @returns {boolean} True if the item is a blank item, false otherwise
  */
 export function isBlank(item: unknown): item is Blank {
     return item === _;
@@ -20,12 +20,14 @@ export function isBlank(item: unknown): item is Blank {
  * @param {any[]} addItems The items to add. If there is a BLANK in items, those first addItems will take the position of items
  * @returns any[]
  */
-export function replaceBlank<T>(
-    items: (T | Blank)[],
-    addItems: (T | Blank)[],
-): (T | Blank)[] {
+export function replaceBlank<Type>(
+    items: (Type | Blank)[],
+    addItems: (Type | Blank)[],
+): (Type | Blank)[] {
     if (!addItems?.length) {
-        if (!items?.length) return [];
+        if (!items?.length) {
+            return [];
+        }
         return [...items];
     }
 

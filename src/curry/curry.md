@@ -9,7 +9,7 @@ The "**curry**" function decompose a function to return another function while t
 #### Example:
 
 ```typescript
-import { curry } from '@keienla/functional';
+import curry from '@keienla/functional/curry';
 
 function sum(x: number, y: number, z: number): number {
     return x + y + z;

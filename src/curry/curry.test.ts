@@ -86,7 +86,7 @@ describe('CURRY', () => {
                 b: number,
                 c: number,
                 d: number,
-                ...rest: string[]
+                ..._rest: string[]
             ) => a + b + c + d;
             const curriedAd4numbers = curry(add4numbers);
 

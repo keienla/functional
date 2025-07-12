@@ -7,7 +7,7 @@ import type {
     Fn,
     AppendItem,
     Head,
-    Cast,
+    Cast
 } from '../models';
 
 export type Pipe<FNS extends Fn[] = []> = (

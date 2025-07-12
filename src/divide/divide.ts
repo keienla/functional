@@ -11,8 +11,8 @@ import curry from '../curry/curry';
  */
 export default curry(function divide(
     numerator: number,
-    denominator: number,
+    denominator: number
 ): number | never {
-    if (denominator === 0) throw new Error('Can\'t divide by "0"');
+    if (denominator === 0) {throw new Error('Can\'t divide by "0"');}
     return numerator / denominator;
 });

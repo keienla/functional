@@ -1,5 +1,5 @@
 import type { Arity } from './arity.model';
-import { Fn } from '../models';
+import type { Fn } from '../models';
 
 /**
  * Create a new function with a given number of arguments. It can be usefull for functions with spread args to create a function with limited args
@@ -28,7 +28,9 @@ export default function arity<F extends Fn, Length extends number>(
     length: Length,
 ): Arity<F, Length> {
     function arityFn(...args: any[]) {
-        if (args.length > length) args.length = length;
+        if (args.length > length) {
+            args.length = length;
+        }
         return fn.apply(this as F, args);
     }
 

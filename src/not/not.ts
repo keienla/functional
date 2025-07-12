@@ -1,5 +1,4 @@
 import type { Uncurry } from '../uncurry/uncurry.model';
-import type { Curry } from '../curry/curry.model';
 import type { Cast, Fn } from '../models';
 import uncurry from './../uncurry/uncurry';
 

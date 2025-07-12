@@ -23,7 +23,7 @@ export default function memoize<T extends Fn>(fn: T) {
     ): T extends (...args: any[]) => infer R ? R : any {
         const keys: string[] = Object.keys(cache);
 
-        for (let key of keys) {
+        for (const key of keys) {
             if (is(cache[key].args, args)) {
                 return cache[key].value;
             }
@@ -33,8 +33,8 @@ export default function memoize<T extends Fn>(fn: T) {
             ...cache,
             [keys.length.toString()]: {
                 args: args,
-                value: fn(...args),
-            },
+                value: fn(...args)
+            }
         };
 
         return cache[keys.length.toString()].value;

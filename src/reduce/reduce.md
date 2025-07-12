@@ -9,7 +9,7 @@ The "**reduce**" function return a single item by itering throught a given list.
 #### Example:
 
 ```typescript
-import { reduce } from '@kenla/functional';
+import reduce from '@keienla/functional/reduce';
 
 function reducer(x: number, y: number): number {
     return x + y;

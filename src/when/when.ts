@@ -17,7 +17,7 @@ import _defaultWhenElse from './../_internal/_when';
  */
 export default function when<Type, Result>(
     predicate: Predicate<Type>,
-    fn: (arg: Type) => Result,
+    fn: (arg: Type) => Result
 ): (arg: Type) => Result | Type {
     return _defaultWhenElse(predicate, fn);
 }

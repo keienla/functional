@@ -15,7 +15,7 @@ import { Fn } from '../models';
  *  number1 === number2;     // true
  */
 export default function gatherArgs<F extends Fn>(
-    fn: F,
+    fn: F
 ): Parameters<F> extends []
     ? () => ReturnType<F>
     : (args: Parameters<F>) => ReturnType<F> {

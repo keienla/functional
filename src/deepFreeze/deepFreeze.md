@@ -9,7 +9,7 @@ The "**deepFreeze**" function freeze an element and all it's childs.
 #### Example:
 
 ```typescript
-import { deepFreeze } from '@kenla/functional';
+import deepFreeze from '@keienla/functional/deepFreeze';
 
 const freezedEl = deepFreeze({ a: { b: 0, c: 1 } });
 freezedEl.a.b = 2;

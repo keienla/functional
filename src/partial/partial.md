@@ -10,7 +10,7 @@ So it complete the x first arguments of a function.
 #### Example:
 
 ```typescript
-import { partial } from '@kenla/functional';
+import partial from '@keienla/functional/partial';
 
 // Some function with multiple arguments
 function add(a: number, b: number) {

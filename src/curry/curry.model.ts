@@ -24,17 +24,22 @@
  */
 
 import type {
+    AppendItem,
     Cast,
     Concat,
     Fn,
     GetItemsBeforeRestItems,
     GetTypeRestItems,
+    Head,
+    IsFinite,
     IsNever,
     Length,
+    Tail,
     Tuple,
 } from '../models';
 import type {
     ExtractBlanks,
+    IsBlank,
     RemoveBlanks,
     ReplaceBlanks,
 } from '../blank/blank.model';
@@ -93,6 +98,39 @@ type CurryRemainingParameters<
     Expected extends Tuple,
 > = Cast<ExtractBlanks<Provided, Expected>, Tuple>;
 
+type IgnoreSettedParameters<
+    SettedParameters extends Tuple,
+    AllParameters extends Tuple,
+> = SettedParameters extends []
+    ? AllParameters
+    : IgnoreSettedParametersFn<SettedParameters, AllParameters>;
+
+type IgnoreSettedParametersFn<
+    SettedParameters extends Tuple,
+    AllParameters extends Tuple,
+    Result extends Tuple = [],
+> = {
+    result: Concat<Result, AllParameters>;
+    isBlank: IgnoreSettedParametersFn<
+        Tail<SettedParameters>,
+        Tail<AllParameters>,
+        AppendItem<Head<SettedParameters>, Result>
+    >;
+    isNotBlank: IgnoreSettedParametersFn<
+        Tail<SettedParameters>,
+        Tail<AllParameters>,
+        Result
+    >;
+    infinite: {
+        ERROR: 'Cannot IgnoreSettedParametersFn on an infinite array';
+        TAGS: ['InfiniteArray', 'Infinite', 'IgnoreSettedParametersFn'];
+    };
+}[IsFinite<SettedParameters> extends true
+    ? Length<SettedParameters> extends 0
+        ? 'result'
+        : IsBlank<Head<SettedParameters>, 'isBlank', 'isNotBlank'>
+    : 'infinite'];
+
 /**
  * Main Curry type that transforms a function into a curried version with BLANK support
  *
@@ -124,9 +162,17 @@ type CurryRemainingParameters<
 export type Curry<F extends Fn, ProvidedArgs extends Tuple = []> = CurryFn<
     F,
     ProvidedArgs
->;
+> & {
+    // Used to track the current function being curried for infer in uncurry
+    readonly __curryCurrentFn: (
+        ...args: Cast<
+            IgnoreSettedParametersFn<ProvidedArgs, Parameters<F>>,
+            Tuple
+        >
+    ) => ReturnType<F>;
+};
 
-type CurryFn<
+export type CurryFn<
     // The function to curry
     Function extends Fn,
     // The given arguments to the function so far (may contain BLANK placeholders)
@@ -148,16 +194,18 @@ type CurryFn<
 >(
     // ...args: NewArgs
     ...args: NewArgs
-) => // Step 1: Calculate which parameters are still needed
-// ExtractBlanks gives us the parameters that haven't been filled yet
-ExtractBlanks<ProvidedArgs, OriginalParameters> extends infer RemainingArgs
-    ? // Step 2: Merge the new arguments with existing ones
-      // ReplaceBlanks fills BLANK placeholders and appends remaining args
-      ReplaceBlanks<ProvidedArgs, NewArgs, true> extends infer NewProvidedArgs
+) => // Step 1: Merge the new arguments with existing ones
+// Get all the parameters that are setted so far
+ReplaceBlanks<ProvidedArgs, NewArgs, true> extends infer MixedProvidedArgs
+    ? // Step 2: Calculate which parameters are still needed
+      IgnoreSettedParameters<
+          Cast<MixedProvidedArgs, Tuple>,
+          OriginalParameters
+      > extends infer RemainingArgs
         ? // Step 3: Count how many real arguments we have now
           // RemoveBlanks strips out BLANK placeholders, Length counts them
           Length<
-              Cast<RemoveBlanks<Cast<NewProvidedArgs, Tuple>>, Tuple>
+              Cast<RemoveBlanks<Cast<MixedProvidedArgs, Tuple>>, Tuple>
           > extends infer LengthProvidedArgs
             ? // Step 4: Check if we have enough arguments to call the function
               LengthProvidedArgs extends Length<OriginalParameters>
@@ -172,10 +220,18 @@ ExtractBlanks<ProvidedArgs, OriginalParameters> extends infer RemainingArgs
                               IsNever<RestItemType, [], [...RestItemType[]]>
                           >
                       ) => ReturnType<Function>,
-                      Cast<NewProvidedArgs, Tuple>,
+                      Cast<MixedProvidedArgs, Tuple>,
                       OriginalParameters,
                       RestItemType
-                  >
+                  > & {
+                      // Used to track the current function being curried for infer in uncurry
+                      readonly __curryCurrentFn: (
+                          ...args: Concat<
+                              Cast<RemainingArgs, Tuple>,
+                              IsNever<RestItemType, [], [...RestItemType[]]>
+                          >
+                      ) => ReturnType<Function>;
+                  }
             : never // Type calculation failed
         : never // ReplaceBlanks failed
     : never; // ExtractBlanks failed

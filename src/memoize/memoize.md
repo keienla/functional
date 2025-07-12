@@ -9,7 +9,7 @@ The "**memoize**" function accept a function as argument. Each time the new memo
 #### Example:
 
 ```typescript
-import { memoize } from '@kenla/functional';
+import memoize from '@keienla/functional/memoize';
 
 function sum(x: number, y: number): number {
     return x + y;

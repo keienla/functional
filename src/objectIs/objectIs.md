@@ -9,7 +9,7 @@ The "**objectIs**" function check if two objects are the same. For this check th
 #### Example:
 
 ```typescript
-import { not } from '@kenla/functional';
+import objectIs from '@keienla/functional/objectIs';
 
 const obj1: object = { a: 'a', b: 'b' };
 const obj2: object = { a: 'a', b: 'b' };

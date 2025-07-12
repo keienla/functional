@@ -19,8 +19,8 @@ import type { returnedTypes } from './../models';
  *  type(/a/g)          // regexp
  */
 export default function type(value: any): returnedTypes {
-    if (value === null) return 'null';
-    if (value === undefined) return 'undefined';
+    if (value === null) {return 'null';}
+    if (value === undefined) {return 'undefined';}
 
     return Object.prototype.toString
         .call(value)

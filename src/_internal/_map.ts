@@ -6,40 +6,40 @@ import curry from '../curry/curry';
 
 export const _arrayMap = curry(function arrayMap<T extends any[], R>(
     fn: MapArrayReducer<T, R>,
-    element: T[],
+    element: T[]
 ): R[] {
-    if (!element || element.length === 0) return [];
+    if (!element || element.length === 0) {return [];}
 
     return reduce(
         function arrayMapped(
             accumulator: R[],
             currentValue: T,
             index: number,
-            element: T[],
+            element: T[]
         ) {
             return [...accumulator, fn(currentValue, index, element)];
         },
         [] as R[],
-        element,
+        element
     );
 });
 
 export const _objectMap = curry(function objectMap<T extends object, R>(
     fn: MapObjectReducer<T, R>,
-    element: T,
+    element: T
 ): SameValueInterface<T, R> {
-    if (!element) return {} as SameValueInterface<T, R>;
+    if (!element) {return {} as SameValueInterface<T, R>;}
 
     const keys: string[] = Object.keys(element);
 
-    if (keys.length === 0) return {} as SameValueInterface<T, R>;
+    if (keys.length === 0) {return {} as SameValueInterface<T, R>;}
 
     return reduceObject(
         function objectMapped(
             accumulator: SameValueInterface<T, R>,
             current: ValueOf<T>,
             key: string,
-            object: T,
+            object: T
         ) {
             return { ...accumulator, [key]: fn(current, key, object) };
         },
@@ -48,9 +48,9 @@ export const _objectMap = curry(function objectMap<T extends object, R>(
                 return { ...acc, [key]: undefined };
             },
             {},
-            keys,
+            keys
         ),
-        element,
+        element
     );
 });
 

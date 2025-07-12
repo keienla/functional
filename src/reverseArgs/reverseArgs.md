@@ -11,7 +11,7 @@ The "**reverseArgs**" function take as parameter a function and return a functio
 #### Example:
 
 ```typescript
-import { reverseArgs } from '@kenla/functional';
+import reverseArgs from '@keienla/functional/reverseArgs';
 
 function divide(x: number, y: number): number {
     return x / y;

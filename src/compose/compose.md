@@ -11,7 +11,7 @@ Start from the last function to the first given.
 #### Example:
 
 ```typescript
-import { compose } from '@kenla/functional';
+import compose from '@keienla/functional/compose';
 
 function addOne(value: number): number {
     return value + 1;

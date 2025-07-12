@@ -9,7 +9,7 @@ The "**when**" check a predicate function with a given value. If pass execute a 
 #### Example:
 
 ```typescript
-import { when } from '@kenla/functional';
+import when from '@keienla/functional/when';
 
 function isOdd(x: number): boolean {
     return x % 2 === 1;
