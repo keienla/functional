@@ -1,4 +1,6 @@
-import _is from '../_internal/_is';
+import type from '../type/type';
+import arrayIs from '../arrayIs/arrayIs';
+import objectIs from '../objectIs/objectIs';
 
 /**
  * Check if two element are the same. Work for all type of element. For object check all the keys/value, same for array check all element and order.
@@ -27,8 +29,18 @@ import _is from '../_internal/_is';
  *  is(el5, /b/g)       // false
  *  is(el5, '/b/g')     // false
  */
-export default function is<T extends any>(el1: T, el2: T): boolean;
-export default function is<T extends any>(el1: T): (el2: T) => boolean;
-export default function is<T extends any>(...args: T[]): any {
-    return _is(...args);
+export default function is(el1: any, el2: any): boolean {
+    if (type(el1) !== type(el2)) return false;
+
+    switch (type(el1)) {
+        case 'array':
+            return arrayIs(el1, el2);
+        case 'object':
+            return objectIs(el1, el2);
+        case 'function':
+        case 'regexp':
+            return el1.toString() === el2.toString();
+        default:
+            return el1 === el2;
+    }
 }

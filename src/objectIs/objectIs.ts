@@ -24,7 +24,7 @@ import isnt from './../isnt/isnt';
  *  objectIs(obj1, obj5);        // false
  *  objectIs(obj1, obj6);        // false
  */
-const objectIs = curry(function objectIs(
+export default function objectIs(
     object: TObject,
     objectToCompare: TObject,
 ): boolean {
@@ -43,6 +43,4 @@ const objectIs = curry(function objectIs(
     }
 
     return true;
-});
-
-export default objectIs;
+}

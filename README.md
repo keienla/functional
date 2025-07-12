@@ -1,6 +1,76 @@
 # Functional
 
-Functional is just a library for Functional Programming in Typescript.
+Functional is just a library for Functional Programming in TypeScript with optimal tree-shaking support.
+
+## Installation
+
+```bash
+npm install @keienla/functional
+```
+
+## Usage
+
+This library is designed with optimal tree-shaking in mind. You can import functions in two ways:
+
+### Tree-Shaking Optimized (Recommended)
+
+Import only the functions you need for the smallest possible bundle size:
+
+```typescript
+// Individual imports (best for tree-shaking)
+import curry from '@keienla/functional/curry';
+import add from '@keienla/functional/add';
+import pipe from '@keienla/functional/pipe';
+
+// Usage
+const addCurried = curry(add);
+const result = pipe(
+  addCurried(1),
+  addCurried(2)
+)(5); // 8
+```
+
+### Barrel Import
+
+Import multiple functions from the main entry point:
+
+```typescript
+// Multiple imports from main entry
+import { curry, add, pipe, map, filter } from '@keienla/functional';
+
+// Usage
+const numbers = [1, 2, 3, 4, 5];
+const result = pipe(
+  filter((x: number) => x > 2),
+  map(add(10))
+)(numbers); // [13, 14, 15]
+```
+
+### Available Import Paths
+
+For optimal tree-shaking, you can import any function directly:
+
+```typescript
+// Direct function imports
+import curry from '@keienla/functional/curry';
+import compose from '@keienla/functional/compose';
+import map from '@keienla/functional/map';
+import filter from '@keienla/functional/filter';
+import { _ } from '@keienla/functional/blank';
+
+// Type utilities
+import { isString, isNumber } from '@keienla/functional/isType';
+```
+
+## Tree-Shaking Benefits
+
+This library is configured with:
+- ✅ **ESM modules** for optimal bundler support
+- ✅ **`"sideEffects": false`** to ensure safe tree-shaking  
+- ✅ **Individual exports** for direct function imports
+- ✅ **TypeScript declarations** with proper type inference
+
+When using individual imports, bundlers like Webpack, Rollup, and Vite will only include the functions you actually use, resulting in significantly smaller bundle sizes.
 
 # Methods
 

@@ -10,7 +10,11 @@
         "lib"
     ],
     "scripts": {
-        "npmjs": "node ./scripts/deploy.js",
+        "build": "npm run build:cjs && npm run build:esm && npm run build:package",
+        "build:cjs": "tsc -p tsconfig.cjs.json",
+        "build:esm": "tsc -p tsconfig.esm.json", 
+        "build:package": "node scripts/generate-dist-package.js",
+        "npmjs": "npm run build && node ./scripts/deploy.js",
         "test": "jest --env=node --colors",
         "test:watch": "jest --env=node --colors --watchAll",
         "testVerbose": "jest --env=node --colors --watchAll --verbose --runInBand",
@@ -30,8 +34,10 @@
         "typescript": "^5.8.3"
     },
     "files": [
+        "dist/**/*",
         "src/**/*"
     ],
+    "sideEffects": false,
     "repository": {
         "type": "git",
         "url": "git+https://github.com/keienla/functional.git"

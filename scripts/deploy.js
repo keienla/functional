@@ -1,44 +1,34 @@
 const fs = require('fs');
-const esbuild = require('esbuild');
 const { exec } = require('child_process');
-const package = require('./../package.json');
 
 const DIST_FOLDER = './dist';
 
-if (fs.existsSync(DIST_FOLDER)) {
-    console.log(`-> Remove existing ${DIST_FOLDER}`);
-    fs.rmSync(DIST_FOLDER, { recursive: true, force: true });
+console.log('📦 Starting deployment process...');
+
+// Check if dist folder exists (should be created by build process)
+if (!fs.existsSync(DIST_FOLDER)) {
+    console.error('❌ Dist folder not found. Please run "npm run build" first.');
+    process.exit(1);
 }
 
-console.log('-> compile TS start');
-console.time('-> compile TS End');
+// Check if package.json exists in dist
+if (!fs.existsSync(`${DIST_FOLDER}/package.json`)) {
+    console.error('❌ package.json not found in dist. Please run "npm run build" first.');
+    process.exit(1);
+}
 
-esbuild.buildSync({
-    entryPoints: ['src/functional.ts'],
-    bundle: true,
-    minify: true,
-    sourcemap: true,
-    outfile: `${DIST_FOLDER}/functional.js`,
-    target: 'es6',
-    define: {
-        'process.env.NODE_ENV': '"production"',
-    },
-});
+console.log('✅ Build files verified');
 
-console.timeEnd('-> compile TS End');
-
-console.log('-> update and move package.json');
-const newPackage = { ...package };
-newPackage.main = './functional.js';
-newPackage.types = './functional.d.ts';
-newPackage.scripts = {};
-newPackage.files = ['**/*'];
-
-fs.appendFileSync(DIST_FOLDER + '/package.json', JSON.stringify(newPackage));
-
-const filesToMove = ['LICENSE'];
+// Copy additional files
+const filesToMove = ['LICENSE', 'README.md'];
 
 filesToMove.forEach((file) => {
-    console.log('-> move ' + file);
-    fs.copyFileSync('./' + file, DIST_FOLDER + '/' + file);
+    if (fs.existsSync(`./${file}`)) {
+        console.log(`📄 Copying ${file}...`);
+        fs.copyFileSync(`./${file}`, `${DIST_FOLDER}/${file}`);
+    }
 });
+
+console.log('📍 Deployment preparation complete!');
+console.log('🚀 You can now publish from the dist/ folder');
+console.log('💡 To publish: cd dist && npm publish');
