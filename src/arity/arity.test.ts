@@ -45,4 +45,62 @@ describe('ARITY', () => {
         // @ts-ignore: for test to check if args are goods
         expect(arityTextAndNumbersSum5('World', '1')).toBe('World: 1');
     });
+
+    test('Check arity with zero length', () => {
+        const arity0 = arity(multipleArgsFn, 0);
+        expect(arity0.length).toBe(0);
+        expect(arity0()).toBe('NaN');
+    });
+
+    test('Check arity truncates extra arguments', () => {
+        const arity2 = arity(multipleArgsFn, 2);
+        // @ts-ignore: testing excess arguments
+        expect(arity2(5, 'test', 10, 20, 30)).toBe('5test');
+    });
+
+    test('Check arity preserves this context', () => {
+        const obj = {
+            value: 42,
+            getValue: function (multiplier: number) {
+                return this.value * multiplier;
+            },
+        };
+
+        const arity1GetValue = arity(obj.getValue, 1);
+        expect(arity1GetValue.call(obj, 2)).toBe(84);
+    });
+
+    test('Check arity with different numeric lengths', () => {
+        const testLengths = [0, 1, 2, 3, 10];
+
+        testLengths.forEach((length) => {
+            const arityFn = arity(add, length);
+            expect(arityFn.length).toBe(length);
+        });
+    });
+
+    test('Check arity function.length property is configurable', () => {
+        const arity3 = arity(add, 3);
+        const descriptor = Object.getOwnPropertyDescriptor(arity3, 'length');
+        expect(descriptor?.configurable).toBe(true);
+    });
+
+    test('Check arity with undefined/null arguments', () => {
+        function testFn(a: any, b: any, c: any) {
+            return [a, b, c];
+        }
+
+        const arity2 = arity(testFn, 2);
+        expect(arity2(undefined, null)).toEqual([undefined, null]);
+    });
+
+    test('Check arity with complex return types', () => {
+        function objectReturner(name: string, age: number, active: boolean) {
+            return { name, age, active };
+        }
+
+        const arity2 = arity(objectReturner, 2);
+        const result = arity2('John', 30);
+        expect(result).toEqual({ name: 'John', age: 30, active: undefined });
+    });
 });

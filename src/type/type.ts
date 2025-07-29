@@ -4,7 +4,7 @@ import type { returnedTypes } from './../models';
  * Return the type of the element (add array as a type)
  *
  * @param {any} value
- * @returns { 'string' | 'array' | 'object' | 'number' | 'function' | 'boolean' | 'undefined' | 'bigint' | 'symbol' | 'null' | 'regexp' | 'generator' | 'generatorfunction' } the type of the element
+ * @returns { returnedTypes } the type of the element
  * @example
  *  type(undefined)     // undefined
  *  type(null)          // null
@@ -17,10 +17,15 @@ import type { returnedTypes } from './../models';
  *  type(BigInt(10))    // bigint
  *  type(Symbol('foo')) // symbol
  *  type(/a/g)          // regexp
+ *  type(function* a() { yield 0; }) // generatorfunction
  */
 export default function type(value: any): returnedTypes {
-    if (value === null) {return 'null';}
-    if (value === undefined) {return 'undefined';}
+    if (value === null) {
+        return 'null';
+    }
+    if (value === undefined) {
+        return 'undefined';
+    }
 
     return Object.prototype.toString
         .call(value)

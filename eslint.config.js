@@ -35,10 +35,10 @@ module.exports = [
             'prefer-const': 'error',
             'no-var': 'error',
             eqeqeq: 'error',
-            curly: 'error',
+            curly: 'off',
 
             // Code style
-            indent: ['error', 4],
+            indent: ['warn', 4],
             quotes: ['error', 'single'],
             semi: ['error', 'always'],
             'comma-dangle': ['off', 'never'],

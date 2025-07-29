@@ -98,6 +98,9 @@ type CurryRemainingParameters<
     Expected extends Tuple,
 > = Cast<ExtractBlanks<Provided, Expected>, Tuple>;
 
+/**
+ * TODO DESCRIPTION
+ */
 type IgnoreSettedParameters<
     SettedParameters extends Tuple,
     AllParameters extends Tuple,
