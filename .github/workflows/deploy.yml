@@ -43,20 +43,20 @@ jobs:
               run: npm run npmjs
             - name: Verify build
               run: test -f ./dist/package.json
-            - name: Create Release
-              id: create_release
-              uses: actions/create-release@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-              with:
-                  tag_name: ${{ github.ref }}
-                  release_name: Release ${{ github.ref }}
-                  body: |
-                      Changes in this Release
-                      - First Change
-                      - Second Change
-                  draft: false
-                  prerelease: false
+            # - name: Create Release
+            #   id: create_release
+            #   uses: actions/create-release@v1
+            #   env:
+            #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+            #   with:
+            #       tag_name: ${{ github.ref }}
+            #       release_name: Release ${{ github.ref }}
+            #       body: |
+            #           Changes in this Release
+            #           - First Change
+            #           - Second Change
+            #       draft: false
+            #       prerelease: false
             - name: Publish to npm
               run: npm publish ./dist --provenance
               env:
