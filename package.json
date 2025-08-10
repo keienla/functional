@@ -1,6 +1,6 @@
 {
     "name": "@keienla/functional",
-    "version": "0.11.2",
+    "version": "0.11.3",
     "description": "Just a functional library in TypeScript to do Functional Programming",
     "keywords": [
         "typescript",
