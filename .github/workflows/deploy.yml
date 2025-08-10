@@ -7,6 +7,9 @@ on:
         tags:
             - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
+permissions:
+    id-token: write # Required for OIDC
+
 jobs:
     test:
         runs-on: ubuntu-latest
@@ -35,10 +38,7 @@ jobs:
               uses: softprops/action-gh-release@v1
               with:
                   name: Release ${{ github.ref_name }}
-                  body: |
-                      Changes in this Release
-                      - First Change
-                      - Second Change
+                  body:
                   draft: false
                   prerelease: false
 
@@ -67,7 +67,7 @@ jobs:
             - name: Publish to npm
               run: npm publish ./dist --provenance
               env:
-                  NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
     # publish-jsr:
     #     needs: test
