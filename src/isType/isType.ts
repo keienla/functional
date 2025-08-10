@@ -1,6 +1,5 @@
 import type { returnedTypes } from './../models';
 import typeFn from './../type/type';
-import curry from '../curry/curry';
 
 /**
  * Check if the element given is the same type that the returnedTypes given
@@ -11,14 +10,12 @@ import curry from '../curry/curry';
  * @example
  *  isType('boolean', false) // true
  */
-const isType = curry(function isType(
+export default function isType(
     typeToTest: returnedTypes,
-    element: unknown
+    element: unknown,
 ): boolean {
     return typeFn(element) === typeToTest;
-});
-
-export default isType;
+}
 
 export function isArray(element: unknown): element is any[] {
     return isType('array', element);

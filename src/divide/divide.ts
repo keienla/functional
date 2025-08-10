@@ -1,5 +1,3 @@
-import curry from '../curry/curry';
-
 /**
  * The "divide" function get a numerator and denominator argument add make a division with those two numbers.
  *
@@ -9,10 +7,12 @@ import curry from '../curry/curry';
  * @example
  *  console.log(divide(50,100))       // 0.5
  */
-export default curry(function divide(
+export default function divide(
     numerator: number,
-    denominator: number
+    denominator: number,
 ): number | never {
-    if (denominator === 0) {throw new Error('Can\'t divide by "0"');}
+    if (denominator === 0) {
+        throw new Error('Can\'t divide by "0"');
+    }
     return numerator / denominator;
-});
+}

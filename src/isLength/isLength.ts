@@ -1,4 +1,3 @@
-import curry from './../curry/curry';
 import getLength from './../length/length';
 
 /**
@@ -13,6 +12,6 @@ import getLength from './../length/length';
  *  isLength(5, el);     // true
  *  isLength(10, 10);    // false
  */
-export default curry(function isLength(length: number, el: any): boolean {
+export default function isLength(length: number, el: any): boolean {
     return getLength(el) === length;
-});
+}
