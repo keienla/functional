@@ -1,8 +1,22 @@
-import isType, {isArray, isObject, isBigint, isBoolean, isFunction, isGenerator, isGeneratorFunction, isNull, isNumber, isRegexp, isString, isSymbol, isUndefined} from './isType';
+import isType, {
+    isArray,
+    isObject,
+    isBigint,
+    isBoolean,
+    isFunction,
+    isGenerator,
+    isGeneratorFunction,
+    isNull,
+    isNumber,
+    isRegexp,
+    isString,
+    isSymbol,
+    isUndefined,
+} from './isType';
 
 describe('IS_TYPE', () => {
     test('Check is array', () => {
-        const arr = [];
+        const arr: any[] = [];
         const obj = {};
 
         expect(isType('array', arr)).toBe(true);
@@ -10,18 +24,18 @@ describe('IS_TYPE', () => {
 
         expect(isType('array', obj)).toBe(false);
         expect(isArray(obj)).toBe(false);
-    })
+    });
 
     test('Check is object', () => {
+        const arr: any[] = [];
         const obj = {};
-        const arr = [];
 
         expect(isType('object', obj)).toBe(true);
         expect(isObject(obj)).toBe(true);
 
         expect(isType('object', arr)).toBe(false);
         expect(isObject(arr)).toBe(false);
-    })
+    });
 
     test('Check is boolean', () => {
         expect(isType('boolean', true)).toBe(true);
@@ -31,13 +45,13 @@ describe('IS_TYPE', () => {
 
         expect(isType('boolean', 1)).toBe(false);
         expect(isBoolean(1)).toBe(false);
-    })
+    });
 
     test('Check is function', () => {
+        const arr: any[] = [];
         const fn0 = () => {};
         const fn1 = function () {};
-        const fn2 = new Function('a', 'b', 'return a + b')
-        const arr = [];
+        const fn2 = new Function('a', 'b', 'return a + b');
 
         expect(isType('function', fn0)).toBe(true);
         expect(isFunction(fn0)).toBe(true);
@@ -48,29 +62,29 @@ describe('IS_TYPE', () => {
 
         expect(isType('function', arr)).toBe(false);
         expect(isFunction(arr)).toBe(false);
-    })
+    });
 
     test('Check is generator function', () => {
+        const arr: any[] = [];
         const fn = function* () {};
-        const arr = [];
 
         expect(isType('generatorfunction', fn)).toBe(true);
         expect(isGeneratorFunction(fn)).toBe(true);
 
         expect(isType('generatorfunction', arr)).toBe(false);
         expect(isGeneratorFunction(arr)).toBe(false);
-    })
+    });
 
     test('Check is generator', () => {
+        const arr: any[] = [];
         const fn = function* () {};
-        const arr = [];
 
         expect(isType('generator', fn())).toBe(true);
         expect(isGenerator(fn())).toBe(true);
 
         expect(isType('generator', arr)).toBe(false);
         expect(isGenerator(arr)).toBe(false);
-    })
+    });
 
     test('Check is null', () => {
         expect(isType('null', null)).toBe(true);
@@ -80,7 +94,7 @@ describe('IS_TYPE', () => {
         expect(isNull(undefined)).toBe(false);
         expect(isType('null', 1)).toBe(false);
         expect(isNull(1)).toBe(false);
-    })
+    });
 
     test('Check is undefined', () => {
         expect(isType('undefined', undefined)).toBe(true);
@@ -90,7 +104,7 @@ describe('IS_TYPE', () => {
         expect(isUndefined(null)).toBe(false);
         expect(isType('undefined', 0)).toBe(false);
         expect(isUndefined(0)).toBe(false);
-    })
+    });
 
     test('Check is number', () => {
         expect(isType('number', 1)).toBe(true);
@@ -104,7 +118,7 @@ describe('IS_TYPE', () => {
 
         expect(isType('number', '1')).toBe(false);
         expect(isNumber('1')).toBe(false);
-    })
+    });
 
     test('Check is string', () => {
         expect(isType('string', '')).toBe(true);
@@ -114,7 +128,7 @@ describe('IS_TYPE', () => {
 
         expect(isType('string', 1)).toBe(false);
         expect(isString(1)).toBe(false);
-    })
+    });
 
     test('Check is regexp', () => {
         expect(isType('regexp', /a/g)).toBe(true);
@@ -124,7 +138,7 @@ describe('IS_TYPE', () => {
 
         expect(isType('regexp', 1)).toBe(false);
         expect(isRegexp(1)).toBe(false);
-    })
+    });
 
     test('Check is symbol', () => {
         expect(isType('symbol', Symbol())).toBe(true);
@@ -134,5 +148,5 @@ describe('IS_TYPE', () => {
 
         expect(isType('symbol', 1)).toBe(false);
         expect(isSymbol(1)).toBe(false);
-    })
-})
+    });
+});

@@ -1,6 +1,6 @@
 {
     "name": "@keienla/functional",
-    "version": "0.10.1",
+    "version": "0.10.4",
     "description": "Just a functional library in TypeScript to do Functional Programming",
     "keywords": [
         "typescript",
@@ -10,27 +10,44 @@
         "lib"
     ],
     "scripts": {
-        "npmjs": "node ./scripts/deploy.js",
-        "test": "jest --env=node --colors --verbose",
+        "build": "npm run build:cjs && npm run minify:cjs && npm run build:esm && npm run minify:esm && npm run build:package",
+        "build:cjs": "tsc -p tsconfig.cjs.json",
+        "build:esm": "tsc -p tsconfig.esm.json",
+        "minify:cjs": "node scripts/minify.js cjs",
+        "minify:esm": "node scripts/minify.js esm",
+        "build:package": "node scripts/generate-dist-package.js",
+        "build:dev": "npm run build:cjs && npm run build:esm && npm run build:package",
+        "npmjs": "npm run build && node ./scripts/deploy.js",
+        "test": "jest --env=node --colors",
         "test:watch": "jest --env=node --colors --watchAll",
         "testVerbose": "jest --env=node --colors --watchAll --verbose --runInBand",
-        "testCoverage": "jest --env=node --colors --watchAll --verbose --runInBand --coverage"
+        "testCoverage": "jest --env=node --colors --watchAll --verbose --runInBand --coverage",
+        "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
+        "lint:check": "eslint 'src/**/*.{ts,tsx}'"
     },
     "author": {
         "name": "Thibault Meyer"
     },
     "license": "WTFPL",
     "devDependencies": {
-        "@types/jest": "^29.5.12",
-        "esbuild": "^0.21.5",
-        "jest": "^29.7.0",
-        "ts-jest": "^29.1.5",
-        "tslib": "^2.6.3",
-        "typescript": "^5.5.2"
+        "@types/jest": "^30.0.0",
+        "@typescript-eslint/eslint-plugin": "^8.36.0",
+        "@typescript-eslint/parser": "^8.36.0",
+        "esbuild": "^0.25.6",
+        "esbuild-wasm": "^0.25.6",
+        "eslint": "^9.31.0",
+        "eslint-plugin-jest": "^29.0.1",
+        "jest": "^30.0.4",
+        "prettier": "^3.6.2",
+        "ts-jest": "^29.4.0",
+        "tslib": "^2.8.1",
+        "typescript": "^5.8.3"
     },
     "files": [
+        "dist/**/*",
         "src/**/*"
     ],
+    "sideEffects": false,
     "repository": {
         "type": "git",
         "url": "git+https://github.com/keienla/functional.git"

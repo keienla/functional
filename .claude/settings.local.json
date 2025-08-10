@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm test -- --testNamePattern=\"and|or\" --verbose)",
+      "Bash(cd:*)",
+      "Bash(npm test -- --testNamePattern=\"or\\.test\")"
+    ],
+    "deny": []
+  }
+}

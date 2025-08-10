@@ -1,4 +1,5 @@
-import type { Arity } from "../models/arity.model"
+import type { Arity } from './arity.model';
+import type { Fn } from '../models';
 
 /**
  * Create a new function with a given number of arguments. It can be usefull for functions with spread args to create a function with limited args
@@ -13,7 +14,7 @@ import type { Arity } from "../models/arity.model"
  *  }
  *  const arityTextAndNumbersSum5 = arity(textAndNumbersSum, 5)
  *  console.log(arityTextAndNumbersSum5('Hello', 1, 2, 3, 4)) // "Hello: 10"
-*
+ *
  *  // Will have a type error because of too much arguments
  *  // If ignore the error will output the response limited to the number of arguments desired
  *  // So here the 5 firsts
@@ -22,23 +23,27 @@ import type { Arity } from "../models/arity.model"
  *  // Will throw an error because first argument is undefined
  *  console.log(arityTextAndNumbersSum5()) // Throw error
  */
-export default function arity<
-    F extends (...args: any[]) => any,
-    Length extends number
->(fn: F, length: Length): Arity<F, Length> {
+export default function arity<F extends Fn, Length extends number>(
+    fn: F,
+    length: Length,
+): Arity<F, Length> {
     function arityFn(...args: any[]) {
-        if(args.length > length) args.length = length
-        return fn.apply((this as F), (args))
+        if (args.length > length) {
+            args.length = length;
+        }
+        return fn.apply(this as F, args);
     }
 
     // As arityFn as no size argument
     // That can create problems with some functions that use Function.length
     // And as this parameter is readonly and in this case always return 0
     // Use defineProperty to return the wanted length of arguments
-    Object.defineProperty(arityFn, "length", {
+    Object.defineProperty(arityFn, 'length', {
         configurable: true,
-        get: function() { return length; }
+        get: function () {
+            return length;
+        },
     });
 
-    return arityFn as Arity<F, Length>
+    return arityFn as Arity<F, Length>;
 }

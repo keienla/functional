@@ -1,6 +1,5 @@
-import type { UncurryArgs } from '../models/uncurry.model';
-import type { Curry } from '../models/curry.model';
-import type { Cast } from '../models/types.model';
+import type { Uncurry } from '../uncurry/uncurry.model';
+import type { Cast, Fn } from '../models';
 import uncurry from './../uncurry/uncurry';
 
 /**
@@ -15,11 +14,13 @@ import uncurry from './../uncurry/uncurry';
  *  isTrue(false);       // return false;
  *  isFalse(false);      // return true;
  */
-export default function not<
-    Fn extends ((...args: any) => any) | Curry<any>,
->(predicate: Fn): (...args: Cast<UncurryArgs<Fn>, any[]>) => boolean {
-    return function negated(...args: Cast<UncurryArgs<Fn>, any[]>): boolean {
-        const uncurried = uncurry(predicate);
-        return !uncurried(...args)
-    }
+export default function not<F extends Fn>(
+    predicate: F,
+): (...args: Parameters<Cast<Uncurry<F>, Fn>>) => boolean {
+    return function negated(
+        ...args: Parameters<Cast<Uncurry<F>, Fn>>
+    ): boolean {
+        const uncurried = uncurry(predicate) as any;
+        return !uncurried(...(args as any));
+    };
 }

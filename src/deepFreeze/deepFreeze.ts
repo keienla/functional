@@ -3,6 +3,7 @@ import when from '../when/when';
 import or from '../or/or';
 import { isArray, isObject } from '../isType/isType';
 import mapObject from '../mapObject/mapObject';
+import curry from '../curry/curry';
 
 /**
  * Deep Freeze the object. Like this all it's level can't be changer.
@@ -15,9 +16,7 @@ import mapObject from '../mapObject/mapObject';
  *  console.log(obj.key.a); // 0
  */
 export default function deepFreeze<A extends any[] | object>(value: A): A {
-    return freeze(mapObject(
-        when(
-            or(isArray, isObject),
-            freeze
-        ), value));
+    return freeze(
+        mapObject(when(curry(or)(isArray, isObject), freeze), value),
+    ) as A;
 }

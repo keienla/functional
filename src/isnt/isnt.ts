@@ -1,10 +1,9 @@
-import _isnt from '../_internal/_isnt';
+import is from '../is/is';
+import not from '../not/not';
 
 /**
  * Return the opposite of [is()]{@link ./../is/is.ts}.
  */
-export default function isnt<T extends any>(el1: T, el2: T): boolean;
-export default function isnt<T extends any>(el1: T): (el2: T) => boolean;
-export default function isnt<T extends any>(...args: any): any {
-    return _isnt(...args);
+export default function isnt<Type>(el1: Type, el2: Type): boolean {
+    return not(is)(el1, el2);
 }

@@ -4,10 +4,12 @@
 
 The "**multiply**" function get two numbers as argument and multiply the first with the second.
 
---------------
-#### Example:
-``` typescript
-import { multiply } from '@kenla/functional';
+---
 
-console.log(multiply(3,5))       // 15
+#### Example:
+
+```typescript
+import multiply from '@keienla/functional/multiply';
+
+console.log(multiply(3, 5)); // 15
 ```

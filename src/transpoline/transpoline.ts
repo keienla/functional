@@ -1,4 +1,4 @@
-import type { Transpoline, TranspolineResult } from './../models/transpoline.model';
+import type { Transpoline, TranspolineResult } from './transpoline.model';
 
 /**
  * The transpoline function is used to manage recursive functions. It wrap the recursive function in a loop. Under the hood, it call the recursive function piece by piece until it no longer produces recursive calls.
@@ -32,14 +32,16 @@ import type { Transpoline, TranspolineResult } from './../models/transpoline.mod
  *
  *  const transpolineRecursive = transpoline(recursiveForTranspoline);
  */
-export default function transpoline<T extends any[], R>(fn: Transpoline<(...args: T) => R>): (...args: T) => TranspolineResult<R> {
+export default function transpoline<T extends any[], R>(
+    fn: Transpoline<(...args: T) => R>
+): (...args: T) => TranspolineResult<R> {
     return function transpolined(...args: T): TranspolineResult<R> {
-        var result = fn(...args);
+        let result = fn(...args);
 
         while (result instanceof Function) {
             result = result();
         }
 
         return result as TranspolineResult<R>;
-    }
+    };
 }

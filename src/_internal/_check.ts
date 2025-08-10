@@ -1,7 +1,6 @@
-import type { Transpoline } from './../models/transpoline.model';
-import type { Predicate } from '../models/types.model';
+import type { Transpoline } from '../transpoline/transpoline.model';
+import type { Predicate } from '../models';
 import transpoline from './../transpoline/transpoline';
-import curry from './../curry/curry';
 
 /**
  * With the check method given, verify the accumulation of predicates methods with a given value
@@ -18,33 +17,44 @@ import curry from './../curry/curry';
  *  // if predicate(1) === true && predicate2(1) === true, will check true && true && true => true
  *  // if predicate(1) === true && predicate2(1) === false, will check true && true && false => false
  * @param {(accumulator: boolean, current: boolean) => boolean} checkMethod
- * @param {((value: T) => boolean)[]} predicates
+ * @param {((value: Type) => boolean)[]} predicates
  * @param {boolean} defaultResult
- * @param {T} value
+ * @param {Type} value
  * @param {boolean |null} stopIfValue Stop if the result at each step is equal to this result
  */
-export default curry(
-    function check<T extends any>(
+export default function _check<Type>(
+    checkMethod: (accumulator: boolean, current: boolean) => boolean,
+    predicates: Predicate<Type>[],
+    defaultResult: boolean,
+    value: Type,
+    stopIfValue: boolean | null
+): boolean {
+    const checking = (
         checkMethod: (accumulator: boolean, current: boolean) => boolean,
-        predicates: (Predicate<T>)[],
+        predicates: Predicate<Type>[],
         defaultResult: boolean,
-        value: T,
-        stopIfValue: boolean | null
-    ): boolean {
-        const checking = (
-            checkMethod: (accumulator: boolean, current: boolean) => boolean,
-            predicates: ((value: T) => boolean)[],
-            defaultResult: boolean,
-            value: T,
-            stopIfValue: boolean | null = null
-        ): Transpoline<boolean> => {
-            if(!predicates || !predicates.length || defaultResult === stopIfValue) return defaultResult;
+        value: Type,
+        stopIfValue: boolean | null = null
+    ): Transpoline<boolean> => {
+        if (!predicates || !predicates.length || defaultResult === stopIfValue)
+        {return defaultResult;}
 
-            return () => {
-                return checking(checkMethod, predicates.slice(1), checkMethod(defaultResult, predicates[0](value)), value, stopIfValue)
-            }
-        }
+        return () => {
+            return checking(
+                checkMethod,
+                predicates.slice(1),
+                checkMethod(defaultResult, predicates[0](value)),
+                value,
+                stopIfValue
+            );
+        };
+    };
 
-        return transpoline(checking)(checkMethod, predicates, defaultResult, value, stopIfValue);
-    }
-)
+    return transpoline(checking)(
+        checkMethod,
+        predicates,
+        defaultResult,
+        value,
+        stopIfValue
+    );
+}

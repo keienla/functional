@@ -1,4 +1,4 @@
-import type { Reverse } from './../models/types.model';
+import type { Fn, Reverse } from './../models';
 
 /**
  * Reverse the arguments of the given function. Like this the first argument will be the last, the second the N - 1, ...
@@ -16,10 +16,10 @@ import type { Reverse } from './../models/types.model';
  *  number1 !== number2
  */
 export default function reverseArgs<
-    Fn extends (...args: any[]) => any,
-    R = ReturnType<Fn>,
-    Args extends any[] = Fn extends (...args: infer A) => any ? A : []
->(fn: Fn): (...args: Reverse<Args>) => R {
+    F extends Fn,
+    R = ReturnType<F>,
+    Args extends any[] = F extends (...args: infer A) => any ? A : [],
+>(fn: F): (...args: Reverse<Args>) => R {
     return function reversed(...args: Reverse<Args>): R {
         return fn(...args.reverse());
     };

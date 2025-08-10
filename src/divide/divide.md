@@ -4,10 +4,12 @@
 
 The "**divide**" function get a numerator and denominator argument add make a division with those two numbers.
 
---------------
-#### Example:
-``` typescript
-import { divide } from '@kenla/functional';
+---
 
-console.log(divide(50,100))       // 0.5
+#### Example:
+
+```typescript
+import divide from '@keienla/functional/divide';
+
+console.log(divide(50, 100)); // 0.5
 ```

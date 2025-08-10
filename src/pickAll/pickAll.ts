@@ -9,5 +9,5 @@
  *  const obj2 = pickAll(obj1); // will return { '1': 1, '2': 2, '3': 3, '4': 4, '5': 5 } as new object
  */
 export default function pickAll<A extends object>(obj: A): A {
-    return {...obj}
+    return { ...obj };
 }

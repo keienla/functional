@@ -47,8 +47,6 @@
         "./whenElse": "./src/whenElse/whenElse.ts"
     },
     "publish": {
-        "exclude": [
-            "scripts/deploy.js"
-        ]
+        "exclude": ["scripts/deploy.js"]
     }
 }

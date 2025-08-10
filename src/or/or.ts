@@ -1,6 +1,5 @@
-import type { Predicate } from '../models/types.model';
-import type { Curry } from '../models/curry.model';
-import _or from '../_internal/_or';
+import type { Predicate } from '../models';
+import _check from '../_internal/_check';
 
 /**
  * Test two predicate function with the same value and return:
@@ -22,9 +21,16 @@ import _or from '../_internal/_or';
  *  oddOrSup10(11)      // true
  *  oddOrSup10(6)       // false
  */
-export default function or<T>(predicate1: Predicate<T>, predicate2: Predicate<T>, value: T): boolean;
-export default function or<T>(predicate1: Predicate<T>, predicate2: Predicate<T>): (value: T) => boolean;
-export default function or<T>(predicate1: Predicate<T>): Curry<(predicate2: Predicate<T>, value: T) => boolean>;
-export default function or<T>(...args: any): any {
-    return _or(...args);
+export default function or<T>(
+    predicate1: Predicate<T>,
+    predicate2: Predicate<T>,
+    value: T
+): boolean {
+    return _check(
+        (a: boolean, v: boolean) => a || v,
+        [predicate1, predicate2],
+        false,
+        value,
+        true
+    );
 }

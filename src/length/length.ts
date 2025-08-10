@@ -34,16 +34,16 @@ import type from './../type/type';
  *  length(el9);         // null
  */
 export default function length(el: any): number | null {
-    switch(type(el)) {
-        case 'array':
-        case 'function':
-        case 'string':
-            return (el as unknown as string).length;
-        case 'object':
-            return Object.keys(el).length;
-        case 'regexp':
-            return (el as unknown as RegExp).toString().length;
-        default:
-            return null;
+    switch (type(el)) {
+    case 'array':
+    case 'function':
+    case 'string':
+        return (el as unknown as string).length;
+    case 'object':
+        return Object.keys(el).length;
+    case 'regexp':
+        return (el as unknown as RegExp).toString().length;
+    default:
+        return null;
     }
 }

@@ -1,4 +1,4 @@
-import type { Params } from "../models/types.model";
+import { Fn } from '../models';
 
 /**
  * For a given function, gather an array of arguments multiple arguments.
@@ -14,12 +14,16 @@ import type { Params } from "../models/types.model";
  *
  *  number1 === number2;     // true
  */
-export default function gatherArgs<Fn extends (...args: any[]) => any, R = Fn extends (...args: any[]) => (infer Response) ? Response : any>(fn: Fn): Params<Fn> extends [] ? () => R : (args: Params<Fn>) => R{
-    return function gather(args?: Params<Fn>): R {
-        if(args && args.length) {
+export default function gatherArgs<F extends Fn>(
+    fn: F
+): Parameters<F> extends []
+    ? () => ReturnType<F>
+    : (args: Parameters<F>) => ReturnType<F> {
+    return function gather(args?: Parameters<F>): ReturnType<F> {
+        if (args && args.length) {
             return fn(...args);
         } else {
-            return fn()
+            return fn();
         }
-    }
+    };
 }

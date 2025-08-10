@@ -1,12 +1,12 @@
-import type { Predicate } from '../models/types.model';
-import { _whenElse } from './../_internal/_when';
+import type { Predicate } from '../models';
+import _defaultWhenElse from './../_internal/_when';
 
 /**
  * When the first method given pass, run the second method with the same arguments, else run the third method.
  *
- * @param {Predicate<T>} predicate Function to check a condition
- * @param {(arg: T) => R)} fn Function to execute if predicate function is true
- * @param {(arg: T) => ER)} elseFn Function to execute if predicate function is false
+ * @param {Predicate<Type>} predicate Function to check a condition
+ * @param {(arg: Type) => Result} fn Function to execute if predicate function is true
+ * @param {(arg: Type) => ErrorResult} elseFn Function to execute if predicate function is false
  * @returns {any}
  * @example
  *  function isOdd(x: number): boolean { return x % 2 === 1 };
@@ -17,9 +17,10 @@ import { _whenElse } from './../_internal/_when';
  *  transformEvenOrAdd(11)       // 12
  *  transformEvenOrAdd(6)        // 8
  */
-export default function whenElse<T, R, ER>(predicate: Predicate<T>, fn: (arg: T) => R, elseFn: (arg: T) => ER): (arg: T) => R | T | ER;
-export default function whenElse<T, R, ER>(predicate: Predicate<T>, fn: (arg: T) => R): (elseFn: (arg: T) => ER) => (arg: T) => R | T | ER;
-export default function whenElse<T, R, ER>(predicate: Predicate<T>): (fn: (arg: T) => R) => (elseFn: (arg: T) => ER) => (arg: T) => R | T | ER;
-export default function whenElse<T, R, ER>(...args: any): any {
-    return _whenElse(...args);
+export default function whenElse<Type, Result, ErrorResult>(
+    predicate: Predicate<Type>,
+    fn: (arg: Type) => Result,
+    elseFn: (arg: Type) => ErrorResult
+): (arg: Type) => Result | ErrorResult {
+    return _defaultWhenElse(predicate, fn, elseFn);
 }

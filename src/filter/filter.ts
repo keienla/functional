@@ -1,4 +1,4 @@
-import type { FilterArrayReducer } from '../models/filter.model';
+import type { FilterArrayReducer } from './filter.model';
 import { _arrayFilter } from '../_internal/_filter';
 
 /**
@@ -11,8 +11,6 @@ import { _arrayFilter } from '../_internal/_filter';
  *  function filterOdd(x: number): boolean { return x % 2 === 1 };
  *  filter(filterOdd, [1,5,8]);        // [1,5]
  */
-export default function filter<T>(fn: FilterArrayReducer<T>, array: T[]): T[];
-export default function filter<T>(fn: FilterArrayReducer<T>): (array: T[]) => T[];
-export default function filter(...args: any): any {
-    return _arrayFilter(...args);
+export default function filter<T>(fn: FilterArrayReducer<T>, array: T[]): T[] {
+    return _arrayFilter(fn, array);
 }
