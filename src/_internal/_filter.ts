@@ -1,6 +1,6 @@
 import type {
     FilterArrayReducer,
-    FilterObjectReducer
+    FilterObjectReducer,
 } from '../filter/filter.model';
 import type { TObject } from '../models';
 import reduce from '../reduce/reduce';
@@ -8,14 +8,14 @@ import reduceObject from '../reduceObject/reduceObject';
 
 export const _arrayFilter = function arrayFilter<Type>(
     fn: FilterArrayReducer<Type>,
-    array: Type[]
+    array: Type[],
 ): Type[] {
     return reduce(
         function arrayFilterReducer(
             accumulator: Type[],
             current,
             index,
-            array
+            array,
         ) {
             if (fn(current, index, array)) {
                 return [...accumulator, current];
@@ -24,13 +24,13 @@ export const _arrayFilter = function arrayFilter<Type>(
             return accumulator;
         },
         [],
-        array
-    );
+        array,
+    ) as Type[];
 };
 
 export const _objectFilter = function objectFilter<Type extends TObject>(
     fn: FilterObjectReducer<Type>,
-    object: Type
+    object: Type,
 ): Partial<Type> {
     return reduceObject(
         function objectFilterReducer(accumulator, current, key, object) {
@@ -41,8 +41,8 @@ export const _objectFilter = function objectFilter<Type extends TObject>(
             return accumulator;
         },
         {},
-        object
-    );
+        object,
+    ) as Partial<Type>;
 };
 
 // export function generatorFilter<T extends Generator>(fn: FilterGeneratorReducer<T>, generator: T): FilterGeneratorReturned<T> {

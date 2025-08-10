@@ -1,13 +1,15 @@
 import or from './or';
+import curry from '../curry/curry';
 
 describe('OR', () => {
+    const curriedOr = curry(or<number>);
     function sup10(value: number): boolean {
         return value > 10;
     }
     function odd(value: number): boolean {
         return value % 2 === 1;
     }
-    const oddOrSup10: (value: number) => boolean = or(sup10, odd);
+    const oddOrSup10: (value: number) => boolean = curriedOr(sup10, odd);
     let number: number = 0;
 
     test('All predicate function return false should return false', () => {

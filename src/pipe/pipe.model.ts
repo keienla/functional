@@ -1,18 +1,18 @@
 import type {
     IsFinite,
     Tail,
-    Reverse,
     Last,
     Length,
     Fn,
     AppendItem,
     Head,
-    Cast
+    Cast,
 } from '../models';
+import { Uncurry } from '../uncurry/uncurry.model';
 
 export type Pipe<FNS extends Fn[] = []> = (
     ...args: Parameters<Cast<Head<FNS>[0], Fn>>
-) => ReturnType<Cast<Last<FNS>[0], Fn>>;
+) => ReturnType<Cast<Uncurry<Last<FNS>[0]>, Fn>>;
 
 type PipeFns<
     FNS extends Fn[],
@@ -26,7 +26,7 @@ type PipeFns<
             PreviousFn extends Fn
                 ? (
                       previousResult: ReturnType<PreviousFn>,
-                  ) => ReturnType<Head<FNS>[0]>
+                  ) => ReturnType<Cast<Uncurry<Head<FNS>[0]>, Fn>>
                 : Head<FNS>[0],
             Result
         >,

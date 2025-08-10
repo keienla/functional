@@ -9,6 +9,7 @@ The "**or**" function compare the result of multiple predicate functions with sa
 #### Example:
 
 ```typescript
+import curry from '@keienla/functional/curry';
 import or from '@keienla/functional/or';
 
 // One predicate Function
@@ -23,7 +24,7 @@ function odd(value: number): boolean {
 }
 
 // The functions need the same argument. Here it's a number so it's good
-const oddOrSup10: (value: number) => boolean = or(sup10, odd);
+const oddOrSup10: (value: number) => boolean = curry(or<number>)(sup10, odd);
 
 console.log(oddOrSup10(6)); // false
 console.log(oddOrSup10(12)); // true

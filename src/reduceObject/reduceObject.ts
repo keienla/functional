@@ -1,5 +1,4 @@
 import type { ReduceObjectReducer } from '../reduce/reduce.model';
-import type { Curry } from '../curry/curry.model';
 import { _objectReduce } from '../_internal/_reduce';
 
 /**
@@ -17,14 +16,6 @@ export default function reduceObject<T extends object, R>(
     fn: ReduceObjectReducer<T, R>,
     initialValue: R,
     object: T,
-): R;
-export default function reduceObject<T extends object, R>(
-    fn: ReduceObjectReducer<T, R>,
-    initialValue: R,
-): (object: T) => R;
-export default function reduceObject<T extends object, R>(
-    fn: ReduceObjectReducer<T, R>,
-): Curry<(initialValue: R, object: T) => R>;
-export default function reduceObject<T, R>(...args: any): any {
-    return _objectReduce(...args);
+): R | undefined {
+    return _objectReduce<T, R>(fn, initialValue, object);
 }

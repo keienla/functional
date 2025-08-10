@@ -1,5 +1,4 @@
 import type { ReduceArrayReducer } from './reduce.model';
-import type { Curry } from '../curry/curry.model';
 import { _arrayReduce } from '../_internal/_reduce';
 
 /**
@@ -15,16 +14,8 @@ import { _arrayReduce } from '../_internal/_reduce';
  */
 export default function reduce<T, R>(
     fn: ReduceArrayReducer<T, R>,
-    initialValue: R,
-    array: T[],
-): R;
-export default function reduce<T, R>(
-    fn: ReduceArrayReducer<T, R>,
-    initialValue: R,
-): (array: T[]) => R;
-export default function reduce<T, R>(
-    fn: ReduceArrayReducer<T, R>,
-): Curry<(initialValue: R, array: T[]) => R>;
-export default function reduce<T, R>(...args: any): any {
-    return _arrayReduce(...args);
+    initialValue?: R,
+    array?: T[],
+): R | undefined {
+    return _arrayReduce(fn, initialValue, array);
 }

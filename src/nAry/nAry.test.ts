@@ -19,9 +19,4 @@ describe('N_ARY', () => {
         expect(nAry2(3, 'n')).toBe('3n');
         expect(nAry3(4, 'n', 3)).toBe('12n');
     });
-
-    test('Check nAry curried', () => {
-        const nAry2 = nAry(multipleArgsFn, 2);
-        expect(nAry2(2)('n')).toBe('2n');
-    });
 });

@@ -1,5 +1,5 @@
 import type { Pipe, PipeArguments } from './pipe.model';
-import type { Cast, Fn, Head } from '../models';
+import type { Fn } from '../models';
 import gatherArgs from '../gatherArgs/gatherArgs';
 import reduce from '../reduce/reduce';
 
@@ -30,7 +30,7 @@ export default function pipe<FNS extends Fn[]>(
                 return fn(accumulator);
             },
             args,
-            fns || []
+            fns || [],
         );
     };
 }

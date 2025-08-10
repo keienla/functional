@@ -1,4 +1,5 @@
 import type { MapObjectReducer } from '../map/map.model';
+import { SameValueInterface } from '../models';
 import { _objectMap } from './../_internal/_map';
 
 /**
@@ -14,10 +15,6 @@ import { _objectMap } from './../_internal/_map';
 export default function mapObject<T extends object, R>(
     fn: MapObjectReducer<T, R>,
     object: T,
-): R;
-export default function mapObject<T extends object, R>(
-    fn: MapObjectReducer<T, R>,
-): (object: T) => R;
-export default function mapObject(...args: any): any {
-    return _objectMap(...args);
+): SameValueInterface<T, R> {
+    return _objectMap(fn, object);
 }

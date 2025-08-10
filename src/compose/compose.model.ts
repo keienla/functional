@@ -7,8 +7,9 @@ import type {
     Fn,
     Cast,
     AppendItem,
-    Head
+    Head,
 } from '../models';
+import { Uncurry } from '../uncurry/uncurry.model';
 
 export type Compose<FNS extends Fn[]> = Pipe<Reverse<FNS>>;
 
@@ -24,7 +25,7 @@ type ComposeFns<
             NextFn extends Fn
                 ? (
                       previousResult: ReturnType<NextFn>,
-                  ) => ReturnType<Head<FNS>[0]>
+                  ) => ReturnType<Cast<Uncurry<Head<FNS>[0]>, Fn>>
                 : Head<FNS>[0],
             Result
         >

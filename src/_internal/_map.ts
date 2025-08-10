@@ -1,11 +1,11 @@
 import type { MapArrayReducer, MapObjectReducer } from '../map/map.model';
-import type { SameValueInterface, ValueOf } from '../models';
+import type { SameValueInterface, Tuple, ValueOf } from '../models';
 import reduce from '../reduce/reduce';
 import reduceObject from '../reduceObject/reduceObject';
 
-export const _arrayMap = function arrayMap<T extends any[], R>(
+export const _arrayMap = function arrayMap<T, R>(
     fn: MapArrayReducer<T, R>,
-    element: T[],
+    element: Tuple<T>,
 ): R[] {
     if (!element || element.length === 0) {
         return [];
@@ -17,12 +17,12 @@ export const _arrayMap = function arrayMap<T extends any[], R>(
             currentValue: T,
             index: number,
             element: T[],
-        ) {
+        ): R[] {
             return [...accumulator, fn(currentValue, index, element)];
         },
         [] as R[],
         element,
-    );
+    ) as R[];
 };
 
 export const _objectMap = function objectMap<T extends object, R>(
@@ -49,14 +49,17 @@ export const _objectMap = function objectMap<T extends object, R>(
             return { ...accumulator, [key]: fn(current, key, object) };
         },
         reduce(
-            function defineDefaultObject(acc: any, key: string) {
-                return { ...acc, [key]: undefined };
+            function defineDefaultObject(
+                acc: any = {},
+                key: string | undefined,
+            ) {
+                return { ...acc, [key as string]: undefined };
             },
             {},
             keys,
         ),
         element,
-    );
+    ) as SameValueInterface<T, R>;
 };
 
 // export function generatorMap<T extends Generator, R>(fn: MapGeneratorReducer<T, R>, element: T): R[] {

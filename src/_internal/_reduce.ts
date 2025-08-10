@@ -10,9 +10,9 @@ import transpoline from '../transpoline/transpoline';
 
 export const _arrayReduce = function arrayReduce<T, R>(
     fn: ReduceArrayReducer<T, R>,
-    initialValue: R,
-    array: T[],
-): R {
+    initialValue?: R,
+    array?: T[],
+): R | undefined {
     if (!array || array.length === 0) {
         return initialValue;
     }
@@ -44,12 +44,16 @@ export const _arrayReduce = function arrayReduce<T, R>(
 
 export const _objectReduce = function objectReduce<T extends TObject, R>(
     fn: ReduceObjectReducer<T, R>,
-    initialValue: R,
-    object: T,
-): R {
+    initialValue?: R,
+    object?: T,
+): R | undefined {
+    if (!object) {
+        return initialValue;
+    }
+
     const keys: string[] = Object.keys(object);
 
-    if (!object || keys.length === 0) {
+    if (keys.length === 0) {
         return initialValue;
     }
 
