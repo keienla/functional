@@ -3,18 +3,38 @@ import type { Cast, Fn, Tuple } from '../models';
 import type { Curry, CurryPartialParameters } from './curry.model';
 
 /**
- * TODO DESCRIPTION WITH BLANK TEST AND ALL + UPDATE THE .md FILE WITH THE NEW DESCRIPTION
- * Decompose a function to return another function while the user can set arguments.
+ * Transform a function into a curried version with advanced BLANK placeholder support.
+ * 
+ * Creates a curried function that enables flexible partial application patterns:
+ * - Traditional currying: curry(fn)(arg1)(arg2)
+ * - BLANK placeholders: curry(fn)(_, arg2)(arg1) 
+ * - Mixed patterns: curry(fn)(arg1, _)(arg2)
+ * - Preset defaults: curry(fn, defaultArg1, _)
  *
- * @param {(...args: P) => R} fn
- * @param {} defaultParams - List of default args
- * @returns { Curry<P, R> }
+ * The BLANK placeholder (_) allows you to skip arguments and fill them later,
+ * enabling powerful partial application workflows with complete type safety.
+ *
+ * @param {F} fn - The function to curry
+ * @param {DefaultArgs} defaultParams - Optional preset arguments (can include BLANK placeholders)
+ * @returns {Curry<F, DefaultArgs>} A curried function with BLANK placeholder support
  * @example
+ *  import { _ } from '@keienla/functional/blank';
+ *  
  *  function sum(x: number, y: number, z: number): number { return x + y + z };
  *  const sumCurry = curry(sum);
+ *  
+ *  // Traditional currying
  *  sum(1,2,3) === sumCurry(1)(2)(3);        // true
  *  sum(1,2,3) === sumCurry(1,2)(3);         // true
  *  sum(1,2,3) === sumCurry(1)(2,3);         // true
+ *  
+ *  // With BLANK placeholders
+ *  sum(1,2,3) === sumCurry(_, 2, _)(1, 3);  // true
+ *  sum(1,2,3) === sumCurry(1, _)(2, 3);     // true
+ *  
+ *  // Preset defaults with BLANK
+ *  const sumWith10 = curry(sum, 10, _);
+ *  sum(10,5,3) === sumWith10(5, 3);         // true
  */
 export default function curry<
     F extends Fn,
